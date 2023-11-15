@@ -1,0 +1,6 @@
+.DS
+node_modules
+.env*
+Dockerfile
+dist
+.vscode
