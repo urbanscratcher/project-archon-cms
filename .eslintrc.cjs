@@ -5,7 +5,7 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/stylistic',
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:import/recommended',
@@ -27,7 +27,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', '@stylistic'],
+  plugins: ['react', '@typescript-eslint', 'react-hooks', '@stylistic'],
   rules: {
     'react/react-in-jsx-scope': 0,
     '@typescript-eslint/explicit-function-return-type': [
@@ -36,8 +36,12 @@ module.exports = {
         allowExpressions: true,
       },
     ],
+    'no-unused-vars': 0,
   },
   settings: {
+    react: {
+      version: 'detect',
+    },
     'import/resolver': {
       typescript: {},
     },

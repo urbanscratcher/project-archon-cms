@@ -1,12 +1,9 @@
 import { ReactNode } from 'react';
+import { WrapperProps } from '../utils/interfaces';
 
-type MainProps = {
-  children: ReactNode;
-};
-
-function Main({ children }: MainProps): ReactNode {
+function Main({ children }: WrapperProps): ReactNode {
   return (
-    <main className="overflow-scroll bg-gray-50 px-20 pb-24 pt-16">
+    <main className="overflow-scroll bg-ghost-50 px-20 pb-24 pt-16">
       <div className="mx-auto my-0 flex max-w-[120rem] flex-col gap-12">{children}</div>
     </main>
   );

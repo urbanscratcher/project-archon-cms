@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from './ui/MainLayout';
+import SignUp from './features/authentication/SignUp';
+import SignIn from './features/authentication/SignIn';
 
 function App(): ReactNode {
   return (
@@ -47,11 +49,11 @@ function App(): ReactNode {
         </Route>
         <Route
           path="signin"
-          element={<div>/signin</div>}
+          element={<SignIn />}
         />
         <Route
           path="signup"
-          element={<div>/signup</div>}
+          element={<SignUp />}
         />
         <Route
           path="*"
