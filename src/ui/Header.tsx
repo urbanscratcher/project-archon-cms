@@ -1,4 +1,4 @@
-import Profile from './Profile';
+import Profile from '../features/Profile';
 import { ReactNode } from 'react';
 import HeaderMenu from './HeaderMenu';
 
