@@ -4,7 +4,7 @@ import Form from '../../ui/Form';
 import FormRowVertical from '../../ui/FormRowVertical';
 import Input from '../../ui/Input';
 import useSignIn from './useSignIn';
-import api from '../../services/api';
+import authApi from '../../services/apiAuth';
 
 function SignInForm(): ReactNode {
   const [email, setEmail] = useState('');
@@ -24,7 +24,7 @@ function SignInForm(): ReactNode {
   const submitHandler = async (e: SyntheticEvent): Promise<void> => {
     e.preventDefault();
 
-    const a = await api.auth.signin({ email: 'test@gmail.com', password: 'mszII3tPXBw4/iJ9UA9Ghg==' });
+    const a = await authApi.signin({ email: 'test@gmail.com', password: 'mszII3tPXBw4/iJ9UA9Ghg==' });
     console.log(a);
   };
 
