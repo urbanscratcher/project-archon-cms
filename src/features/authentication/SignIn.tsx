@@ -1,18 +1,20 @@
 import { ReactNode } from 'react';
 import Logo from '../../ui/Logo';
-import Heading from '../../ui/Heading';
 import SignInForm from './SignInForm';
 
 function SignIn(): ReactNode {
   return (
-    <main className="grid min-h-screen grid-cols-[48rem] content-center justify-center gap-14">
+    <div
+      className="
+      grid min-h-screen grid-cols-[30rem]
+    content-center justify-center gap-10 pb-[5%]"
+    >
       <Logo />
-      <Heading
-        level={2}
-        text={'Sign in to your account'}
+      <SignInForm
+        title={'Sign in'}
+        description={'Sign in to your account'}
       />
-      <SignInForm />
-    </main>
+    </div>
   );
 }
 

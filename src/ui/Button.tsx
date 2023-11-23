@@ -12,12 +12,12 @@ export enum ButtonType {
   WARN = 'warn',
 }
 
-interface ButtonProps {
+type ButtonProps = {
   size?: ButtonSize;
   type?: string;
   disabled: boolean;
   children: ReactNode;
-}
+};
 
 function Button({
   size = ButtonSize.MEDIUM,
@@ -28,11 +28,11 @@ function Button({
   const getSize = (size: string): string => {
     switch (size) {
       case ButtonSize.SMALL:
-        return 'px-2 py-3 text-lg font-semibold';
+        return 'px-2 py-2 text-sm';
       case ButtonSize.MEDIUM:
-        return 'px-5 py-7 text-xl font-medium';
+        return 'px-3 py-3 text-md';
       case ButtonSize.LARGE:
-        return 'px-5 py-10 text-2xl font-medium';
+        return 'px-5 py-10 text-lg';
       default:
         return '';
     }
@@ -40,9 +40,9 @@ function Button({
   const getType = (size: string): string => {
     switch (size) {
       case ButtonType.PRIMARY:
-        return 'bg-navy-600 text-navy-50 hover:bg-navy-700 border-none';
+        return 'bg-navy-700 text-navy-50 hover:bg-navy-600 border-none';
       case ButtonType.SECONDARY:
-        return 'border border-solid border-ghost-300 bg-white text-ghost-600 hover:bg-ghost-50';
+        return 'border border-solid border-zinc-300 bg-white text-zinc-600 hover:bg-zinc-50';
       case ButtonType.WARN:
         return 'bg-red-700 text-red-100 hover:bg-red-800 border-none';
       default:
@@ -52,7 +52,15 @@ function Button({
 
   return (
     <button
-      className={`rounded-lg text-center uppercase shadow-sm disabled:bg-ghost-600 ${getSize(size)} ${getType(type)}`}
+      className={`
+        rounded-lg
+        text-center
+        font-normal
+        capitalize
+        shadow-sm
+        disabled:bg-zinc-600
+        ${getSize(size)} ${getType(type)}
+      `}
       disabled={disabled}
     >
       {children}

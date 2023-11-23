@@ -30,20 +30,12 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'react-hooks', '@stylistic'],
   rules: {
     'react/react-in-jsx-scope': 0,
-    '@typescript-eslint/explicit-function-return-type': [
-      'error',
-      {
-        allowExpressions: true,
-      },
-    ],
+    '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     'no-unused-vars': 0,
   },
   settings: {
     react: {
       version: 'detect',
-    },
-    'import/resolver': {
-      typescript: {},
     },
   },
 };

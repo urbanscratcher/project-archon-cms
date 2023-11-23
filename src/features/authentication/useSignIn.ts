@@ -1,9 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-export interface LoginState {
+
+export type LoginState = {
   login: any;
   isLoading: boolean;
-}
+};
 
 function useSignIn(): LoginState {
   const queryClient = useQueryClient();

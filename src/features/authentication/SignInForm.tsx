@@ -1,12 +1,17 @@
-import { ReactNode, SyntheticEvent, useState } from 'react';
+import { type ReactNode, type SyntheticEvent, useState } from 'react';
+import authApi from '../../services/apiAuth';
 import Button, { ButtonSize, ButtonType } from '../../ui/Button';
 import Form from '../../ui/Form';
 import FormRowVertical from '../../ui/FormRowVertical';
 import Input from '../../ui/Input';
 import useSignIn from './useSignIn';
-import authApi from '../../services/apiAuth';
 
-function SignInForm(): ReactNode {
+type SignInFormProps = {
+  title: string;
+  description: string;
+};
+
+function SignInForm({ title, description }: SignInFormProps): ReactNode {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, isLoading } = useSignIn();
@@ -30,7 +35,13 @@ function SignInForm(): ReactNode {
 
   return (
     <Form onSubmit={submitHandler}>
-      <FormRowVertical label={'email'}>
+      {
+        <div className="mb-4 flex flex-col">
+          <h2 className="text-navy-700">{title}</h2>
+          <p className="text-zinc-500">{description}</p>
+        </div>
+      }
+      <FormRowVertical label={'Email'}>
         <Input
           type="email"
           id="email"
@@ -40,8 +51,7 @@ function SignInForm(): ReactNode {
           disabled={false}
         />
       </FormRowVertical>
-
-      <FormRowVertical label={'password'}>
+      <FormRowVertical label={'Password'}>
         <Input
           type="password"
           id="password"
@@ -51,10 +61,9 @@ function SignInForm(): ReactNode {
           disabled={false}
         />
       </FormRowVertical>
-
       <FormRowVertical>
         <Button
-          size={ButtonSize.LARGE}
+          size={ButtonSize.MEDIUM}
           disabled={isLoading}
           type={ButtonType.PRIMARY}
         >

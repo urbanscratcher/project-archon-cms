@@ -1,9 +1,9 @@
 import { request } from './axiosSetting';
 
-export interface SignInReq {
+export type SignInReq = {
   email: string;
   password: string;
-}
+};
 
 // const authConfig: InternalAxiosRequestConfig<any> = undefined;
 
