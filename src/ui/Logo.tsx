@@ -5,7 +5,6 @@ function Logo() {
   return (
     <div className="mx-auto flex items-end">
       <img
-        className={``}
         src={mainLogo}
         alt="logo"
       />

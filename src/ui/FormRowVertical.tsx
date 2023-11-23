@@ -8,7 +8,7 @@ type FormRowVerticalProps = {
 
 function FormRowVertical({ label, error, children }: FormRowVerticalProps): ReactNode {
   return (
-    <div className="flex flex-col gap-2 py-4">
+    <div className="flex flex-col gap-2 py-3">
       {label && <Label>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
@@ -16,11 +16,11 @@ function FormRowVertical({ label, error, children }: FormRowVerticalProps): Reac
   );
 }
 
-function Error({ children }: PropsWithChildren): ReactElement {
+export function Error({ children }: PropsWithChildren): ReactElement {
   return <span className="text-2xl text-red-700">{children}</span>;
 }
 
-function Label({ children }: PropsWithChildren): ReactElement {
+export function Label({ children }: PropsWithChildren): ReactElement {
   return <label className="font-medium">{children}</label>;
 }
 

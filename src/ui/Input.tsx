@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ReactElement } from 'react';
+import { type ChangeEventHandler } from 'react';
 
 type InputProps = {
   type: string;
@@ -9,7 +9,7 @@ type InputProps = {
   disabled: boolean;
 };
 
-function Input({ type, id, autoComplete, value, onChange, disabled }: InputProps): ReactElement {
+function Input({ type, id, autoComplete, value, onChange, disabled }: InputProps) {
   return (
     <input
       type={type}

@@ -6,13 +6,14 @@ import FormRowVertical from '../../ui/FormRowVertical';
 import Input from '../../ui/Input';
 import useSignIn from './useSignIn';
 import SignFormHeader from './SignFormHeader';
+import FormRowHorizontal from '../../ui/FormRowHorizontal';
 
-type SignInFormProps = {
+type SignUpFormProps = {
   title: string;
   description: string;
 };
 
-function SignInForm({ title, description }: SignInFormProps): ReactNode {
+function SignUpForm({ title, description }: SignUpFormProps): ReactNode {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, isLoading } = useSignIn();
@@ -40,6 +41,28 @@ function SignInForm({ title, description }: SignInFormProps): ReactNode {
         title={title}
         description={description}
       />
+      <FormRowHorizontal>
+        <FormRowVertical label={'First Name'}>
+          <Input
+            type="text"
+            id="firstName"
+            autoComplete="First Name"
+            value={password}
+            onChange={changePwHandler}
+            disabled={false}
+          />
+        </FormRowVertical>
+        <FormRowVertical label={'Last Name'}>
+          <Input
+            type="text"
+            id="lastName"
+            autoComplete="Last Name"
+            value={password}
+            onChange={changePwHandler}
+            disabled={false}
+          />
+        </FormRowVertical>
+      </FormRowHorizontal>
       <FormRowVertical label={'Email'}>
         <Input
           type="email"
@@ -60,17 +83,27 @@ function SignInForm({ title, description }: SignInFormProps): ReactNode {
           disabled={false}
         />
       </FormRowVertical>
+      <FormRowVertical label={'Confirm Password'}>
+        <Input
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={changePwHandler}
+          disabled={false}
+        />
+      </FormRowVertical>
       <FormRowVertical>
         <Button
           size={ButtonSize.MEDIUM}
           disabled={isLoading}
           type={ButtonType.PRIMARY}
         >
-          {isLoading ? <div>Loading...</div> : 'Sign in'}
+          {isLoading ? <div>Loading...</div> : 'Sign up'}
         </Button>
       </FormRowVertical>
     </Form>
   );
 }
 
-export default SignInForm;
+export default SignUpForm;

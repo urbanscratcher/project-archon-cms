@@ -1,4 +1,4 @@
-import { type FormEventHandler, ReactElement, ReactNode } from 'react';
+import { type FormEventHandler, type ReactNode } from 'react';
 
 export enum FormType {
   REGULAR = 'regular',
@@ -11,11 +11,7 @@ type FormProps = {
   children: ReactNode;
 };
 
-function Form({ type = FormType.REGULAR, onSubmit, children }: FormProps): ReactElement {
-  if (type) {
-    ('');
-  }
-
+function Form({ type = FormType.REGULAR, onSubmit, children }: FormProps) {
   return (
     <form
       onSubmit={onSubmit}
