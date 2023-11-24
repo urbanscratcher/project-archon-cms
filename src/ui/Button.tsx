@@ -55,7 +55,8 @@ function Button({
         font-normal
         capitalize
         shadow-sm
-        disabled:bg-zinc-600
+        disabled:pointer-events-none        
+        disabled:opacity-50 
         ${getSize(size)} ${getType(type)}
       `}
       disabled={disabled}

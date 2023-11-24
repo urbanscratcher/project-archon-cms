@@ -4,7 +4,8 @@ import { ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import SignIn from './features/authentication/SignIn';
 import SignUp from './features/authentication/SignUp';
-import MainLayout from './ui/MainLayout';
+import Layout from './ui/Layout';
+import Users from './features/users/Users';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +22,7 @@ function App(): ReactNode {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route element={<MainLayout />}>
+          <Route element={<Layout />}>
             <Route
               index
               element={
@@ -37,7 +38,7 @@ function App(): ReactNode {
             />
             <Route
               path="users"
-              element={<div>/users</div>}
+              element={<Users />}
             />
             <Route
               path="topics"

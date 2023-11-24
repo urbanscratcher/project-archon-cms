@@ -3,9 +3,10 @@ import mainLogo from '../assets/archon-logo.png';
 function Logo() {
   console.log('Rendering...');
   return (
-    <div className="mx-auto flex items-end">
+    <div className="w-inherit flex items-end">
       <img
         src={mainLogo}
+        className="object-contain"
         alt="logo"
       />
       <p className="rounded-full bg-navy-700 px-3 text-navy-50">cms</p>

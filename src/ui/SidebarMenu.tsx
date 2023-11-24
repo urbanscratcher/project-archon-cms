@@ -6,6 +6,9 @@ type SidebarMenuItemProps = {
   text: string;
 };
 
+// text-sm
+// justify-start
+
 function SidebarMenuItem({ icon, text }: SidebarMenuItemProps) {
   return (
     <li className="cursor-pointer">
@@ -13,7 +16,18 @@ function SidebarMenuItem({ icon, text }: SidebarMenuItemProps) {
         to={`/${text}`}
         className={({ isActive, isPending }) => {
           const style = isPending ? 'link-pending' : isActive ? 'link-active' : '';
-          return `${style} flex items-center gap-3 rounded-lg px-6 py-3 hover:bg-zinc-100 active:bg-zinc-200/50`;
+          return `${style}
+            inline-flex
+            w-full 
+            items-center justify-start
+            gap-3            
+            whitespace-nowrap
+            rounded-md 
+            px-4 py-2
+            transition-colors
+            hover:bg-zinc-100
+            active:bg-zinc-200/50
+          `;
         }}
       >
         <Icon icon={icon} />

@@ -3,11 +3,18 @@ import Header from './Header';
 import Main from './Main';
 import Sidebar from './Sidebar';
 
-function MainLayout() {
+function Layout() {
   console.log('Rendering...');
 
   return (
-    <div className="grid h-screen grid-cols-[20rem_1fr] grid-rows-[auto_1fr] text-zinc-800">
+    <div
+      className="
+        grid
+        min-h-screen        
+        grid-cols-[18rem_1fr]
+        grid-rows-[auto_1fr]
+        text-zinc-800"
+    >
       <Sidebar />
       <Header />
       <Main>
@@ -17,4 +24,4 @@ function MainLayout() {
   );
 }
 
-export default MainLayout;
+export default Layout;

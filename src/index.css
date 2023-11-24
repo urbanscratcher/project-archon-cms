@@ -44,11 +44,12 @@ input:-webkit-autofill:active {
 /* width */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: 'white';
+  background: #fff;
 }
 
 /* Handle */

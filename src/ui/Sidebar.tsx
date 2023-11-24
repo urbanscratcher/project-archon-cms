@@ -1,10 +1,20 @@
 import { type PropsWithChildren } from 'react';
 import Logo from './Logo';
 import MainNav from './SidebarMenu';
+import { NavLink } from 'react-router-dom';
 
 function SidebarContainer({ children }: PropsWithChildren) {
   return (
-    <nav className="row-span-full flex flex-col gap-14 border-r border-solid border-r-zinc-100 px-10 py-12">
+    <nav
+      className="
+      row-span-full
+      flex
+      flex-col gap-12                  
+      overflow-y-scroll      
+      px-6
+      py-10
+      "
+    >
       {children}
     </nav>
   );
@@ -13,9 +23,12 @@ function SidebarContainer({ children }: PropsWithChildren) {
 function Sidebar() {
   return (
     <SidebarContainer>
-      <div className="flex scale-[80%]">
+      <NavLink
+        to="/dashboard"
+        className={'max-w-full scale-[70%]'}
+      >
         <Logo />
-      </div>
+      </NavLink>
       <MainNav />
     </SidebarContainer>
   );
