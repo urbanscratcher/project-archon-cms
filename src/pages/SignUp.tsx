@@ -1,6 +1,6 @@
-import Logo from '../../ui/Logo';
+import Logo from '../ui/Logo';
 import { SignContainer } from './SignIn';
-import SignUpForm from './SignUpForm';
+import SignUpForm from '../features/authentication/SignUpForm';
 
 function SignUp() {
   return (

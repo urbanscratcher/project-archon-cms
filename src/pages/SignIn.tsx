@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react';
-import Logo from '../../ui/Logo';
-import SignInForm from './SignInForm';
+import Logo from '../ui/Logo';
+import SignInForm from '../features/authentication/SignInForm';
 
 export function SignContainer({ children }: PropsWithChildren) {
   return (

@@ -1,6 +1,10 @@
 import { type ReactNode } from 'react';
 
-export type ListData<T> = {
+export type Dto = {
+  idx: number;
+};
+
+export type ListData<T extends Dto> = {
   total: number;
   offset?: number;
   limit?: number;
@@ -8,6 +12,7 @@ export type ListData<T> = {
 };
 
 export type ColumnDef<T> = {
+  type: 'data' | 'index' | 'menu' | 'checkbox';
   head: string;
   displayFn: (t: T) => string | number | ReactNode | undefined;
   checkbox?: boolean;

@@ -1,42 +1,51 @@
+import { type PropsWithChildren } from 'react';
+import { type User } from '../../pages/Users';
+import Loader from '../../ui/Loader';
 import Table from '../../ui/table/Table';
-import TableBody, { TableRow, TableRowCell } from '../../ui/table/TableBody';
-import { TableHead, TableHeadCell } from '../../ui/table/TableHead';
-import { type ListData, type ColumnDef } from '../../utils/types';
-import { type User } from './Users';
+import TableBody from '../../ui/table/TableBody';
+import { TableHead } from '../../ui/table/TableHead';
+import { type Dto, type ColumnDef, type ListData } from '../../utils/types';
+import useUsers from './useUsers';
+import userColumnDefs from './userColumnDefs';
 
 export type UserTableProps<T> = {
   columnDefs: ColumnDef<User>[];
-  list: ListData<T>;
+  list: ListData<T & Dto>;
 };
 
-function UserTable({ columnDefs, list }: UserTableProps<User>) {
+export function TableContainer({ children }: PropsWithChildren) {
+  return <div className="overflow-auto rounded-md border border-zinc-300">{children}</div>;
+}
+
+function UserTable() {
+  const { users, isLoading } = useUsers();
+  if (isLoading) return <Loader />;
+
+  // data mapping
+  const newData = users.data.map((u: any): User => {
+    return {
+      idx: u.idx,
+      firstName: u.first_name,
+      lastName: u.last_name,
+      email: u.email,
+      role: u.role,
+      avatar: u.avatar,
+      topics: u.topics,
+      createdAt: new Date(u.created_at),
+    };
+  });
+  const userList: ListData<User> = { ...users, data: newData };
+
   return (
-    <div className="overflow-auto rounded-md border border-zinc-300">
+    <TableContainer>
       <Table>
-        <TableHead>
-          {columnDefs.map((def) => (
-            <TableHeadCell
-              key={def.head}
-              head={def.head}
-            />
-          ))}
-        </TableHead>
-        <TableBody>
-          {list.data.map((row, listIdx) => (
-            <TableRow key={row.idx}>
-              {columnDefs.map((def, defIdx) => (
-                <TableRowCell
-                  index={defIdx === 0}
-                  key={def.head}
-                >
-                  {defIdx > 0 ? def.displayFn(row) : <p className="text-sm text-zinc-500">{listIdx + 1}</p>}
-                </TableRowCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
+        <TableHead columnDefs={userColumnDefs} />
+        <TableBody
+          columnDefs={userColumnDefs}
+          listData={userList}
+        />
       </Table>
-    </div>
+    </TableContainer>
   );
 }
 

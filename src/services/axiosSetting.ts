@@ -63,9 +63,15 @@ axiosInstance.interceptors.response.use(resConfigInterceptor, resErrorIntercepto
 
 const responseBody = <T>(response: AxiosResponse<T>): any => response.data;
 
-// Request ---------------------------------------
+// Request & methods def ---------------------------------------
 export const request = {
-  get: <T>(url: string) => axios.get<T>(url).then(responseBody),
+  get: <T>(url: string) => axiosInstance.get<T>(url).then(responseBody),
   post: <T>(url: string, body: {}, config?: InternalAxiosRequestConfig<any> | undefined) =>
     axiosInstance.post<T>(url, body, (config = undefined)).then(responseBody),
+  put: <T>(url: string, body: {}, config?: InternalAxiosRequestConfig<any> | undefined) =>
+    axiosInstance.put<T>(url, body, (config = undefined)).then(responseBody),
+  patch: <T>(url: string, body: {}, config?: InternalAxiosRequestConfig<any> | undefined) =>
+    axiosInstance.patch<T>(url, body, (config = undefined)).then(responseBody),
+  delete: <T>(url: string, config?: InternalAxiosRequestConfig<any> | undefined) =>
+    axiosInstance.delete<T>(url, (config = undefined)).then(responseBody),
 };
