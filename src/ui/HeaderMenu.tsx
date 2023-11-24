@@ -1,11 +1,25 @@
 import { ReactNode } from 'react';
+import IconBtn from './IconBtn';
 
 function HeaderMenu(): ReactNode {
   return (
-    <ul className="flex gap-2">
-      <li>account btn</li>
-      <li>dark mode btn</li>
-      <li>logout btn</li>
+    <ul className="flex gap-1">
+      <li>
+        <IconBtn
+          icon="icon-[lucide--moon]"
+          onClick={() => {
+            console.log('click');
+          }}
+        />
+      </li>
+      <li>
+        <IconBtn
+          icon="icon-[lucide--log-out]"
+          onClick={() => {
+            console.log('click');
+          }}
+        />
+      </li>
     </ul>
   );
 }

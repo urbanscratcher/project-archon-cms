@@ -2,11 +2,10 @@ import { type ReactNode, type SyntheticEvent, useState } from 'react';
 import authApi from '../../services/apiAuth';
 import Button, { ButtonSize, ButtonType } from '../../ui/Button';
 import Form from '../../ui/Form';
-import FormRowVertical from '../../ui/FormRowVertical';
+import { FormRowVertical, FormRowHorizontal } from '../../ui/FormRowVertical';
 import Input from '../../ui/Input';
 import useSignIn from './useSignIn';
 import SignFormHeader from './SignFormHeader';
-import FormRowHorizontal from '../../ui/FormRowHorizontal';
 
 type SignUpFormProps = {
   title: string;
@@ -16,7 +15,7 @@ type SignUpFormProps = {
 function SignUpForm({ title, description }: SignUpFormProps): ReactNode {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, isLoading } = useSignIn();
+  const { signIn, isPending } = useSignIn();
 
   const changeEmailHandler = (e: SyntheticEvent): void => {
     const currentTarget = e.target as HTMLInputElement;
@@ -96,10 +95,10 @@ function SignUpForm({ title, description }: SignUpFormProps): ReactNode {
       <FormRowVertical>
         <Button
           size={ButtonSize.MEDIUM}
-          disabled={isLoading}
+          disabled={isPending}
           type={ButtonType.PRIMARY}
         >
-          {isLoading ? <div>Loading...</div> : 'Sign up'}
+          {isPending ? <div>Loading...</div> : 'Sign up'}
         </Button>
       </FormRowVertical>
     </Form>

@@ -1,28 +1,27 @@
 import { ReactElement, ReactNode } from 'react';
 
-export enum ButtonSize {
+export const enum ButtonSize {
   SMALL = 'sm',
   MEDIUM = 'md',
   LARGE = 'lg',
 }
 
-export enum ButtonType {
+export const enum ButtonType {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
-  WARN = 'warn',
 }
 
 type ButtonProps = {
   size?: ButtonSize;
   type?: string;
-  disabled: boolean;
+  disabled?: boolean;
   children: ReactNode;
 };
 
 function Button({
   size = ButtonSize.MEDIUM,
   type = ButtonType.PRIMARY,
-  disabled,
+  disabled = false,
   children,
 }: ButtonProps): ReactElement {
   const getSize = (size: string): string => {
@@ -37,14 +36,12 @@ function Button({
         return '';
     }
   };
-  const getType = (size: string): string => {
-    switch (size) {
+  const getType = (type: string): string => {
+    switch (type) {
       case ButtonType.PRIMARY:
         return 'bg-navy-700 text-navy-50 hover:bg-navy-600 border-none';
       case ButtonType.SECONDARY:
         return 'border border-solid border-zinc-300 bg-white text-zinc-600 hover:bg-zinc-50';
-      case ButtonType.WARN:
-        return 'bg-red-700 text-red-100 hover:bg-red-800 border-none';
       default:
         return '';
     }

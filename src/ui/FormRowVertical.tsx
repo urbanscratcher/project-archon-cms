@@ -1,27 +1,29 @@
-import { PropsWithChildren, ReactElement, ReactNode } from 'react';
+import { type ReactNode } from 'react';
+import Error from './Error';
+import { FormLabel } from './FormLabel';
 
-type FormRowVerticalProps = {
+type FormRowProps = {
   label?: string;
   error?: string;
   children: ReactNode;
 };
 
-function FormRowVertical({ label, error, children }: FormRowVerticalProps): ReactNode {
+export function FormRowVertical({ label, error, children }: FormRowProps) {
   return (
     <div className="flex flex-col gap-2 py-3">
-      {label && <Label>{label}</Label>}
+      {label && <FormLabel>{label}</FormLabel>}
       {children}
       {error && <Error>{error}</Error>}
     </div>
   );
 }
 
-export function Error({ children }: PropsWithChildren): ReactElement {
-  return <span className="text-2xl text-red-700">{children}</span>;
+export function FormRowHorizontal({ label, error, children }: FormRowProps) {
+  return (
+    <div className="flex gap-2">
+      {label && <FormLabel>{label}</FormLabel>}
+      {children}
+      {error && <Error>{error}</Error>}
+    </div>
+  );
 }
-
-export function Label({ children }: PropsWithChildren): ReactElement {
-  return <label className="font-medium">{children}</label>;
-}
-
-export default FormRowVertical;

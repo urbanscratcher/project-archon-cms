@@ -1,27 +1,29 @@
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import authApi, { SignInReq } from '../../services/apiAuth';
 
 export type LoginState = {
-  login: any;
-  isLoading: boolean;
+  signIn: any;
+  isPending: boolean;
+  error: any;
 };
 
 function useSignIn(): LoginState {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  // const { mutate: signin, isLoading } = useMutation({
-  //   mutationFn: ({ email, password }: SignIn) => signinApi({ email, password }),
-  //   onSuccess: () => {
-  //     queryClient.setQueryData(['user'], user.user);
-  //     navigate('/dashboard', { replace: true });
-  //   },
-  //   onError: (err) => {
-  //     console.error(err);
-  //   },
-  // });
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: ({ email, password }: SignInReq) => authApi.signin({ email, password }),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['user'], data);
+      navigate('/dashboard', { replace: true });
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
 
-  return { login: 'any', isLoading: false };
+  return { signIn: mutate, isPending, error };
 }
 
 export default useSignIn;

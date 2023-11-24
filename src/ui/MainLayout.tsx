@@ -4,8 +4,10 @@ import Main from './Main';
 import Sidebar from './Sidebar';
 
 function MainLayout() {
+  console.log('Rendering...');
+
   return (
-    <div className="grid h-screen grid-cols-[26rem_1fr] grid-rows-[auto_1fr]">
+    <div className="grid h-screen grid-cols-[20rem_1fr] grid-rows-[auto_1fr] text-zinc-800">
       <Sidebar />
       <Header />
       <Main>

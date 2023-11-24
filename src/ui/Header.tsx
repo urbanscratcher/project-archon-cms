@@ -1,13 +1,21 @@
 import Profile from '../features/Profile';
-import { ReactNode } from 'react';
+import { type PropsWithChildren } from 'react';
 import HeaderMenu from './HeaderMenu';
 
-function Header(): ReactNode {
+function HeaderContainer({ children }: PropsWithChildren) {
   return (
-    <header className="flex items-center justify-end gap-4 border-b border-solid border-b-zinc-100 bg-blue-200 px-12 py-5">
+    <header className="flex h-14 items-center justify-end gap-8 border-b-[1px] border-b-zinc-300 px-6 backdrop-blur-md">
+      {children}
+    </header>
+  );
+}
+
+function Header() {
+  return (
+    <HeaderContainer>
       <Profile />
       <HeaderMenu />
-    </header>
+    </HeaderContainer>
   );
 }
 

@@ -1,13 +1,23 @@
-import { ReactNode } from 'react';
+import { type PropsWithChildren } from 'react';
 import Logo from './Logo';
-import MainNav from './MainNav';
+import MainNav from './SidebarMenu';
 
-function Sidebar(): ReactNode {
+function SidebarContainer({ children }: PropsWithChildren) {
   return (
-    <div className="row-span-full flex flex-col gap-14 border-r border-solid border-r-zinc-100 bg-red-200 px-10 py-12">
-      <Logo />
+    <nav className="row-span-full flex flex-col gap-14 border-r border-solid border-r-zinc-100 px-10 py-12">
+      {children}
+    </nav>
+  );
+}
+
+function Sidebar() {
+  return (
+    <SidebarContainer>
+      <div className="flex scale-[80%]">
+        <Logo />
+      </div>
       <MainNav />
-    </div>
+    </SidebarContainer>
   );
 }
 

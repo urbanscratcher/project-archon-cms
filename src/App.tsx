@@ -57,7 +57,7 @@ function App(): ReactNode {
             />
             <Route
               path="account"
-              element={<div>/accounts</div>}
+              element={<div>/account</div>}
             />
           </Route>
           <Route

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-import colors from 'tailwindcss/colors';
+import { addDynamicIconSelectors } from '@iconify/tailwind';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -23,5 +23,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [addDynamicIconSelectors()],
 };

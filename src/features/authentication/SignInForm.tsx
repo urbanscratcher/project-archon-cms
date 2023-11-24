@@ -1,11 +1,11 @@
-import { type ReactNode, type SyntheticEvent, useState } from 'react';
-import authApi from '../../services/apiAuth';
+import { useState, type ReactNode, type SyntheticEvent } from 'react';
 import Button, { ButtonSize, ButtonType } from '../../ui/Button';
+import Error from '../../ui/Error';
 import Form from '../../ui/Form';
-import FormRowVertical from '../../ui/FormRowVertical';
+import { FormRowVertical } from '../../ui/FormRowVertical';
 import Input from '../../ui/Input';
-import useSignIn from './useSignIn';
 import SignFormHeader from './SignFormHeader';
+import useSignIn from './useSignIn';
 
 type SignInFormProps = {
   title: string;
@@ -15,7 +15,7 @@ type SignInFormProps = {
 function SignInForm({ title, description }: SignInFormProps): ReactNode {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, isLoading } = useSignIn();
+  const { signIn, isPending, error } = useSignIn();
 
   const changeEmailHandler = (e: SyntheticEvent): void => {
     const currentTarget = e.target as HTMLInputElement;
@@ -30,46 +30,52 @@ function SignInForm({ title, description }: SignInFormProps): ReactNode {
   const submitHandler = async (e: SyntheticEvent): Promise<void> => {
     e.preventDefault();
 
-    const a = await authApi.signin({ email: 'test@gmail.com', password: 'mszII3tPXBw4/iJ9UA9Ghg==' });
+    const a = await signIn({ email: 'test@gmail.com', password: 'mszII3tPXBw4/iJ9UA9Ghg==' });
     console.log(a);
   };
 
   return (
-    <Form onSubmit={submitHandler}>
-      <SignFormHeader
-        title={title}
-        description={description}
-      />
-      <FormRowVertical label={'Email'}>
-        <Input
-          type="email"
-          id="email"
-          autoComplete="username"
-          value={email}
-          onChange={changeEmailHandler}
-          disabled={false}
-        />
-      </FormRowVertical>
-      <FormRowVertical label={'Password'}>
-        <Input
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={changePwHandler}
-          disabled={false}
-        />
-      </FormRowVertical>
-      <FormRowVertical>
-        <Button
-          size={ButtonSize.MEDIUM}
-          disabled={isLoading}
-          type={ButtonType.PRIMARY}
-        >
-          {isLoading ? <div>Loading...</div> : 'Sign in'}
-        </Button>
-      </FormRowVertical>
-    </Form>
+    <>
+      {error ? (
+        <Error>{error.message}</Error>
+      ) : (
+        <Form onSubmit={submitHandler}>
+          <SignFormHeader
+            title={title}
+            description={description}
+          />
+          <FormRowVertical label={'Email'}>
+            <Input
+              type="email"
+              id="email"
+              autoComplete="username"
+              value={email}
+              onChange={changeEmailHandler}
+              disabled={false}
+            />
+          </FormRowVertical>
+          <FormRowVertical label={'Password'}>
+            <Input
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={changePwHandler}
+              disabled={false}
+            />
+          </FormRowVertical>
+          <FormRowVertical>
+            <Button
+              size={ButtonSize.MEDIUM}
+              disabled={isPending}
+              type={ButtonType.PRIMARY}
+            >
+              {isPending ? <div>Loading...</div> : 'Sign in'}
+            </Button>
+          </FormRowVertical>
+        </Form>
+      )}
+    </>
   );
 }
 

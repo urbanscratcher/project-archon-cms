@@ -1,10 +1,12 @@
-import { ReactNode } from 'react';
+function Avatar() {
+  return <div className="h-8 w-8 rounded-full bg-zinc-400"></div>;
+}
 
-function Profile(): ReactNode {
+function Profile() {
   return (
-    <div className="flex gap-2">
-      <div>avatar</div>
-      <p>Matten Snider</p>
+    <div className="flex items-center gap-4">
+      <Avatar />
+      <p>Stacy Black</p>
     </div>
   );
 }

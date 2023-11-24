@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .link-active {
+    @apply bg-zinc-100;
+  }
+  .link-pending {
+    @apply bg-zinc-50;
+  }
+}
+
 @layer base {
   h1 {
     @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;

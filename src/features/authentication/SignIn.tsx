@@ -7,7 +7,7 @@ export function SignContainer({ children }: PropsWithChildren) {
     <div
       className="
       grid
-  min-h-screen grid-cols-[30rem] content-center justify-center gap-10"
+  min-h-screen grid-cols-[30rem] content-center justify-center gap-10 text-zinc-800"
     >
       {children}
     </div>
