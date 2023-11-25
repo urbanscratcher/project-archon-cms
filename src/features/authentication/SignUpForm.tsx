@@ -2,8 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { SignUpSchema } from '../../models/User';
-import authApi from '../../services/apiAuth';
-import Button, { ButtonSize, ButtonType } from '../../ui/button/Button';
+import Spinner from '../../ui/Spinner';
+import Button from '../../ui/button/Button';
 import Form from '../../ui/form/Form';
 import { FormRowHorizontal, FormRowVertical } from '../../ui/form/FormRow';
 import Input from '../../ui/input/Input';
@@ -93,11 +93,11 @@ function SignUpForm({ title, description }: SignUpFormProps): ReactNode {
       </FormRowVertical>
       <FormRowVertical>
         <Button
-          size={ButtonSize.MEDIUM}
+          size={'md'}
           disabled={isPending}
-          type={ButtonType.PRIMARY}
+          type={'primary'}
         >
-          {isPending ? <div>Loading...</div> : 'Sign up'}
+          {isPending ? <Spinner light /> : 'Sign up'}
         </Button>
       </FormRowVertical>
     </Form>

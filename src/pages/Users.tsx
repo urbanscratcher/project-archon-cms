@@ -1,12 +1,5 @@
-import MainHeader from '../ui/MainHeader';
 import UserTable from '../features/users/UserTable';
-
-export const enum ROLE {
-  ADMIN = 'admin',
-  EDITOR = 'editor',
-  WRITER = 'writer',
-  USER = 'user',
-}
+import MainHeader from '../ui/MainHeader';
 
 export type Topic = {
   idx: number;
@@ -19,7 +12,7 @@ export type User = {
   firstName: string;
   lastName: string;
   email: string;
-  role: ROLE;
+  role: 'admin' | 'editor' | 'writer' | 'user';
   avatar?: string;
   topics?: Topic[];
   createdAt: Date;

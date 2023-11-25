@@ -3,8 +3,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import SignIn from './pages/SignIn';
+import { SignLayout } from './layouts/SignLayout';
 import SignUp from './pages/SignUp';
-import Layout from './ui/Layout';
+import AppLayout from './layouts/AppLayout';
 import Users from './pages/Users';
 
 const queryClient = new QueryClient({
@@ -22,7 +23,7 @@ function App(): ReactNode {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
+          <Route element={<AppLayout />}>
             <Route
               index
               element={
@@ -61,14 +62,16 @@ function App(): ReactNode {
               element={<div>/account</div>}
             />
           </Route>
-          <Route
-            path="signin"
-            element={<SignIn />}
-          />
-          <Route
-            path="signup"
-            element={<SignUp />}
-          />
+          <Route element={<SignLayout />}>
+            <Route
+              path="signin"
+              element={<SignIn />}
+            />
+            <Route
+              path="signup"
+              element={<SignUp />}
+            />
+          </Route>
           <Route
             path="*"
             element={<div>/pageNotFound</div>}

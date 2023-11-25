@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react';
 import { type User } from '../../pages/Users';
-import Loader from '../../ui/Loader';
+import Spinner from '../../ui/Spinner';
 import Table from '../../ui/table/Table';
 import TableBody from '../../ui/table/TableBody';
 import { TableHead } from '../../ui/table/TableHead';
@@ -19,7 +19,7 @@ export function TableContainer({ children }: PropsWithChildren) {
 
 function UserTable() {
   const { users, isLoading } = useUsers();
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Spinner />;
 
   // data mapping
   const newData = users.data.map((u: any): User => {

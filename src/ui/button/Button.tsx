@@ -1,36 +1,20 @@
 import { ReactElement, ReactNode } from 'react';
 
-export const enum ButtonSize {
-  SMALL = 'sm',
-  MEDIUM = 'md',
-  LARGE = 'lg',
-}
-
-export const enum ButtonType {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-}
-
 type ButtonProps = {
-  size?: ButtonSize;
-  type?: string;
+  size?: 'sm' | 'md' | 'lg';
+  type?: 'primary' | 'secondary';
   disabled?: boolean;
   children: ReactNode;
 };
 
-function Button({
-  size = ButtonSize.MEDIUM,
-  type = ButtonType.PRIMARY,
-  disabled = false,
-  children,
-}: ButtonProps): ReactElement {
+function Button({ size = 'md', type = 'primary', disabled = false, children }: ButtonProps): ReactElement {
   const getSize = (size: string): string => {
     switch (size) {
-      case ButtonSize.SMALL:
+      case 'sm':
         return 'px-2 py-2 text-sm';
-      case ButtonSize.MEDIUM:
+      case 'md':
         return 'px-3 py-3 text-md';
-      case ButtonSize.LARGE:
+      case 'lg':
         return 'px-5 py-10 text-lg';
       default:
         return '';
@@ -38,9 +22,9 @@ function Button({
   };
   const getType = (type: string): string => {
     switch (type) {
-      case ButtonType.PRIMARY:
+      case 'primary':
         return 'bg-navy-700 text-navy-50 hover:bg-navy-600 border-none';
-      case ButtonType.SECONDARY:
+      case 'secondary':
         return 'border border-solid border-zinc-300 bg-white text-zinc-600 hover:bg-zinc-50';
       default:
         return '';

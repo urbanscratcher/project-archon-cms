@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import Main from './Main';
-import Sidebar from './Sidebar';
+import Header from '../ui/Header';
+import Main from '../ui/Main';
+import Sidebar from '../ui/Sidebar';
 
-function Layout() {
+function AppLayout() {
   console.log('Rendering...');
 
   return (
@@ -26,4 +26,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default AppLayout;

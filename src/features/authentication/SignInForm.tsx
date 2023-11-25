@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from 'react';
 import Error from '../../ui/Error';
-import Loader from '../../ui/Loader';
-import Button, { ButtonSize, ButtonType } from '../../ui/button/Button';
+import Spinner from '../../ui/Spinner';
+import Button from '../../ui/button/Button';
 import Form from '../../ui/form/Form';
 import { FormRowVertical } from '../../ui/form/FormRow';
 import EmailInput from './EmailInput';
@@ -56,11 +56,11 @@ function SignInForm() {
           </FormRowVertical>
           <FormRowVertical>
             <Button
-              size={ButtonSize.MEDIUM}
+              size={'md'}
               disabled={isPending || isEmailError || isPwError}
-              type={ButtonType.PRIMARY}
+              type={'primary'}
             >
-              {isPending ? <Loader /> : 'Sign in'}
+              {isPending ? <Spinner light /> : 'Sign in'}
             </Button>
           </FormRowVertical>
         </Form>
