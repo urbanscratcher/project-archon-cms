@@ -1,6 +1,6 @@
 import { useState, type SyntheticEvent } from 'react';
-import { z } from 'zod';
-import Input from '../../ui/Input';
+import { PasswordSchema } from '../../models/User';
+import Input from '../../ui/input/Input';
 import { InputProps } from './InputProps';
 
 function PasswordInput({ inputRef, onSetIsError }: InputProps) {
@@ -13,21 +13,17 @@ function PasswordInput({ inputRef, onSetIsError }: InputProps) {
     const currentTarget = e.target as HTMLInputElement;
     setPassword(currentTarget.value);
 
-    const result = pwSchema.safeParse({ password: currentTarget.value });
+    const result = PasswordSchema.safeParse({ password: currentTarget.value });
     if (!result.success) {
       const formattedErr = result.error.format();
-      const pwErr = formattedErr?.password?._errors[0];
-      pwErr && setErr(pwErr);
+      const passwordErr = formattedErr?.password?._errors[0];
+      passwordErr && setErr(passwordErr);
       onSetIsError(true);
     } else {
       setErr('');
       onSetIsError(false);
     }
   };
-
-  const pwSchema = z.object({
-    password: z.string().nonempty('값을 입력해주세요').min(8, '최소 8자 이상').max(200, '최대 200자'),
-  });
 
   return (
     <>

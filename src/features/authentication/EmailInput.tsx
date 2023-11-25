@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent } from 'react';
-import { z } from 'zod';
-import Input from '../../ui/Input';
+import { EmailSchema } from '../../models/User';
+import Input from '../../ui/input/Input';
 import { InputProps } from './InputProps';
 
 function EmailInput({ inputRef, onSetIsError }: InputProps) {
@@ -12,7 +12,7 @@ function EmailInput({ inputRef, onSetIsError }: InputProps) {
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
 
-    const result = emailSchema.safeParse({ email: e.target.value });
+    const result = EmailSchema.safeParse({ email: e.target.value });
     if (!result.success) {
       const formattedErr = result.error.format();
       const emailErr = formattedErr?.email?._errors[0];
@@ -23,10 +23,6 @@ function EmailInput({ inputRef, onSetIsError }: InputProps) {
       onSetIsError(false);
     }
   };
-
-  const emailSchema = z.object({
-    email: z.string().nonempty('값을 입력해주세요').email('이메일 형식 아님').max(200, '최대 200자'),
-  });
 
   return (
     <>

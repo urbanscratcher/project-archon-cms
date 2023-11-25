@@ -1,12 +1,9 @@
+import { SignIn, SignUp } from '../models/User';
 import { request } from './axiosSetting';
 
-export type SignInReq = {
-  email: string;
-  password: string;
-};
-
 const authApi = {
-  signin: (data: SignInReq) => request.post<SignInReq>('/auth', data),
+  signin: (data: SignIn) => request.post<SignIn>('/auth', data),
+  signup: (data: SignUp) => request.post<SignUp>('/users', data),
 };
 
 export default authApi;
