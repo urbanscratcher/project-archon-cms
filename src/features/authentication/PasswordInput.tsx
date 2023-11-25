@@ -1,11 +1,8 @@
 import { useState, type SyntheticEvent } from 'react';
 import Input from '../../ui/Input';
+import { InputProps } from './InputProps';
 
-export type UserInputProps = {
-  inputRef: any;
-};
-
-function UserPasswordInput({ inputRef }: UserInputProps) {
+function PasswordInput({ inputRef }: InputProps) {
   console.log('Rendering...');
 
   const [password, setPassword] = useState('');
@@ -28,4 +25,4 @@ function UserPasswordInput({ inputRef }: UserInputProps) {
   );
 }
 
-export default UserPasswordInput;
+export default PasswordInput;

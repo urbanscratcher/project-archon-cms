@@ -1,11 +1,12 @@
-import { useRef, type SyntheticEvent } from 'react';
+import { FormEvent, useRef } from 'react';
 import Error from '../../ui/Error';
+import Loader from '../../ui/Loader';
 import Button, { ButtonSize, ButtonType } from '../../ui/button/Button';
 import Form from '../../ui/form/Form';
 import { FormRowVertical } from '../../ui/form/FormRow';
+import EmailInput from './EmailInput';
+import PasswordInput from './PasswordInput';
 import SignFormHeader from './SignFormHeader';
-import UserEmailInput from './UserEmailInput';
-import UserPasswordInput from './UserPasswordInput';
 import useSignIn from './useSignIn';
 
 function SignInForm() {
@@ -15,7 +16,7 @@ function SignInForm() {
   const emailInput = useRef<HTMLInputElement>(null);
   const pwInput = useRef<HTMLInputElement>(null);
 
-  const submitHandler = async (e: SyntheticEvent): Promise<void> => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     // tests@gmail.com / test
     e.preventDefault();
     signIn({ email: emailInput.current?.value, password: pwInput.current?.value });
@@ -32,10 +33,10 @@ function SignInForm() {
             description={'Sign in to your account'}
           />
           <FormRowVertical label={'Email'}>
-            <UserEmailInput inputRef={emailInput} />
+            <EmailInput inputRef={emailInput} />
           </FormRowVertical>
           <FormRowVertical label={'Password'}>
-            <UserPasswordInput inputRef={pwInput} />
+            <PasswordInput inputRef={pwInput} />
           </FormRowVertical>
           <FormRowVertical>
             <Button
@@ -43,7 +44,7 @@ function SignInForm() {
               disabled={isPending}
               type={ButtonType.PRIMARY}
             >
-              {isPending ? <div>Loading...</div> : 'Sign in'}
+              {isPending ? <Loader /> : 'Sign in'}
             </Button>
           </FormRowVertical>
         </Form>
