@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import Error from '../../ui/Error';
 import Loader from '../../ui/Loader';
 import Button, { ButtonSize, ButtonType } from '../../ui/button/Button';
@@ -13,13 +13,23 @@ function SignInForm() {
   console.log('Rendering...');
 
   const { signIn, isPending, error } = useSignIn();
+  const [isEmailError, setIsEmailError] = useState(false);
+  const [isPwError, setIsPwError] = useState(false);
   const emailInput = useRef<HTMLInputElement>(null);
   const pwInput = useRef<HTMLInputElement>(null);
 
+  const onSetIsPwError = (isError: boolean) => setIsPwError(isError);
+  const onSetIsEmailError = (isError: boolean) => setIsEmailError(isError);
+
   const submitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    // tests@gmail.com / test
     e.preventDefault();
-    signIn({ email: emailInput.current?.value, password: pwInput.current?.value });
+    // tt@gmail.com / test1234!
+    const formData = {
+      email: emailInput.current?.value,
+      password: pwInput.current?.value,
+    };
+
+    signIn(formData);
   };
 
   return (
@@ -33,15 +43,21 @@ function SignInForm() {
             description={'Sign in to your account'}
           />
           <FormRowVertical label={'Email'}>
-            <EmailInput inputRef={emailInput} />
+            <EmailInput
+              inputRef={emailInput}
+              onSetIsError={onSetIsEmailError}
+            />
           </FormRowVertical>
           <FormRowVertical label={'Password'}>
-            <PasswordInput inputRef={pwInput} />
+            <PasswordInput
+              inputRef={pwInput}
+              onSetIsError={onSetIsPwError}
+            />
           </FormRowVertical>
           <FormRowVertical>
             <Button
               size={ButtonSize.MEDIUM}
-              disabled={isPending}
+              disabled={isPending || isEmailError || isPwError}
               type={ButtonType.PRIMARY}
             >
               {isPending ? <Loader /> : 'Sign in'}
