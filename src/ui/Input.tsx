@@ -1,4 +1,4 @@
-import { type ChangeEventHandler } from 'react';
+import { forwardRef, type ChangeEventHandler, type ComponentPropsWithoutRef } from 'react';
 
 type InputProps = {
   type: string;
@@ -7,17 +7,13 @@ type InputProps = {
   value: any;
   onChange: ChangeEventHandler<HTMLInputElement>;
   disabled: boolean;
-};
+} & ComponentPropsWithoutRef<'input'>;
 
-function Input({ type, id, autoComplete, value, onChange, disabled }: InputProps) {
+const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <input
-      type={type}
-      id={id}
-      autoComplete={autoComplete}
-      value={value}
-      onChange={onChange}
-      disabled={disabled}
+      {...props}
+      ref={ref}
       className="
         input:bg-white
         rounded-lg
@@ -29,6 +25,8 @@ function Input({ type, id, autoComplete, value, onChange, disabled }: InputProps
         shadow-sm"
     />
   );
-}
+});
+
+Input.displayName = 'Input';
 
 export default Input;

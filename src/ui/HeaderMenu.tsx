@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import IconBtn from './IconBtn';
+import IconBtn from './button/IconBtn';
 
 function HeaderMenu(): ReactNode {
   return (

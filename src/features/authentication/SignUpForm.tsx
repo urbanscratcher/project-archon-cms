@@ -1,8 +1,8 @@
 import { type ReactNode, type SyntheticEvent, useState } from 'react';
 import authApi from '../../services/apiAuth';
-import Button, { ButtonSize, ButtonType } from '../../ui/Button';
-import Form from '../../ui/Form';
-import { FormRowVertical, FormRowHorizontal } from '../../ui/FormRowVertical';
+import Button, { ButtonSize, ButtonType } from '../../ui/button/Button';
+import Form from '../../ui/form/Form';
+import { FormRowVertical, FormRowHorizontal } from '../../ui/form/FormRow';
 import Input from '../../ui/Input';
 import useSignIn from './useSignIn';
 import SignFormHeader from './SignFormHeader';

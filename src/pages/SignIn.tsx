@@ -1,13 +1,13 @@
 import { type PropsWithChildren } from 'react';
-import Logo from '../ui/Logo';
 import SignInForm from '../features/authentication/SignInForm';
+import Logo from '../ui/Logo';
 
 export function SignContainer({ children }: PropsWithChildren) {
   return (
     <div
       className="
       grid
-  min-h-screen grid-cols-[30rem] content-center justify-center gap-10 text-zinc-800"
+  min-h-screen grid-cols-[30rem] content-center justify-center gap-10  text-zinc-800"
     >
       {children}
     </div>
@@ -18,10 +18,7 @@ function SignIn() {
   return (
     <SignContainer>
       <Logo />
-      <SignInForm
-        title={'Sign in'}
-        description={'Sign in to your account'}
-      />
+      <SignInForm />
     </SignContainer>
   );
 }

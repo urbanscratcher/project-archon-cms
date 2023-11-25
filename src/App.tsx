@@ -10,8 +10,8 @@ import Users from './pages/Users';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // staleTime: 60 * 1000 ms
-      staleTime: 0,
+      // staleTime: 60 * 1000,
+      // refetchInterval: 5 * 60 * 1000,
     },
   },
 });

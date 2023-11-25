@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import authApi, { SignInReq } from '../../services/apiAuth';
+import { encrypt } from '../../utils/crypto';
 
 export type LoginState = {
   signIn: any;
@@ -13,7 +14,10 @@ function useSignIn(): LoginState {
   const navigate = useNavigate();
 
   const { mutate, isPending, error } = useMutation({
-    mutationFn: ({ email, password }: SignInReq) => authApi.signin({ email, password }),
+    mutationFn: ({ email, password }: SignInReq) => {
+      const encrypted = encrypt(password);
+      return authApi.signin({ email, password: encrypted });
+    },
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data);
       navigate('/dashboard', { replace: true });

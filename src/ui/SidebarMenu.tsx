@@ -1,13 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import Icon from './Icon';
 
 type SidebarMenuItemProps = {
   icon: string;
   text: string;
 };
-
-// text-sm
-// justify-start
 
 function SidebarMenuItem({ icon, text }: SidebarMenuItemProps) {
   return (
@@ -30,7 +26,7 @@ function SidebarMenuItem({ icon, text }: SidebarMenuItemProps) {
           `;
         }}
       >
-        <Icon icon={icon} />
+        <span className={`${icon} h-6 w-6`}></span>
         <p className="text-lg font-medium capitalize">{text}</p>
       </NavLink>
     </li>

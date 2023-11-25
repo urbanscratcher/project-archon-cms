@@ -13,7 +13,9 @@ function Layout() {
         min-h-screen        
         grid-cols-[18rem_1fr]
         grid-rows-[auto_1fr]
-        text-zinc-800"
+        overflow-hidden
+        text-zinc-800
+        "
     >
       <Sidebar />
       <Header />

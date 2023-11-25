@@ -10,7 +10,7 @@ function SidebarContainer({ children }: PropsWithChildren) {
       row-span-full
       flex
       flex-col gap-12                  
-      overflow-y-scroll      
+      overflow-hidden
       px-6
       py-10
       "

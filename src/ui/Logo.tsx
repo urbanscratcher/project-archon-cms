@@ -3,13 +3,13 @@ import mainLogo from '../assets/archon-logo.png';
 function Logo() {
   console.log('Rendering...');
   return (
-    <div className="w-inherit flex items-end">
+    <div className="flex w-full items-end justify-center">
       <img
         src={mainLogo}
-        className="object-contain"
+        className="object-contain grayscale"
         alt="logo"
       />
-      <p className="rounded-full bg-navy-700 px-3 text-navy-50">cms</p>
+      <p className="rounded-full bg-zinc-700 px-3 text-navy-50">cms</p>
     </div>
   );
 }

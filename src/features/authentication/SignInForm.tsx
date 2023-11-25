@@ -1,37 +1,24 @@
-import { useState, type ReactNode, type SyntheticEvent } from 'react';
-import Button, { ButtonSize, ButtonType } from '../../ui/Button';
+import { useRef, type SyntheticEvent } from 'react';
 import Error from '../../ui/Error';
-import Form from '../../ui/Form';
-import { FormRowVertical } from '../../ui/FormRowVertical';
-import Input from '../../ui/Input';
+import Button, { ButtonSize, ButtonType } from '../../ui/button/Button';
+import Form from '../../ui/form/Form';
+import { FormRowVertical } from '../../ui/form/FormRow';
 import SignFormHeader from './SignFormHeader';
+import UserEmailInput from './UserEmailInput';
+import UserPasswordInput from './UserPasswordInput';
 import useSignIn from './useSignIn';
 
-type SignInFormProps = {
-  title: string;
-  description: string;
-};
+function SignInForm() {
+  console.log('Rendering...');
 
-function SignInForm({ title, description }: SignInFormProps): ReactNode {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { signIn, isPending, error } = useSignIn();
-
-  const changeEmailHandler = (e: SyntheticEvent): void => {
-    const currentTarget = e.target as HTMLInputElement;
-    setEmail(currentTarget.value);
-  };
-
-  const changePwHandler = (e: SyntheticEvent): void => {
-    const currentTarget = e.target as HTMLInputElement;
-    setPassword(currentTarget.value);
-  };
+  const emailInput = useRef<HTMLInputElement>(null);
+  const pwInput = useRef<HTMLInputElement>(null);
 
   const submitHandler = async (e: SyntheticEvent): Promise<void> => {
+    // tests@gmail.com / test
     e.preventDefault();
-
-    const a = await signIn({ email: 'test@gmail.com', password: 'mszII3tPXBw4/iJ9UA9Ghg==' });
-    console.log(a);
+    signIn({ email: emailInput.current?.value, password: pwInput.current?.value });
   };
 
   return (
@@ -41,28 +28,14 @@ function SignInForm({ title, description }: SignInFormProps): ReactNode {
       ) : (
         <Form onSubmit={submitHandler}>
           <SignFormHeader
-            title={title}
-            description={description}
+            title={'Sign in'}
+            description={'Sign in to your account'}
           />
           <FormRowVertical label={'Email'}>
-            <Input
-              type="email"
-              id="email"
-              autoComplete="username"
-              value={email}
-              onChange={changeEmailHandler}
-              disabled={false}
-            />
+            <UserEmailInput inputRef={emailInput} />
           </FormRowVertical>
           <FormRowVertical label={'Password'}>
-            <Input
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={changePwHandler}
-              disabled={false}
-            />
+            <UserPasswordInput inputRef={pwInput} />
           </FormRowVertical>
           <FormRowVertical>
             <Button

@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import Error from './Error';
+import Error from '../Error';
 import { FormLabel } from './FormLabel';
 
 type FormRowProps = {

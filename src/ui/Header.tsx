@@ -8,8 +8,10 @@ function HeaderContainer({ children }: PropsWithChildren) {
       className="flex
       h-16 items-center
       justify-end
-      gap-8 px-6
-      backdrop-blur-md"
+      gap-8 overflow-hidden
+      px-6
+      backdrop-blur-md
+      "
     >
       {children}
     </header>
