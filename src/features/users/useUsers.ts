@@ -1,18 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
-import userApi from '../../services/apiUser';
+import userApi, { QueryParams } from '../../services/apiUser';
 
-function useUsers() {
+function useUsers(params?: QueryParams) {
   const {
     isLoading,
     data: users,
-    isError,
     error,
   } = useQuery({
-    queryKey: ['users'],
-    queryFn: () => userApi.getList(),
+    queryKey: ['users', params],
+    queryFn: () => userApi.getList(params),
   });
 
-  return { isLoading, users, isError, error };
+  return { isLoading, users, error };
 }
 
 export default useUsers;

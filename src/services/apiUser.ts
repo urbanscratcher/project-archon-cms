@@ -1,7 +1,30 @@
 import { request } from './axiosSetting';
 
+export type QueryParams = {
+  filter?: any;
+  sorts?: any;
+  offset?: number;
+  limit?: number;
+};
+
 const userApi = {
-  getList: () => request.get('/users'),
+  getList: (params: QueryParams | undefined) => {
+    const baseUri = '/users';
+    const paramList = [];
+
+    if (params?.filter) {
+      const filterStr = JSON.stringify(params.filter);
+      paramList.push(`filter=${filterStr}`);
+    }
+
+    // if (sorts) {
+    //   params.push(`sorts=${sorts}`);
+    // }
+
+    const finalUri = paramList.length > 0 ? baseUri + '?' + paramList.join('&') : baseUri;
+
+    return request.get(finalUri);
+  },
   getDetail: (idx: number) => request.get(`/users/${idx}`),
   delete: (idx: number) => request.delete(`/users/${idx}`),
   update: (idx: number, body: any) => request.patch(`/users/${idx}`, body),

@@ -16,4 +16,5 @@ export type ColumnDef<T> = {
   head: string;
   displayFn: (t: T) => string | number | ReactNode | undefined;
   checkbox?: boolean;
+  widthPercent: number;
 };

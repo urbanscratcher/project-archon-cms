@@ -2,10 +2,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import SignIn from './pages/SignIn';
-import { SignLayout } from './layouts/SignLayout';
-import SignUp from './pages/SignUp';
 import AppLayout from './layouts/AppLayout';
+import { SignLayout } from './layouts/SignLayout';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 import Users from './pages/Users';
 
 const queryClient = new QueryClient({

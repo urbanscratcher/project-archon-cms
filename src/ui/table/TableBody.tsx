@@ -31,8 +31,9 @@ export function TableRow({ children }: PropsWithChildren) {
       className="
       border-b
       border-b-zinc-300
-    transition-colors hover:bg-zinc-50
+      transition-colors hover:bg-zinc-50
     data-[state=selected]:bg-zinc-100
+
   "
     >
       {children}
@@ -40,14 +41,38 @@ export function TableRow({ children }: PropsWithChildren) {
   );
 }
 
+export function TableBodyContainer({ children }: PropsWithChildren) {
+  return <tbody className="[&_tr:last-child]:border-0">{children}</tbody>;
+}
+
 type TableBodyProps<T> = {
   listData: ListData<T & Dto>;
   columnDefs: ColumnDef<T>[];
 };
 
+type TableBodySimpleProps = {
+  children: ReactNode;
+  columnLength: number;
+};
+
+export function TableBodySimple({ children, columnLength }: TableBodySimpleProps) {
+  return (
+    <TableBodyContainer>
+      <TableRow>
+        <td
+          colSpan={columnLength}
+          className="h-full text-center"
+        >
+          {children}
+        </td>
+      </TableRow>
+    </TableBodyContainer>
+  );
+}
+
 function TableBody<T>({ listData, columnDefs }: TableBodyProps<T>) {
   return (
-    <tbody className="[&_tr:last-child]:border-0">
+    <TableBodyContainer>
       {listData.data.map((row, listIdx) => (
         <TableRow key={row.idx}>
           {columnDefs.map((def) => (
@@ -60,7 +85,7 @@ function TableBody<T>({ listData, columnDefs }: TableBodyProps<T>) {
           ))}
         </TableRow>
       ))}
-    </tbody>
+    </TableBodyContainer>
   );
 }
 

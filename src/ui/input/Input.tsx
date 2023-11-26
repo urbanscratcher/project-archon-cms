@@ -7,8 +7,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     <input
       {...props}
       ref={ref}
-      className="
-      input:bg-white
+      className={`
+        input:bg-white        
         w-full
         rounded-lg
         border
@@ -16,7 +16,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         border-zinc-300
         px-4
         py-2
-        shadow-sm"
+        shadow-sm ${props.className}`}
     />
   );
 });

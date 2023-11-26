@@ -1,25 +1,64 @@
-import { type PropsWithChildren } from 'react';
 import { type User } from '../../pages/Users';
+import Error from '../../ui/Error';
 import Spinner from '../../ui/Spinner';
-import Table from '../../ui/table/Table';
-import TableBody from '../../ui/table/TableBody';
-import { TableHead } from '../../ui/table/TableHead';
-import { type Dto, type ColumnDef, type ListData } from '../../utils/types';
+import TableBody, { TableBodySimple } from '../../ui/table/TableBody';
+import { type ListData } from '../../utils/types';
 import useUsers from './useUsers';
 import userColumnDefs from './userColumnDefs';
 
-export type UserTableProps<T> = {
-  columnDefs: ColumnDef<User>[];
-  list: ListData<T & Dto>;
+export type UserTableProps = {
+  inputFilter?: string;
+  roleFilter?: any[];
+  sorts?: [
+    {
+      field: string;
+      descending?: boolean;
+    },
+  ];
 };
 
-export function TableContainer({ children }: PropsWithChildren) {
-  return <div className="overflow-auto rounded-md border border-zinc-300">{children}</div>;
-}
+function UserTableBody({ sorts, inputFilter, roleFilter }: UserTableProps) {
+  const filterQuery = (inputFilter?: string, roleFilter?: any[]) => {
+    // if(roleFilter && roleFilter.length <= 0)
 
-function UserTable() {
-  const { users, isLoading } = useUsers();
-  if (isLoading) return <Spinner />;
+    if (!inputFilter && !roleFilter) return undefined;
+    const andConditions = [];
+    const orConditions: any[] = [];
+
+    if (inputFilter) {
+      andConditions.push({ first_name: `like:${inputFilter}` });
+      andConditions.push({ last_name: `like:${inputFilter}` });
+      andConditions.push({ email: `like:${inputFilter}` });
+    }
+
+    if (roleFilter && roleFilter?.length > 0) {
+      const selects = roleFilter.filter((r) => r.selected === true);
+      selects.forEach((s) => {
+        orConditions.push({ role: s.item });
+      });
+    }
+
+    return {
+      and: andConditions.length <= 0 ? undefined : andConditions,
+      or: orConditions.length <= 0 ? undefined : orConditions,
+    };
+  };
+
+  const { users, isLoading, error } = useUsers({ filter: filterQuery(inputFilter, roleFilter) });
+
+  if (isLoading)
+    return (
+      <TableBodySimple columnLength={userColumnDefs.length}>
+        <Spinner />
+      </TableBodySimple>
+    );
+
+  if (error)
+    return (
+      <TableBodySimple columnLength={userColumnDefs.length}>
+        <Error>{error.message}</Error>
+      </TableBodySimple>
+    );
 
   // data mapping
   const newData = users.data.map((u: any): User => {
@@ -37,16 +76,11 @@ function UserTable() {
   const userList: ListData<User> = { ...users, data: newData };
 
   return (
-    <TableContainer>
-      <Table>
-        <TableHead columnDefs={userColumnDefs} />
-        <TableBody
-          columnDefs={userColumnDefs}
-          listData={userList}
-        />
-      </Table>
-    </TableContainer>
+    <TableBody
+      columnDefs={userColumnDefs}
+      listData={userList}
+    />
   );
 }
 
-export default UserTable;
+export default UserTableBody;

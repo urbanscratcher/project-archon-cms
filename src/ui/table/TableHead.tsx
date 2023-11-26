@@ -1,14 +1,15 @@
-import { type PropsWithChildren } from 'react';
 import { ColumnDef } from '../../utils/types';
 
 type TableHeadCellProps = {
   head: string;
+  widthPercent: number;
 };
 
-export function TableHeadCell({ head }: TableHeadCellProps) {
+export function TableHeadCell({ head, widthPercent }: TableHeadCellProps) {
   return (
     <th
-      className="
+      style={{ width: `${widthPercent}%` }}
+      className={`
         pl-2
         text-left
         font-medium
@@ -16,7 +17,7 @@ export function TableHeadCell({ head }: TableHeadCellProps) {
         text-zinc-600
         [&:has([role=checkbox])]:pr-0
         [&>[role=checkbox]]:translate-y-[2px]
-      "
+      `}
       colSpan={1}
       scope="col"
     >
@@ -37,6 +38,7 @@ export function TableHead<K>({ columnDefs }: TableHeadProps<K>) {
           <TableHeadCell
             key={`${def.type}_${def.head}`}
             head={def.head}
+            widthPercent={def.widthPercent}
           />
         ))}
       </tr>
