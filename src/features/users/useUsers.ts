@@ -8,7 +8,7 @@ function useUsers(params?: QueryParams) {
     error,
   } = useQuery({
     queryKey: ['users', params],
-    queryFn: () => userApi.getList(params),
+    queryFn: () => (params ? userApi.getList(params) : userApi.getAllList()),
   });
 
   return { isLoading, users, error };

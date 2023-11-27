@@ -7,11 +7,12 @@ import { SignLayout } from './layouts/SignLayout';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Users from './pages/Users';
+import Topics from './pages/Topics';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // staleTime: 60 * 1000,
+      staleTime: 5 * 60 * 1000,
       // refetchInterval: 5 * 60 * 1000,
     },
   },
@@ -43,7 +44,7 @@ function App(): ReactNode {
             />
             <Route
               path="topics"
-              element={<div>/topics</div>}
+              element={<Topics />}
             />
             <Route
               path="insights"

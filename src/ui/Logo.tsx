@@ -1,15 +1,9 @@
-import mainLogo from '../assets/archon-logo.png';
-
 function Logo() {
   console.log('Rendering...');
   return (
-    <div className="flex w-full items-center justify-center gap-1 text-navy-700">
-      <span className="icon-[lucide--landmark] h-10 w-10"></span>
-      <img
-        src={mainLogo}
-        className="w-40 object-contain"
-        alt="logo"
-      />
+    <div className="flex w-full items-center gap-[0.1rem] px-2">
+      <h2 className=" text-3xl font-extrabold text-navy-700">ArchOn.</h2>
+      <p className="tracking-tighter text-navy-700">cms</p>
     </div>
   );
 }

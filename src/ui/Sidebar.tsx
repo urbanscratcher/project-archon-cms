@@ -12,7 +12,7 @@ function SidebarContainer({ children }: PropsWithChildren) {
       flex-col gap-12                  
       overflow-hidden
       px-6
-      py-10
+      py-6
       "
     >
       {children}
@@ -23,10 +23,7 @@ function SidebarContainer({ children }: PropsWithChildren) {
 function Sidebar() {
   return (
     <SidebarContainer>
-      <NavLink
-        to="/dashboard"
-        className={'max-w-full scale-[70%]'}
-      >
+      <NavLink to="/dashboard">
         <Logo />
       </NavLink>
       <MainNav />

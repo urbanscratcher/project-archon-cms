@@ -3,12 +3,13 @@ import Error from '../../ui/Error';
 import Spinner from '../../ui/Spinner';
 import TableBody, { TableBodySimple } from '../../ui/table/TableBody';
 import { type ListData } from '../../utils/types';
+import { SelectOptions } from './UserRoleFilter';
 import useUsers from './useUsers';
 import userColumnDefs from './userColumnDefs';
 
 export type UserTableProps = {
   inputFilter?: string;
-  roleFilter?: any[];
+  roleFilter?: SelectOptions[];
   sorts?: [
     {
       field: string;
@@ -18,10 +19,9 @@ export type UserTableProps = {
 };
 
 function UserTableBody({ sorts, inputFilter, roleFilter }: UserTableProps) {
-  const filterQuery = (inputFilter?: string, roleFilter?: any[]) => {
-    // if(roleFilter && roleFilter.length <= 0)
-
+  const filterQuery = (inputFilter?: string, roleFilter?: SelectOptions[]) => {
     if (!inputFilter && !roleFilter) return undefined;
+
     const andConditions = [];
     const orConditions: any[] = [];
 
@@ -44,7 +44,8 @@ function UserTableBody({ sorts, inputFilter, roleFilter }: UserTableProps) {
     };
   };
 
-  const { users, isLoading, error } = useUsers({ filter: filterQuery(inputFilter, roleFilter) });
+  const queryParams = { filter: filterQuery(inputFilter, roleFilter) };
+  const { users, isLoading, error } = useUsers(queryParams);
 
   if (isLoading)
     return (

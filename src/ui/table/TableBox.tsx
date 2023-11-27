@@ -1,5 +1,11 @@
 import { type PropsWithChildren } from 'react';
 
-export function TableBox({ children }: PropsWithChildren) {
-  return <div className="overflow-x-auto rounded-md border border-zinc-300 ">{children}</div>;
+function TableBox({ children }: PropsWithChildren) {
+  return (
+    <div className="min-w-[64px] max-w-full overflow-scroll rounded-md border border-zinc-300 xl:overflow-visible">
+      {children}
+    </div>
+  );
 }
+
+export default TableBox;

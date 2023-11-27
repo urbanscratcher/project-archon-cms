@@ -10,6 +10,7 @@ export function TableRowCell({ children, index = false }: TableRowCellProps) {
   const style = `p-2
     [&:has([role=checkbox])]:pr-0
     [&>[role=checkbox]]:translate-y-[2px]
+    relative
   `;
 
   if (index) {
@@ -61,7 +62,7 @@ export function TableBodySimple({ children, columnLength }: TableBodySimpleProps
       <TableRow>
         <td
           colSpan={columnLength}
-          className="h-full text-center"
+          className="py-3 text-center"
         >
           {children}
         </td>

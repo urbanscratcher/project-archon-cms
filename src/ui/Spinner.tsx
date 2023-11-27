@@ -6,7 +6,6 @@ function Spinner({ light = false }: SpinnerProps) {
   return (
     <div
       className={`
-        pointer-events-none
         inline-flex
         max-h-5
         items-center

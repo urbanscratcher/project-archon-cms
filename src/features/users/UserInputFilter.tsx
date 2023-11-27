@@ -2,18 +2,17 @@ import { useRef, useState, type ChangeEvent, type KeyboardEvent, useEffect } fro
 import Input from '../../ui/input/Input';
 
 type UserFilterProps = {
-  onSetFilterValue: (value: string) => void;
+  onSetFilter: (value: string) => void;
 };
-function UserInputFilter({ onSetFilterValue }: UserFilterProps) {
+function UserInputFilter({ onSetFilter }: UserFilterProps) {
   const ref = useRef<HTMLInputElement>(null);
   const [filterValue, setFilterValue] = useState('');
   const [prevFilterValues, setPrevFilterValues] = useState<string[]>([]);
   const filterHistoryPointer = useRef(0);
 
   useEffect(() => {
-    const waitInput = setTimeout(() => filterValue && onSetFilterValue(filterValue), 1000);
-
-    return clearTimeout(waitInput);
+    const waitInput = setTimeout(() => filterValue && onSetFilter(filterValue), 500);
+    return () => clearTimeout(waitInput);
   }, [filterValue]);
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,14 +28,13 @@ function UserInputFilter({ onSetFilterValue }: UserFilterProps) {
     if (e.key === 'Enter') {
       // pass value to table for re-render
       if (!filterValue) {
-        onSetFilterValue('');
+        onSetFilter('');
       }
 
       if (filterValue) {
         setPrevFilterValues((prev) => [...prev, filterValue]);
         filterHistoryPointer.current = prevFilterValues.length + 1;
-        setFilterValue('');
-        onSetFilterValue(filterValue);
+        onSetFilter(filterValue);
       }
     }
 

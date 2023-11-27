@@ -8,7 +8,7 @@ export type QueryParams = {
 };
 
 const userApi = {
-  getList: (params: QueryParams | undefined) => {
+  getList: (params: QueryParams) => {
     const baseUri = '/users';
     const paramList = [];
 
@@ -25,6 +25,7 @@ const userApi = {
 
     return request.get(finalUri);
   },
+  getAllList: () => request.get('/users'),
   getDetail: (idx: number) => request.get(`/users/${idx}`),
   delete: (idx: number) => request.delete(`/users/${idx}`),
   update: (idx: number, body: any) => request.patch(`/users/${idx}`, body),

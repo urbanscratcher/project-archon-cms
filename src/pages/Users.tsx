@@ -1,11 +1,11 @@
 import { PropsWithChildren, useState } from 'react';
 import UserInputFilter from '../features/users/UserInputFilter';
-import UserRoleFilter from '../features/users/UserRoleFilter';
+import UserRoleFilter, { SelectOptions } from '../features/users/UserRoleFilter';
 import UserTableBody from '../features/users/UserTable';
 import userColumnDefs from '../features/users/userColumnDefs';
 import MainHeader from '../ui/MainHeader';
 import Table from '../ui/table/Table';
-import { TableBox } from '../ui/table/TableBox';
+import TableBox from '../ui/table/TableBox';
 import { TableHead } from '../ui/table/TableHead';
 
 export type Topic = {
@@ -30,22 +30,29 @@ export function MainLayout({ children }: PropsWithChildren) {
 }
 
 function UserContentLayout({ children }: PropsWithChildren) {
-  return <div className="flex flex-col gap-2">{children}</div>;
+  return (
+    <div
+      id="users-portal"
+      className="relative flex flex-col gap-1"
+    >
+      {children}
+    </div>
+  );
 }
 
 function UserFilterLayout({ children }: PropsWithChildren) {
-  return <div className="flex items-center justify-between">{children}</div>;
+  return <div className="flex flex-wrap items-center justify-between gap-1">{children}</div>;
 }
 
 function Users() {
   const [inputFilter, setInputFilter] = useState('');
-  const [roleFilter, setRoleFilter] = useState('');
+  const [roleFilter, setRoleFilter] = useState<SelectOptions[]>([]);
 
   const onSetInputFilter = (value: string) => {
     setInputFilter(value);
   };
 
-  const onSetRoleFilter = (value: string) => {
+  const onSetRoleFilter = (value: SelectOptions[]) => {
     setRoleFilter(value);
   };
 
@@ -57,7 +64,7 @@ function Users() {
       />
       <UserContentLayout>
         <UserFilterLayout>
-          <UserInputFilter onSetFilterValue={onSetInputFilter} />
+          <UserInputFilter onSetFilter={onSetInputFilter} />
           <UserRoleFilter onSetFilterValue={onSetRoleFilter} />
         </UserFilterLayout>
         <TableBox>

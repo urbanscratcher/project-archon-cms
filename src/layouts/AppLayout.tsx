@@ -7,22 +7,27 @@ function AppLayout() {
   console.log('Rendering...');
 
   return (
-    <div
-      className="
+    <>
+      <div
+        id="portal"
+        className="relative"
+      ></div>
+      <div
+        className="
         grid
         min-h-screen        
-        grid-cols-[18rem_1fr]
+        grid-cols-[18rem_auto]
         grid-rows-[auto_1fr]
-        overflow-hidden
         text-zinc-800
         "
-    >
-      <Sidebar />
-      <Header />
-      <Main>
-        <Outlet />
-      </Main>
-    </div>
+      >
+        <Sidebar />
+        <Header />
+        <Main>
+          <Outlet />
+        </Main>
+      </div>
+    </>
   );
 }
 

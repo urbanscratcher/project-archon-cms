@@ -6,7 +6,9 @@ function Main({ children }: PropsWithChildren) {
       className="
         max-w-[127rem]
         overflow-hidden
-        px-20 pb-24 pt-6
+         pb-24 pt-6
+         xl:px-16
+        2xl:px-40
       "
     >
       {children}

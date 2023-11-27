@@ -2,13 +2,12 @@ import { ColumnDef } from '../../utils/types';
 
 type TableHeadCellProps = {
   head: string;
-  widthPercent: number;
+  width: string;
 };
 
-export function TableHeadCell({ head, widthPercent }: TableHeadCellProps) {
+export function TableHeadCell({ head, width }: TableHeadCellProps) {
   return (
     <th
-      style={{ width: `${widthPercent}%` }}
       className={`
         pl-2
         text-left
@@ -17,6 +16,7 @@ export function TableHeadCell({ head, widthPercent }: TableHeadCellProps) {
         text-zinc-600
         [&:has([role=checkbox])]:pr-0
         [&>[role=checkbox]]:translate-y-[2px]
+        ${width}
       `}
       colSpan={1}
       scope="col"
@@ -38,7 +38,7 @@ export function TableHead<K>({ columnDefs }: TableHeadProps<K>) {
           <TableHeadCell
             key={`${def.type}_${def.head}`}
             head={def.head}
-            widthPercent={def.widthPercent}
+            width={def.width}
           />
         ))}
       </tr>

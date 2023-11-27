@@ -1,55 +1,67 @@
 import { format } from 'date-fns';
+import { type MouseEvent } from 'react';
 import { User } from '../../pages/Users';
-import { ColumnDef } from '../../utils/types';
+import Button from '../../ui/button/Button';
+import { type ColumnDef } from '../../utils/types';
+import UserNameCell from './UserNameCell';
+import UserRoleCell from './UserRoleCell';
+import UserTopicsCell from './UserTopiccCell';
 
 const userColumnDefs: ColumnDef<User>[] = [
   {
     type: 'index',
     head: '',
-    widthPercent: 5,
+    width: 'w-[3%]',
     displayFn: (u) => u.idx,
   },
   {
     type: 'data',
     head: 'name',
-    widthPercent: 20,
+    width: 'w-[19%]',
     displayFn: (u) => (
-      <div className="flex items-center gap-2">
-        <div className="aspect-square w-8 overflow-clip rounded-full">
-          {u?.avatar ? (
-            <img
-              className="w-full object-cover"
-              src={u.avatar}
-              alt="avatar"
-            />
-          ) : (
-            <span className="icon-[lucide--user-circle] h-full w-full text-zinc-300">&nbsp;</span>
-          )}
-        </div>
-        <p className="whitespace-nowrap">
-          {u.firstName} {u.lastName}
-        </p>
-      </div>
+      <UserNameCell
+        avatar={u?.avatar}
+        firstName={u.firstName}
+        lastName={u.lastName}
+      />
     ),
   },
-  { type: 'data', head: 'email', widthPercent: 25, displayFn: (u) => u.email },
-  { type: 'data', head: 'topics', widthPercent: 20, displayFn: (u) => (u?.topics ? u.topics[0].name : '') },
+  {
+    type: 'data',
+    head: 'role',
+    width: 'w-[15%]',
+    displayFn: (u) => (
+      <UserRoleCell
+        userRole={u.role}
+        options={['user', 'admin', 'editor', 'writer']}
+      />
+    ),
+  },
+  { type: 'data', head: 'email', width: 'w-[20%]', displayFn: (u) => u.email },
+  { type: 'data', head: 'topics', width: 'w-[22%]', displayFn: (u) => <UserTopicsCell topics={u?.topics} /> },
   {
     type: 'data',
     head: 'joined at',
-    widthPercent: 15,
+    width: 'w-[13%]',
     displayFn: (u) => <p className="whitespace-nowrap">{format(u.createdAt, 'yyyy-MM-dd')}</p>,
   },
-  { type: 'data', head: 'role', widthPercent: 10, displayFn: (u) => <p className="capitalize">{u.role}</p> },
   {
     type: 'data',
     head: '',
-    widthPercent: 5,
+    width: 'w-[8%]',
     displayFn: (u) => {
+      if (u.role === 'user') return;
+
+      const clickHandler = (e: MouseEvent) => {
+        // TODO: send message
+      };
+
       return (
-        <button className="ml-auto mr-0 flex rounded-md transition-colors hover:bg-zinc-100 active:bg-zinc-200/50">
-          <span className="icon-[lucide--more-vertical] m-2 text-zinc-500"></span>
-        </button>
+        <Button
+          buttonType="muted"
+          buttonFunction="send"
+          onClick={clickHandler}
+        ></Button>
       );
     },
   },
