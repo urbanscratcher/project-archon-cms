@@ -3,7 +3,7 @@ import { User } from '../../pages/Users';
 import { type ColumnDef } from '../../utils/types';
 import UserNameCell from './UserNameCell';
 import UserRoleCell from './UserRoleCell';
-import UserTopicsCell from './UserTopiccCell';
+import UserTopicsCell from './UserTopicsCell';
 
 const userColumnDefs: ColumnDef<User>[] = [
   {

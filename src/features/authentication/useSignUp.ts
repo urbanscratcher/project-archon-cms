@@ -18,7 +18,6 @@ function useSignUp(): SignUpState {
     mutationFn: (signUp: SignUp) => {
       const encrypted = encrypt(signUp.password);
       const sign = { ...signUp, password: encrypted, password_confirm: encrypted };
-      console.log(sign);
       return authApi.signup(sign);
     },
     onSuccess: (data) => {

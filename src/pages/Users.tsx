@@ -78,7 +78,7 @@ function Users() {
     <MainLayout>
       <MainHeader
         title={'users'}
-        desc={'A list of users to be managed (only for admin)'}
+        desc={'A list of users to be managed (only for admins)'}
       />
       <UserContentLayout>
         <UserFilterLayout>

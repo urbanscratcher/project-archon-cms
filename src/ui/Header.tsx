@@ -1,4 +1,4 @@
-import Profile from '../features/Profile';
+import Profile from './Profile';
 import { type PropsWithChildren } from 'react';
 import HeaderMenu from './HeaderMenu';
 

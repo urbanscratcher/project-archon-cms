@@ -3,23 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import useUser from '../hooks/useUser';
 
 type AvatarProps = {
-  url: string;
+  url?: string;
 };
 
-function Avatar({ url }: AvatarProps) {
+export function Avatar({ url }: AvatarProps) {
   const [loaded, setLoaded] = useState(false);
+  const [failedLoad, setFailedLoad] = useState(false);
 
   return (
-    <div className="h-8 w-8 overflow-clip rounded-full">
-      {loaded ? (
+    <div className="h-8 w-8">
+      {!url || failedLoad ? (
+        <span className="icon-[lucide--user-circle] h-full w-full text-zinc-300"></span>
+      ) : (
         <img
-          className={`${loaded ? '' : 'invisible'}`}
-          src={loaded ? url : ''}
+          className={loaded || !failedLoad ? '' : 'invisible'}
+          src={url}
           alt={'user avatar'}
           onLoad={() => setLoaded(true)}
+          onError={() => setFailedLoad(true)}
         />
-      ) : (
-        <span className="icon-[lucide--user-circle] h-full w-full text-zinc-300"></span>
       )}
     </div>
   );

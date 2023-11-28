@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import userApi from '../../services/apiUser';
 
-function useUpdateUsers(body: any) {
+function useUpdateRole(body: any) {
   const { mutate, isPending, error } = useMutation({
     mutationFn: ({ idx, body }: any) => {
       const accessToken = localStorage.getItem('access_token');
@@ -18,4 +18,4 @@ function useUpdateUsers(body: any) {
   return { isPending, mutate, error };
 }
 
-export default useUpdateUsers;
+export default useUpdateRole;

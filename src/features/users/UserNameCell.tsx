@@ -1,3 +1,5 @@
+import { Avatar } from '../../ui/Profile';
+
 type UserNameCellProps = {
   avatar?: string;
   firstName: string;
@@ -8,15 +10,7 @@ function UserNameCell({ avatar, firstName, lastName }: UserNameCellProps) {
   return (
     <div className="flex items-center gap-2">
       <div className="aspect-square w-8 overflow-clip rounded-full">
-        {avatar ? (
-          <img
-            className="w-full object-cover"
-            src={avatar}
-            alt="avatar"
-          />
-        ) : (
-          <span className="icon-[lucide--user-circle] h-full w-full text-zinc-300"></span>
-        )}
+        <Avatar url={avatar} />
       </div>
       <p className="whitespace-nowrap">
         {firstName} {lastName}

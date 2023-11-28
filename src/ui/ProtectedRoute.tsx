@@ -10,14 +10,10 @@ function ProtectedRoute({ children }: PropsWithChildren) {
   const token = localStorage.getItem('access_token') ?? null;
   if (!token) navigate('/signin');
 
-  console.log(token);
-
-  // Load the authed user (or not)
+  // load the authed user
   const { isAuthenticated, isLoading } = useUser(token as string);
-
   useEffect(() => {
-    console.log('ProtectedRoute...', isAuthenticated, isLoading);
-
+    // if not authenticated, redirect to signin
     if (!isAuthenticated && !isLoading) {
       navigate('/signin');
     }
@@ -25,9 +21,9 @@ function ProtectedRoute({ children }: PropsWithChildren) {
 
   // loading state
   if (isLoading) {
+    // page transition
     return (
-      <div className="mx-auto my-auto">
-        <p>Authenticating...</p>
+      <div className="flex min-h-screen w-screen flex-col items-center justify-center gap-2 text-center">
         <Spinner />
       </div>
     );

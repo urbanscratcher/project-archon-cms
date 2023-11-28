@@ -9,10 +9,7 @@ const useUser = (token: string) => {
   // authenticate
   const { data: authenticatedUser, isLoading } = useQuery({
     queryKey: ['user'],
-    queryFn: () => {
-      console.log('GET from API...');
-      return userApi.getMe(token);
-    },
+    queryFn: () => userApi.getMe(token),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
