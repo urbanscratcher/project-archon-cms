@@ -6,8 +6,8 @@ import AppLayout from './layouts/AppLayout';
 import { SignLayout } from './layouts/SignLayout';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import Users from './pages/Users';
 import Topics from './pages/Topics';
+import Users from './pages/Users';
 import ProtectedRoute from './ui/ProtectedRoute';
 
 const queryClient = new QueryClient({

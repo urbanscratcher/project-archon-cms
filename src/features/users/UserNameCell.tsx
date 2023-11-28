@@ -15,7 +15,7 @@ function UserNameCell({ avatar, firstName, lastName }: UserNameCellProps) {
             alt="avatar"
           />
         ) : (
-          <span className="icon-[lucide--user-circle] h-full w-full text-zinc-300">&nbsp;</span>
+          <span className="icon-[lucide--user-circle] h-full w-full text-zinc-300"></span>
         )}
       </div>
       <p className="whitespace-nowrap">

@@ -30,6 +30,7 @@ const userColumnDefs: ColumnDef<User>[] = [
     width: 'w-[12%]',
     displayFn: (u) => (
       <UserRoleCell
+        idx={u.idx}
         userRole={u.role}
         options={['user', 'admin', 'editor', 'writer']}
       />

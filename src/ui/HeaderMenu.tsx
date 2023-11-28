@@ -1,24 +1,28 @@
 import { ReactNode } from 'react';
-import IconBtn from './button/IconBtn';
+import useSignOut from '../hooks/useSignOut';
+import Button from './button/Button';
 
 function HeaderMenu(): ReactNode {
+  const onSignOut = useSignOut();
   return (
-    <ul className="flex gap-1">
+    <ul className="flex scale-125">
       <li>
-        <IconBtn
-          icon="icon-[lucide--moon]"
-          onClick={() => {
-            console.log('click');
-          }}
-        />
+        <Button
+          buttonType="borderless"
+          size="icon"
+          onClick={() => {}}
+        >
+          <span className="icon-[lucide--moon]" />
+        </Button>
       </li>
       <li>
-        <IconBtn
-          icon="icon-[lucide--log-out]"
-          onClick={() => {
-            console.log('click');
-          }}
-        />
+        <Button
+          buttonType="borderless"
+          size="icon"
+          onClick={onSignOut}
+        >
+          <span className="icon-[lucide--log-out]" />
+        </Button>
       </li>
     </ul>
   );

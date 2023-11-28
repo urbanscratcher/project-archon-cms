@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { SignIn } from '../../models/User';
 import authApi from '../../services/apiAuth';
@@ -11,7 +11,6 @@ export type LoginState = {
 };
 
 function useSignIn(): LoginState {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { mutateAsync, isPending, error } = useMutation({
@@ -20,7 +19,7 @@ function useSignIn(): LoginState {
       return authApi.signin({ email, password: encrypted });
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(['user'], data);
+      localStorage.setItem('access_token', data.access_token);
       navigate('/dashboard', { replace: true });
     },
     onError: (err) => {

@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
 import { type User } from '../../pages/Users';
 import Error from '../../ui/Error';
 import Spinner from '../../ui/Spinner';
 import TableBody, { TableBodySimple } from '../../ui/table/TableBody';
-import { type ListData } from '../../utils/types';
 import { SelectOptions } from './UserRoleFilter';
 import useUsers from './useUsers';
 import userColumnDefs from './userColumnDefs';
@@ -66,30 +66,38 @@ function UserTableBody({ sorts, inputFilter, roleFilter, offset, limit, onSetTot
     );
 
   // data passing
-  if (users) {
-    onSetTotal(users.total);
-  }
+  onSetTotal(users.total);
 
   // data mapping
-  const newData = users.data.map((u: any): User => {
-    return {
-      idx: u.idx,
-      firstName: u.first_name,
-      lastName: u.last_name,
-      email: u.email,
-      role: u.role,
-      avatar: u.avatar,
-      topics: u.topics,
-      createdAt: new Date(u.created_at),
-    };
-  });
-  const userList: ListData<User> = { ...users, data: newData };
+  let newData;
+  let userList = [];
+
+  if (users?.data) {
+    newData = users.data.map((u: any): User => {
+      return {
+        idx: u.idx,
+        firstName: u.first_name,
+        lastName: u.last_name,
+        email: u.email,
+        role: u.role,
+        avatar: u.avatar,
+        topics: u.topics,
+        createdAt: new Date(u.created_at),
+      };
+    });
+    userList = { ...users, data: newData };
+  }
+  console.log('data mapping done!');
 
   return (
-    <TableBody
-      columnDefs={userColumnDefs}
-      listData={userList}
-    />
+    <>
+      {users && (
+        <TableBody
+          columnDefs={userColumnDefs}
+          listData={userList}
+        />
+      )}
+    </>
   );
 }
 

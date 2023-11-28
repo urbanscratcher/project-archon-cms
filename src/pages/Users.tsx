@@ -50,10 +50,12 @@ function Users() {
   const [roleFilter, setRoleFilter] = useState<SelectOptions[]>([]);
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(5);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState<number>(0);
 
   const onSetTotal = (total: number) => {
-    setTotal(total);
+    if (total !== null || total !== undefined) {
+      setTotal(total);
+    }
   };
 
   const onSetInputFilter = (value: string) => {

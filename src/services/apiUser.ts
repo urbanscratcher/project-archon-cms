@@ -31,18 +31,13 @@ const userApi = {
 
     const finalUri = paramList.length > 0 ? baseUri + '?' + paramList.join('&') : baseUri;
 
-    return request.get(finalUri);
+    return request().get(finalUri);
   },
-  getAllList: () => request.get('/users'),
-  getDetail: (idx: number) => request.get(`/users/${idx}`),
-  delete: (idx: number) => request.delete(`/users/${idx}`),
-  update: (idx: number, body: any) => request.patch(`/users/${idx}`, body),
+  getAllList: () => request().get('/users'),
+  getDetail: (idx: number) => request().get(`/users/${idx}`),
+  delete: (idx: number) => request().delete(`/users/${idx}`),
+  update: (idx: number, body: any, accessToken: string) => request(accessToken).patch(`/users/${idx}`, body),
+  getMe: (accessToken: string) => request(accessToken).get('/me'),
 };
-
-// const users = {
-//   list: () => request.get<User[]>('/users'),
-//   details: (id: string) => request.get<User>(`/users/${id}`),
-//   create: (data: User) => request.post<User>('/users', data),
-// };
 
 export default userApi;

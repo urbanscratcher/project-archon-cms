@@ -9,7 +9,7 @@ function HeaderContainer({ children }: PropsWithChildren) {
       h-16 items-center
       justify-end
       gap-8 overflow-hidden
-      px-6
+      px-8      
       backdrop-blur-md
       "
     >

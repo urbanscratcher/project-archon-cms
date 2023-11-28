@@ -1,8 +1,9 @@
 type SpinnerProps = {
   light?: boolean;
+  withText?: boolean;
 };
 
-function Spinner({ light = false }: SpinnerProps) {
+function Spinner({ light = false, withText = true }: SpinnerProps) {
   return (
     <div
       className={`
@@ -26,7 +27,7 @@ function Spinner({ light = false }: SpinnerProps) {
         role="status"
         aria-label="loading"
       ></div>
-      <p>Loading...</p>
+      {withText ? <p>Loading...</p> : null}
     </div>
   );
 }

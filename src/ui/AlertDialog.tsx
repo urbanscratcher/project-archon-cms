@@ -1,20 +1,28 @@
 import { useState } from 'react';
-import Button from '../ui/button/Button';
 import { createPortal } from 'react-dom';
+import Button from '../ui/button/Button';
 
 type AlertDialogProps = {
-  isShown: boolean;
   title: string;
   description: string;
   onContinue: () => void;
+  onCancel: () => void;
 };
 
-function AlertDialog({ isShown, title, description, onContinue }: AlertDialogProps) {
-  const [show, setShow] = useState(isShown);
+function AlertDialog({ title, description, onContinue, onCancel }: AlertDialogProps) {
+  console.log('Rendering...');
+
+  const [show, setShow] = useState(true);
 
   if (!show) return null;
 
   const onClickCancel = () => {
+    onCancel();
+    setShow(false);
+  };
+
+  const onClickContinue = () => {
+    onContinue();
     setShow(false);
   };
 
@@ -42,7 +50,7 @@ function AlertDialog({ isShown, title, description, onContinue }: AlertDialogPro
           <Button
             size="sm"
             buttonType="primary"
-            onClick={onContinue}
+            onClick={onClickContinue}
           >
             Continue
           </Button>
