@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react';
-import Logo from './Logo';
-import MainNav from './SidebarMenu';
+import Logo from '../../ui/Logo';
+import MainNav from '../../ui/SidebarMenu';
 import { NavLink } from 'react-router-dom';
 
 function SidebarContainer({ children }: PropsWithChildren) {

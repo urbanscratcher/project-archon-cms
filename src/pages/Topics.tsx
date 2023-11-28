@@ -1,14 +1,13 @@
-import { useMutation, useQuery, QueryClient, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRef, useState } from 'react';
 import topicApi from '../services/apiTopic';
 import Error from '../ui/Error';
 import MainHeader from '../ui/MainHeader';
 import Button from '../ui/button/Button';
+import AlertDialog from '../ui/dialog/AlertDialog';
 import Dialog from '../ui/dialog/Dialog';
 import Input from '../ui/input/Input';
 import { MainLayout } from './Users';
-import { set } from 'lodash';
-import AlertDialog from '../ui/dialog/AlertDialog';
 
 type Topic = {
   idx: number;

@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import Header from '../ui/Header';
+import Header from '../pages/organisms/Header';
 import Main from '../ui/Main';
-import Sidebar from '../ui/Sidebar';
+import Sidebar from '../pages/organisms/Sidebar';
 
 function AppLayout() {
   console.log('Rendering...');

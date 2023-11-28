@@ -1,4 +1,4 @@
-import { Avatar } from '../../ui/Profile';
+import { Avatar } from '../../layouts/SignLayout';
 
 type UserNameCellProps = {
   avatar?: string;

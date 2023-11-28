@@ -1,6 +1,6 @@
-import Profile from './Profile';
+import Profile from '../../ui/Profile';
 import { type PropsWithChildren } from 'react';
-import HeaderMenu from './HeaderMenu';
+import HeaderMenu from '../../ui/HeaderMenu';
 
 function HeaderContainer({ children }: PropsWithChildren) {
   return (
