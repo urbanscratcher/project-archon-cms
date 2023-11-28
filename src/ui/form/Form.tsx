@@ -15,7 +15,7 @@ function Form({ type = FormType.REGULAR, onSubmit, children }: FormProps) {
   return (
     <form
       onSubmit={onSubmit}
-      className={`overflow-hidden rounded-xl border border-solid border-zinc-200 px-7 py-8 shadow-sm`}
+      className={`overflow-hidden rounded-xl border border-solid border-zinc-200 px-7 py-8 shadow-sm `}
     >
       {children}
     </form>

@@ -49,16 +49,8 @@ function SidebarMenu() {
         text="insights"
       />
       <SidebarMenuItem
-        icon="icon-[lucide--book-marked]"
-        text="covers"
-      />
-      <SidebarMenuItem
-        icon="icon-[lucide--settings]"
-        text="setting"
-      />
-      <SidebarMenuItem
         icon="icon-[lucide--user-circle-2]"
-        text="account"
+        text="Profile"
       />
     </ul>
   );

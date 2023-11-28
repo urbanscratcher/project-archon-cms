@@ -1,4 +1,3 @@
-import AlertDialog from '../ui/AlertDialog';
 function Topics() {
   return <div></div>;
 }

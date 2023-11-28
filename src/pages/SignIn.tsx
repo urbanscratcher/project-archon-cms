@@ -28,7 +28,8 @@ function SignIn() {
       password: pwInput.current?.value,
     };
 
-    signIn(formData);
+    const a = await signIn(formData);
+    console.log(a);
   };
 
   return (

@@ -13,7 +13,7 @@ export function TableHeadCell({ head, width }: TableHeadCellProps) {
         text-left
         font-medium
         capitalize
-        text-zinc-600
+        text-zinc-500
         [&:has([role=checkbox])]:pr-0
         [&>[role=checkbox]]:translate-y-[2px]
         ${width}

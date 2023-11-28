@@ -5,7 +5,7 @@ import DropdownMenuContainer from '../../ui/dropdown/DropdownMenuContainer';
 import DropdownOptions from '../../ui/dropdown/DropdownMenuItemOptions';
 
 type UserRoleFilterProps = {
-  onSetFilterValue: (val: any) => void;
+  onSetFilter: (val: any) => void;
 };
 
 export type SelectOptions = {
@@ -13,7 +13,7 @@ export type SelectOptions = {
   selected: boolean;
 };
 
-function UserRoleFilter({ onSetFilterValue }: UserRoleFilterProps) {
+function UserRoleFilter({ onSetFilter }: UserRoleFilterProps) {
   const [closed, setClosed] = useState(true);
   const [options, setOptions] = useState<SelectOptions[]>([
     { item: 'user', selected: true },
@@ -23,7 +23,7 @@ function UserRoleFilter({ onSetFilterValue }: UserRoleFilterProps) {
   ]);
 
   useEffect(() => {
-    onSetFilterValue(options);
+    onSetFilter(options);
   }, [options]);
 
   const onSetMenuItem = (menuItem: SelectOptions) => {

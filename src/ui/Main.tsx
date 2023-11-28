@@ -4,9 +4,10 @@ function Main({ children }: PropsWithChildren) {
   return (
     <main
       className="
+        h-full
         max-w-[127rem]
         overflow-hidden
-         pb-24 pt-6
+         pb-10 pt-6
          xl:px-16
         2xl:px-40
       "

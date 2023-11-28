@@ -8,15 +8,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       {...props}
       ref={ref}
       className={`
-        input:bg-white        
         w-full
         rounded-lg
         border
         border-solid
-        border-zinc-300
-        px-4
+        border-zinc-300        
+        px-4        
         py-2
-        shadow-sm ${props.className}`}
+        shadow-sm
+        ${props.className ?? ''}`}
     />
   );
 });

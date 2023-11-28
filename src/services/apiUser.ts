@@ -21,6 +21,14 @@ const userApi = {
     //   params.push(`sorts=${sorts}`);
     // }
 
+    if (params?.offset) {
+      paramList.push(`offset=${params.offset}`);
+    }
+
+    if (params?.limit) {
+      paramList.push(`limit=${params.limit}`);
+    }
+
     const finalUri = paramList.length > 0 ? baseUri + '?' + paramList.join('&') : baseUri;
 
     return request.get(finalUri);

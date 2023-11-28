@@ -4,6 +4,7 @@ import UserRoleFilter, { SelectOptions } from '../features/users/UserRoleFilter'
 import UserTableBody from '../features/users/UserTable';
 import userColumnDefs from '../features/users/userColumnDefs';
 import MainHeader from '../ui/MainHeader';
+import Pagination from '../ui/Pagination';
 import Table from '../ui/table/Table';
 import TableBox from '../ui/table/TableBox';
 import { TableHead } from '../ui/table/TableHead';
@@ -33,7 +34,7 @@ function UserContentLayout({ children }: PropsWithChildren) {
   return (
     <div
       id="users-portal"
-      className="relative flex flex-col gap-1"
+      className="relative flex flex-col gap-4"
     >
       {children}
     </div>
@@ -47,6 +48,13 @@ function UserFilterLayout({ children }: PropsWithChildren) {
 function Users() {
   const [inputFilter, setInputFilter] = useState('');
   const [roleFilter, setRoleFilter] = useState<SelectOptions[]>([]);
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [total, setTotal] = useState(0);
+
+  const onSetTotal = (total: number) => {
+    setTotal(total);
+  };
 
   const onSetInputFilter = (value: string) => {
     setInputFilter(value);
@@ -54,6 +62,14 @@ function Users() {
 
   const onSetRoleFilter = (value: SelectOptions[]) => {
     setRoleFilter(value);
+  };
+
+  const onSetLimit = (value: number) => {
+    setLimit(value);
+  };
+
+  const onSetOffset = (value: number) => {
+    setOffset(value);
   };
 
   return (
@@ -65,7 +81,7 @@ function Users() {
       <UserContentLayout>
         <UserFilterLayout>
           <UserInputFilter onSetFilter={onSetInputFilter} />
-          <UserRoleFilter onSetFilterValue={onSetRoleFilter} />
+          <UserRoleFilter onSetFilter={onSetRoleFilter} />
         </UserFilterLayout>
         <TableBox>
           <Table>
@@ -73,9 +89,19 @@ function Users() {
             <UserTableBody
               inputFilter={inputFilter}
               roleFilter={roleFilter}
+              offset={offset}
+              limit={limit}
+              onSetTotal={onSetTotal}
             />
           </Table>
         </TableBox>
+        <Pagination
+          offset={offset}
+          limit={limit}
+          total={total}
+          onSetLimit={onSetLimit}
+          onSetOffset={onSetOffset}
+        />
       </UserContentLayout>
     </MainLayout>
   );

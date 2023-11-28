@@ -30,7 +30,7 @@ function EmailInput({ inputRef, onSetIsError }: InputProps) {
         <Input
           type="email"
           id="email"
-          autoComplete="username"
+          autoComplete="email"
           value={email}
           onChange={changeHandler}
           disabled={false}

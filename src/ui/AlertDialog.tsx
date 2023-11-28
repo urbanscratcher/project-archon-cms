@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from './button/Button';
+import Button from '../ui/button/Button';
 import { createPortal } from 'react-dom';
 
 type AlertDialogProps = {
@@ -49,7 +49,7 @@ function AlertDialog({ isShown, title, description, onContinue }: AlertDialogPro
         </div>
       </div>
       {createPortal(
-        <div className="min-w-screen absolute min-h-screen w-full bg-zinc-700/50"></div>,
+        <div className="min-w-screen absolute z-40 min-h-screen w-full bg-zinc-50/30 backdrop-blur-md"></div>,
         document.getElementById('portal') as HTMLElement,
       )}
     </>

@@ -8,6 +8,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Users from './pages/Users';
 import Topics from './pages/Topics';
+import ProtectedRoute from './ui/ProtectedRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,7 +25,13 @@ function App(): ReactNode {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route
               index
               element={
@@ -51,16 +58,8 @@ function App(): ReactNode {
               element={<div>/insights</div>}
             />
             <Route
-              path="covers"
-              element={<div>/covers</div>}
-            />
-            <Route
-              path="setting"
-              element={<div>/settings</div>}
-            />
-            <Route
-              path="account"
-              element={<div>/account</div>}
+              path="profile"
+              element={<div>/profile</div>}
             />
           </Route>
           <Route element={<SignLayout />}>

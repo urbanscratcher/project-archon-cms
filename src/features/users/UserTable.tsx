@@ -16,9 +16,12 @@ export type UserTableProps = {
       descending?: boolean;
     },
   ];
+  offset?: number;
+  limit?: number;
+  onSetTotal: (total: number) => void;
 };
 
-function UserTableBody({ sorts, inputFilter, roleFilter }: UserTableProps) {
+function UserTableBody({ sorts, inputFilter, roleFilter, offset, limit, onSetTotal }: UserTableProps) {
   const filterQuery = (inputFilter?: string, roleFilter?: SelectOptions[]) => {
     if (!inputFilter && !roleFilter) return undefined;
 
@@ -44,7 +47,8 @@ function UserTableBody({ sorts, inputFilter, roleFilter }: UserTableProps) {
     };
   };
 
-  const queryParams = { filter: filterQuery(inputFilter, roleFilter) };
+  const queryParams = { filter: filterQuery(inputFilter, roleFilter), offset: offset, limit: limit };
+
   const { users, isLoading, error } = useUsers(queryParams);
 
   if (isLoading)
@@ -60,6 +64,11 @@ function UserTableBody({ sorts, inputFilter, roleFilter }: UserTableProps) {
         <Error>{error.message}</Error>
       </TableBodySimple>
     );
+
+  // data passing
+  if (users) {
+    onSetTotal(users.total);
+  }
 
   // data mapping
   const newData = users.data.map((u: any): User => {

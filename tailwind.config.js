@@ -1,11 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 
 import { addDynamicIconSelectors } from '@iconify/tailwind';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         navy: {
           50: '#eff6ff',
