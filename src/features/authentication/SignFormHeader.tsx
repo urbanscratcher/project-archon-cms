@@ -1,17 +1,15 @@
-import { ReactNode } from 'react';
+import { type PropsWithChildren } from 'react';
 
-type SignFormHeader = {
-  title: string;
-  description: string | ReactNode;
-};
-
-function SignFormHeader({ title, description }: SignFormHeader) {
-  return (
-    <div className="mb-4 flex flex-col">
-      <h2>{title}</h2>
-      <div className="inline-flex items-center gap-1 text-zinc-500">{description}</div>
-    </div>
-  );
+function SignForm({ children }: PropsWithChildren) {
+  return <div className="mb-4 flex flex-col">{children}</div>;
 }
 
-export default SignFormHeader;
+SignForm.Title = function Title({ children }: PropsWithChildren) {
+  return <h2>{children}</h2>;
+};
+
+SignForm.Description = function Description({ children }: PropsWithChildren) {
+  return <div className="inline-flex items-center gap-1 text-zinc-500">{children}</div>;
+};
+
+export default SignForm;

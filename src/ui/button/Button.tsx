@@ -46,6 +46,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
         className={`
+        w-full
         whitespace-nowrap
         text-center
         font-normal

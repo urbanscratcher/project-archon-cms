@@ -1,27 +1,18 @@
 import { useState, type ChangeEvent } from 'react';
+import checkValidValue from '../../hooks/useZodValidation';
 import { EmailSchema } from '../../models/User';
+import { useSigninStore } from '../../store';
 import Input from '../../ui/input/Input';
 import { InputProps } from './InputProps';
 
-function EmailInput({ inputRef, onSetIsError }: InputProps) {
-  console.log('Rendering...');
-
+function EmailInput({ inputRef }: InputProps) {
   const [email, setEmail] = useState('');
-  const [err, setErr] = useState('');
+  const { setEmailError } = useSigninStore();
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
-
-    const result = EmailSchema.safeParse({ email: e.target.value });
-    if (!result.success) {
-      const formattedErr = result.error.format();
-      const emailErr = formattedErr?.email?._errors[0];
-      emailErr && setErr(emailErr);
-      onSetIsError(true);
-    } else {
-      setErr('');
-      onSetIsError(false);
-    }
+    const error = checkValidValue({ email: e.target.value }, EmailSchema);
+    error ? setEmailError(error) : setEmailError('');
   };
 
   return (
@@ -36,13 +27,6 @@ function EmailInput({ inputRef, onSetIsError }: InputProps) {
           disabled={false}
           ref={inputRef}
         />
-        <div
-          className={`absolute right-1 top-1/2 translate-y-[-50%] bg-white px-3 text-sm leading-6 text-zinc-400 transition-all ${
-            err ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          {err}
-        </div>
       </div>
     </>
   );

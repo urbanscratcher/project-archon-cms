@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 import topicApi from '../services/apiTopic';
-import Error from '../ui/Error';
+import Error from './Error';
 import MainHeader from '../ui/MainHeader';
 import Button from '../ui/button/Button';
 import AlertDialog from '../ui/dialog/AlertDialog';
@@ -92,10 +92,6 @@ function Topics() {
   const clickDeleteHandler = (e, t) => {
     setShowDeleteDialog(true);
     setDeleteIdx(t.idx);
-  };
-
-  const onClickCreate = () => {
-    // createMutate(createInputRef.current!.value);
   };
 
   return (

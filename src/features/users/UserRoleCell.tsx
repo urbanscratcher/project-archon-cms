@@ -1,6 +1,6 @@
 import { useState, type FocusEvent, useEffect } from 'react';
 import AlertDialog from '../../ui/dialog/AlertDialog';
-import Error from '../../ui/Error';
+import Error from '../../pages/Error';
 import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
 import DropdownMenuBox from '../../ui/dropdown/DropdownMenuBox';

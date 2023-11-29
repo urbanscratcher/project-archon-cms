@@ -1,28 +1,19 @@
-import { useState, type SyntheticEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
+import checkValidValue from '../../hooks/useZodValidation';
 import { PasswordSchema } from '../../models/User';
+import { useSigninStore } from '../../store';
 import Input from '../../ui/input/Input';
 import { InputProps } from './InputProps';
 
-function PasswordInput({ inputRef, onSetIsError }: InputProps) {
-  console.log('Rendering...');
-
+function PasswordInput({ inputRef }: InputProps) {
   const [password, setPassword] = useState('');
-  const [err, setErr] = useState('');
+  const { setPasswordError } = useSigninStore();
 
-  const changeHandler = (e: SyntheticEvent): void => {
-    const currentTarget = e.target as HTMLInputElement;
-    setPassword(currentTarget.value);
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+    setPassword(e.target.value);
 
-    const result = PasswordSchema.safeParse({ password: currentTarget.value });
-    if (!result.success) {
-      const formattedErr = result.error.format();
-      const passwordErr = formattedErr?.password?._errors[0];
-      passwordErr && setErr(passwordErr);
-      onSetIsError(true);
-    } else {
-      setErr('');
-      onSetIsError(false);
-    }
+    const error = checkValidValue({ password: e.target.value }, PasswordSchema);
+    error ? setPasswordError(error) : setPasswordError('');
   };
 
   return (
@@ -37,13 +28,6 @@ function PasswordInput({ inputRef, onSetIsError }: InputProps) {
           disabled={false}
           ref={inputRef}
         />
-        <div
-          className={`absolute right-1 top-1/2 translate-y-[-50%] bg-white px-3 text-sm leading-6 text-zinc-400 transition-all ${
-            err ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          {err}
-        </div>
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import useSignOut from '../hooks/useSignOut';
+import useSignOut from '../features/authentication/useSignOut';
 import Button from './button/Button';
 
 function HeaderMenu(): ReactNode {

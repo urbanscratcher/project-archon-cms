@@ -43,9 +43,9 @@
 - 원격 상태 관리: Tanstack React Query
 - UI 상태 관리:
   - Context API
-  - Redux Toolkit
+  - Zustand
 - 폼 관리: React Hook Form
-- 타입 체크: Zod
+- 타입 체크: Zod (w/ hookform/resolvers)
 - 아이콘: Iconify (icon set: Lucide)
 - 날짜: Date-fns
 - 서버 통신: Axios

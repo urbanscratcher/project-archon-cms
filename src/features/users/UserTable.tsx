@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { type User } from '../../pages/Users';
-import Error from '../../ui/Error';
+import Error from '../../pages/Error';
 import Spinner from '../../ui/Spinner';
 import TableBody, { TableBodySimple } from '../../ui/table/TableBody';
 import { SelectOptions } from './UserRoleFilter';
