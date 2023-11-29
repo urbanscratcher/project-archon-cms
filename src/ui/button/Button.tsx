@@ -16,7 +16,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         case 'sm':
           return 'px-4 py-2 text-sm rounded-md';
         case 'md':
-          return 'px-3 py-3 text-md rounded-lg';
+          return 'px-5 py-3 text-md rounded-lg';
         case 'lg':
           return 'px-5 py-10 text-lg rounded-lg';
         case 'icon':

@@ -8,6 +8,7 @@ import AlertDialog from '../ui/dialog/AlertDialog';
 import Dialog from '../ui/dialog/Dialog';
 import Input from '../ui/input/Input';
 import { MainLayout } from './Users';
+import CreateTopic from '../features/topics/CreateTopic';
 
 type Topic = {
   idx: number;
@@ -26,6 +27,7 @@ function Topics() {
 
   const queryClient = useQueryClient();
   const inputRef = useRef(null);
+  const createInputRef = useRef<HTMLInputElement>(null);
 
   const token = localStorage.getItem('access_token') ?? '';
 
@@ -92,6 +94,10 @@ function Topics() {
     setDeleteIdx(t.idx);
   };
 
+  const onClickCreate = () => {
+    // createMutate(createInputRef.current!.value);
+  };
+
   return (
     <>
       {showEditDialog && (
@@ -128,11 +134,15 @@ function Topics() {
           title="Topics"
           desc="A list of topics to be managed (only for admins, editors)"
         />
-        <ul className="flex flex-col gap-2">
+        <CreateTopic
+          token={token}
+          queryClient={queryClient}
+        />
+        <ul className="flex max-w-sm flex-col gap-2 ">
           {data.data.map((t: Topic) => (
             <li
               key={t.name}
-              className="flex max-w-sm justify-between gap-2"
+              className="flex justify-between gap-2"
             >
               <h4 className="capitalize">{t.name}</h4>
               <div className="flex">

@@ -61,3 +61,14 @@
   - shadcn/ui가 베이스로 한 Radix라는 헤드리스 UI를 알게 되었고, 원래의 매거진 사이트는 이미 디자인 시스템을 만들어 둔 터라 이걸 적용해 볼 것 같다.
   - 헤드리스 UI 라이브러리들의 문서를 보면 유연해서 좋기도 하지만, 컴포넌트 컴포짓 패턴에도 많은 공부가 되었다.
   - 드롭다운, 테이블은 여러 시나리오에서 잘 보이도록 개발하기가 생각보다 빡쎄다..
+
+## 참고 자료
+
+- Udemy - The Ultimate React Course 2024: React, Redux & More
+  (https://www.udemy.com/course/the-ultimate-react-course)
+- Udemy - React Query : React로 서버 상태 관리하기(https://www.udemy.com/course/react-query-react)
+- Udemy -
+  React 완벽 가이드 with Redux, Next.js, TypeScript(https://www.udemy.com/course/best-react)
+- Udemy - React & TypeScript - The Practical Guide
+  (https://www.udemy.com/course/react-typescript-the-practical-guide)
+- Useful Custom hooks by Web Dev Simplified(https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main)
