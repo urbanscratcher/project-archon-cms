@@ -1,25 +1,26 @@
+import { type PropsWithChildren } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocalStorage } from '../hooks/useStorage';
 import useUser from '../hooks/useUser';
 import { Avatar } from './Avatar';
 
-function Profile() {
+export default function Profile() {
   console.log('Rendering...');
 
   const navigate = useNavigate();
-  const token = localStorage.getItem('access_token');
-  if (!token) {
-    navigate('/signin');
-  }
-  const { user } = useUser(token as string);
+  const [value, setValue] = useLocalStorage('access_token', '');
+  if (!value) navigate('/signin');
+
+  const { user } = useUser(value as string);
 
   return (
-    <div className="flex items-center gap-3">
+    <Profile.Container>
       <Avatar url={user.avatar} />
-      <p>
-        {user.first_name} {user.last_name}
-      </p>
-    </div>
+      {user.first_name} {user.last_name}
+    </Profile.Container>
   );
 }
 
-export default Profile;
+Profile.Container = function Container({ children }: PropsWithChildren) {
+  return <div className="flex items-center gap-3">{children}</div>;
+};

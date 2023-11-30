@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 import checkValidValue from '../../hooks/useZodValidation';
 import { PasswordSchema } from '../../models/User';
-import { useSigninStore } from '../../store';
-import Input from '../../ui/input/Input';
+import Input from '../../ui/Input';
 import { InputProps } from './InputProps';
+import { useSignInStore } from './signInStore';
 
 function PasswordInput({ inputRef }: InputProps) {
   const [password, setPassword] = useState('');
-  const { setPasswordError } = useSigninStore();
+  const { setPasswordError } = useSignInStore();
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setPassword(e.target.value);

@@ -1,5 +1,4 @@
 import { ComponentPropsWithoutRef, PropsWithChildren, type ReactNode } from 'react';
-import { FormLabel } from './FormLabel';
 
 type FormRowProps = {
   label?: string;
@@ -45,7 +44,7 @@ Form.RowVertical = function RowVertical({ label, error, children }: FormRowProps
 Form.RowHorizontal = function RowHorizontal({ label, error, children }: FormRowProps) {
   return (
     <div className="flex gap-2">
-      {label && <FormLabel>{label}</FormLabel>}
+      {label && <Form.Label>{label}</Form.Label>}
       {children}
     </div>
   );

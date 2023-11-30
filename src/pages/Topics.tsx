@@ -6,7 +6,7 @@ import MainHeader from '../ui/MainHeader';
 import Button from '../ui/button/Button';
 import AlertDialog from '../ui/dialog/AlertDialog';
 import Dialog from '../ui/dialog/Dialog';
-import Input from '../ui/input/Input';
+import Input from '../ui/Input';
 import { MainLayout } from './Users';
 import CreateTopic from '../features/topics/CreateTopic';
 

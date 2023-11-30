@@ -1,5 +1,5 @@
 import { useRef, useState, type ChangeEvent, type KeyboardEvent, useEffect } from 'react';
-import Input from '../../ui/input/Input';
+import Input from '../../ui/Input';
 
 type UserFilterProps = {
   onSetFilter: (value: string) => void;

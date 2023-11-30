@@ -1,13 +1,13 @@
 import { useState, type ChangeEvent } from 'react';
 import checkValidValue from '../../hooks/useZodValidation';
 import { EmailSchema } from '../../models/User';
-import { useSigninStore } from '../../store';
-import Input from '../../ui/input/Input';
+import Input from '../../ui/Input';
 import { InputProps } from './InputProps';
+import { useSignInStore } from './signInStore';
 
 function EmailInput({ inputRef }: InputProps) {
   const [email, setEmail] = useState('');
-  const { setEmailError } = useSigninStore();
+  const { setEmailError } = useSignInStore();
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);

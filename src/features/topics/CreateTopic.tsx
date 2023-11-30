@@ -3,7 +3,7 @@ import { type FormEvent, useRef } from 'react';
 import topicApi from '../../services/apiTopic';
 import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
-import Input from '../../ui/input/Input';
+import Input from '../../ui/Input';
 
 function CreateTopic({ token, queryClient }: any) {
   const ref = useRef<HTMLInputElement>(null);

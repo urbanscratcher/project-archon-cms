@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react';
 
 type ButtonProps = {
   size?: 'sm' | 'md' | 'lg' | 'icon';
-  buttonType?: 'primary' | 'dropdown' | 'borderless' | 'muted';
+  buttonType?: 'primary' | 'dropdown' | 'borderless' | 'muted' | 'muted-icon';
   buttonFunction?: 'delete' | 'hamburger-vertical' | 'send';
   disabled?: boolean;
   children?: ReactNode;
@@ -13,14 +13,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ size, buttonType, disabled = false, buttonFunction, children, ...props }, ref) => {
     const getSize = (size: string): string => {
       switch (size) {
+        case 'icon':
+          return 'px-1 py-1 text-md rounded-md';
         case 'sm':
           return 'px-4 py-2 text-sm rounded-md';
         case 'md':
           return 'px-5 py-3 text-md rounded-lg';
         case 'lg':
           return 'px-5 py-10 text-lg rounded-lg';
-        case 'icon':
-          return 'h-8 w-8 items-center justify-center text-sm p-0 flex';
         default:
           return '';
       }
@@ -33,9 +33,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         case 'dropdown':
           return 'border border-zinc-300 bg-white hover:bg-zinc-50 inline-flex items-center justify-center font-medium active:bg-zinc-100 h-10 gap-1  shadow-sm';
         case 'borderless':
-          return 'ml-auto mr-0 flex rounded-md  hover:bg-zinc-100 active:bg-zinc-200/50';
+          return 'flex rounded-md  hover:bg-zinc-100 active:bg-zinc-200/50 items-center justify-center';
         case 'muted':
           return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm';
+        case 'muted-icon':
+          return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm h-8 w-8 items-center justify-center text-sm flex';
         default:
           return '';
       }
@@ -46,14 +48,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
         className={`
-        w-full
-        whitespace-nowrap
-        text-center
-        font-normal
-        capitalize
-        transition-colors
-        disabled:pointer-events-none
-        disabled:opacity-50 
+          w-full
+          whitespace-nowrap
+          text-center
+          font-normal
+          capitalize
+          transition-colors
+          disabled:pointer-events-none
+          disabled:opacity-50 
         ${size && getSize(size)} ${buttonType && getType(buttonType)}
       `}
         disabled={disabled}

@@ -1,8 +1,21 @@
-import Profile from '../../ui/Profile';
 import { type PropsWithChildren } from 'react';
-import HeaderMenu from '../../ui/HeaderMenu';
+import GlobalNavMenu from '../../ui/HeaderMenu';
+import Profile from '../../ui/Profile';
 
-function HeaderContainer({ children }: PropsWithChildren) {
+function Header() {
+  console.log('Rendering...');
+
+  return (
+    <Header.Container>
+      <Profile />
+      <GlobalNavMenu />
+    </Header.Container>
+  );
+}
+
+export default Header;
+
+Header.Container = function Container({ children }: PropsWithChildren) {
   return (
     <header
       className="flex
@@ -16,15 +29,4 @@ function HeaderContainer({ children }: PropsWithChildren) {
       {children}
     </header>
   );
-}
-
-function Header() {
-  return (
-    <HeaderContainer>
-      <Profile />
-      <HeaderMenu />
-    </HeaderContainer>
-  );
-}
-
-export default Header;
+};

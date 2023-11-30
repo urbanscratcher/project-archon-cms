@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { SignUp } from '../../models/User';
 import authApi from '../../services/apiAuth';
@@ -11,7 +11,6 @@ export type SignUpState = {
 };
 
 function useSignUp(): SignUpState {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { mutate, isPending, error } = useMutation({
@@ -21,8 +20,7 @@ function useSignUp(): SignUpState {
       return authApi.signup(sign);
     },
     onSuccess: (data) => {
-      // queryClient.setQueryData(['user'], data);
-      // 회원가입 완료 페이지 redirect..
+      localStorage.setItem('access_token', data.access_token);
       navigate('/dashboard', { replace: true });
     },
     onError: (err) => {

@@ -1,8 +1,8 @@
 import { FocusEvent, useState } from 'react';
-import Button from './button/Button';
 import { SelectOptions } from '../features/users/UserRoleFilter';
-import DropdownMenuContainer from './dropdown/DropdownMenuContainer';
+import Button from './button/Button';
 import DropdownMenuBox from './dropdown/DropdownMenuBox';
+import DropdownMenuContainer from './dropdown/DropdownMenuContainer';
 import DropdownOptions from './dropdown/DropdownMenuItemOptions';
 
 type PaginationProps = {
@@ -105,17 +105,15 @@ function Pagination({ offset, limit, total, onSetLimit, onSetOffset }: Paginatio
         </p>
         <div className="flex gap-1">
           <Button
-            buttonType="muted"
+            buttonType="muted-icon"
             disabled={curPage - 1 <= 0}
-            size="icon"
             onClick={clickPrevHandler}
           >
             <span className="icon-[lucide--chevron-left]"></span>
           </Button>
           <Button
-            buttonType="muted"
+            buttonType="muted-icon"
             disabled={curPage + 1 > Math.ceil(total / limit)}
-            size="icon"
             onClick={clickNextHandler}
           >
             <span className="icon-[lucide--chevron-right]"></span>

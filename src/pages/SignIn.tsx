@@ -3,11 +3,11 @@ import EmailInput from '../features/authentication/EmailInput';
 import PasswordInput from '../features/authentication/PasswordInput';
 import SignForm from '../features/authentication/SignFormHeader';
 import useSignIn from '../features/authentication/useSignIn';
-import { useSigninStore } from '../store';
+import { useSignInStore } from '../features/authentication/signInStore';
 import Spinner from '../ui/Spinner';
 import TextLink from '../ui/TextLink';
 import Button from '../ui/button/Button';
-import Form from '../ui/form/Form';
+import Form from '../ui/Form';
 import Error from './Error';
 
 /**
@@ -18,8 +18,7 @@ function SignIn() {
   console.log('Rendering...');
 
   const { signIn, isPending, error } = useSignIn();
-  const { emailError, passwordError } = useSigninStore();
-
+  const { emailError, passwordError } = useSignInStore();
   const emailInput = useRef<HTMLInputElement>(null);
   const pwInput = useRef<HTMLInputElement>(null);
 

@@ -1,11 +1,16 @@
+import { PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
 
-type SidebarMenuItemProps = {
+type NavMenuItemProps = {
   icon: string;
   text: string;
 };
 
-function SidebarMenuItem({ icon, text }: SidebarMenuItemProps) {
+export default function NavMenu({ children }: PropsWithChildren) {
+  return <ul className="flex flex-col gap-2">{children}</ul>;
+}
+
+NavMenu.Item = function Item({ icon, text }: NavMenuItemProps) {
   return (
     <li className="cursor-pointer">
       <NavLink
@@ -31,29 +36,4 @@ function SidebarMenuItem({ icon, text }: SidebarMenuItemProps) {
       </NavLink>
     </li>
   );
-}
-
-function SidebarMenu() {
-  return (
-    <ul className="flex flex-col gap-2">
-      <SidebarMenuItem
-        icon="icon-[lucide--user-2]"
-        text="users"
-      />
-      <SidebarMenuItem
-        icon="icon-[lucide--tag]"
-        text="topics"
-      />
-      <SidebarMenuItem
-        icon="icon-[lucide--pen-square]"
-        text="insights"
-      />
-      <SidebarMenuItem
-        icon="icon-[lucide--user-circle-2]"
-        text="Profile"
-      />
-    </ul>
-  );
-}
-
-export default SidebarMenu;
+};

@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form';
 import SignForm from '../features/authentication/SignFormHeader';
 import useSignUp from '../features/authentication/useSignUp';
 import { SignUpSchema } from '../models/User';
+import Form from '../ui/Form';
+import Input from '../ui/Input';
 import Spinner from '../ui/Spinner';
 import TextLink from '../ui/TextLink';
 import Button from '../ui/button/Button';
-import Form from '../ui/form/Form';
-import Input from '../ui/input/Input';
 import Error from './Error';
 
 /**
@@ -18,7 +18,7 @@ function SignUp() {
   console.log('Rendering...');
 
   const { signUp, error, isPending } = useSignUp();
-  const firstNameRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     firstNameRef.current!.focus();

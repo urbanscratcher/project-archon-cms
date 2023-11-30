@@ -1,31 +1,32 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import useSignOut from '../features/authentication/useSignOut';
 import Button from './button/Button';
 
-function HeaderMenu(): ReactNode {
+export default function GlobalNavMenu() {
   const onSignOut = useSignOut();
+
   return (
-    <ul className="flex scale-125">
-      <li>
-        <Button
-          buttonType="borderless"
-          size="icon"
-          onClick={() => {}}
-        >
-          <span className="icon-[lucide--moon]" />
-        </Button>
-      </li>
-      <li>
-        <Button
-          buttonType="borderless"
-          size="icon"
-          onClick={onSignOut}
-        >
-          <span className="icon-[lucide--log-out]" />
-        </Button>
-      </li>
-    </ul>
+    <GlobalNavMenu.Container>
+      <Button
+        buttonType="borderless"
+        size="icon"
+        onClick={() => {
+          console.log('drak mode toggle');
+        }}
+      >
+        <span className="icon-[lucide--moon]" />
+      </Button>
+      <Button
+        buttonType="borderless"
+        size="icon"
+        onClick={onSignOut}
+      >
+        <span className="icon-[lucide--log-out]" />
+      </Button>
+    </GlobalNavMenu.Container>
   );
 }
 
-export default HeaderMenu;
+GlobalNavMenu.Container = function Container({ children }: PropsWithChildren) {
+  return <nav className="flex scale-125">{children}</nav>;
+};
