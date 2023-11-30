@@ -18,9 +18,9 @@ import { useCallback, useEffect, useRef } from 'react';
  *  </div>
  *  )}
  */
-function useTimeout(callback: () => {}, delay: number): { reset: () => void; clear: () => void } {
+function useTimeout(callback: () => void, delay: number): { reset: () => void; clear: () => void } {
   // useRef to persist the callback function to stay the same
-  const callbackRef = useRef<() => {}>(callback);
+  const callbackRef = useRef<() => void>(callback);
   // timeout id reference
   const timeoutRef = useRef<number>(0);
 

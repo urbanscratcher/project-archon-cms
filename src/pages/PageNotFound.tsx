@@ -1,7 +1,6 @@
-import { PropsWithChildren } from 'react';
 import Logo from '../ui/Logo';
 
-function PageNotFound({ children }: PropsWithChildren | null) {
+function PageNotFound() {
   return (
     <>
       <section className="mx-auto my-auto flex h-fit w-fit translate-y-[40vh] items-center tracking-tight text-zinc-600">
@@ -14,7 +13,6 @@ function PageNotFound({ children }: PropsWithChildren | null) {
         >
           <h3 className="">404 Page Not Found</h3>
           <p className="grid-col-[3/4]">The requested URL was not found on this server</p>
-          {children && children}
         </div>
       </section>
     </>

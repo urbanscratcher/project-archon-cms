@@ -1,15 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import Head from '../ui/Head';
+import { useNavigate } from 'react-router-dom';
 import useSignUp from '../features/authentication/useSignUp';
 import { SignUpSchema } from '../models/User';
 import Form from '../ui/Form';
+import Head from '../ui/Head';
 import Input from '../ui/Input';
 import Spinner from '../ui/Spinner';
 import TextLink from '../ui/TextLink';
 import Button from '../ui/button/Button';
-import Error from './Error';
 
 /**
  * @description Form w/ react hook form
@@ -17,8 +17,15 @@ import Error from './Error';
 function SignUp() {
   console.log('Rendering...');
 
+  const navigate = useNavigate();
   const { signUp, error, isPending } = useSignUp();
   const firstNameRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (error) {
+      navigate('/error', { state: { message: error.message, status: error?.response?.status } });
+    }
+  }, [error]);
 
   useEffect(() => {
     firstNameRef.current!.focus();
@@ -36,9 +43,7 @@ function SignUp() {
 
   return (
     <>
-      {error ? (
-        <Error error={error} />
-      ) : (
+      {!error && (
         <Form onSubmit={handleSubmit(submitHandler)}>
           <Head>
             <Head.Title>Sign up</Head.Title>

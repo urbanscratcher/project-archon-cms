@@ -16,8 +16,8 @@ import Button from '../ui/button/Button';
  */
 function SignIn() {
   console.log('Rendering...');
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const { signIn, isPending, error } = useSignIn();
   const { emailError, passwordError } = useSignInStore();
   const emailInput = useRef<HTMLInputElement>(null);

@@ -1,14 +1,15 @@
 import { PropsWithChildren, useState } from 'react';
-import UserFilterInput from '../features/users/UserFilterInput';
+import UsersFilterInput from '../features/users/UserFilterInput';
+import { UsersFilter } from '../features/users/UserFilterLayout';
 import UserFilterRole, { SelectOptions } from '../features/users/UserFilterRole';
 import UserTableBody from '../features/users/UserTable';
 import userColumnDefs from '../features/users/userColumnDefs';
+import { useUserFilterStore } from '../features/users/usersStore';
+import Head from '../ui/Head';
 import Pagination from '../ui/Pagination';
 import Table from '../ui/table/Table';
 import TableBox from '../ui/table/TableBox';
 import { TableHead } from '../ui/table/TableHead';
-import Head from '../ui/Head';
-import { UserFilter } from '../features/users/UserFilterLayout';
 
 export type Topic = {
   idx: number;
@@ -31,7 +32,7 @@ export function MainLayout({ children }: PropsWithChildren) {
   return <div className="flex flex-col gap-8">{children}</div>;
 }
 
-function UserContentLayout({ children }: PropsWithChildren) {
+function UsersLayout({ children }: PropsWithChildren) {
   return (
     <div
       id="users-portal"
@@ -43,20 +44,14 @@ function UserContentLayout({ children }: PropsWithChildren) {
 }
 
 function Users() {
-  const [inputFilter, setInputFilter] = useState('');
   const [roleFilter, setRoleFilter] = useState<SelectOptions[]>([]);
+  const { searchFilter } = useUserFilterStore();
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState<number>(0);
 
   const onSetTotal = (total: number) => {
-    if (total !== null || total !== undefined) {
-      setTotal(total);
-    }
-  };
-
-  const onSetInputFilter = (value: string) => {
-    setInputFilter(value);
+    setTotal(total);
   };
 
   const onSetRoleFilter = (value: SelectOptions[]) => {
@@ -77,16 +72,16 @@ function Users() {
         <Head.Title>Users</Head.Title>
         <Head.Description>A list of users to be managed (only for admins)</Head.Description>
       </Head>
-      <UserContentLayout>
-        <UserFilter>
-          <UserFilterInput onSetFilter={onSetInputFilter} />
+      <UsersLayout>
+        <UsersFilter>
+          <UsersFilterInput />
           <UserFilterRole onSetFilter={onSetRoleFilter} />
-        </UserFilter>
+        </UsersFilter>
         <TableBox>
           <Table>
             <TableHead columnDefs={userColumnDefs} />
             <UserTableBody
-              inputFilter={inputFilter}
+              inputFilter={searchFilter ? searchFilter : ''}
               roleFilter={roleFilter}
               offset={offset}
               limit={limit}
@@ -101,7 +96,7 @@ function Users() {
           onSetLimit={onSetLimit}
           onSetOffset={onSetOffset}
         />
-      </UserContentLayout>
+      </UsersLayout>
     </MainLayout>
   );
 }

@@ -1,86 +1,43 @@
-import { useRef, useState, type ChangeEvent, type KeyboardEvent, useEffect } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
+import useDebounce from '../../hooks/useDebounce';
+import useStateWithHistory from '../../hooks/useStateWithHistory';
 import Input from '../../ui/Input';
+import { useUserFilterStore } from './usersStore';
 
-type UserFilterProps = {
-  onSetFilter: (value: string) => void;
-};
+function UsersFilterInput() {
+  const { setSearchFilter } = useUserFilterStore();
 
-function UserFilterInput({ onSetFilter }: UserFilterProps) {
-  const ref = useRef<HTMLInputElement>(null);
-  const [filterValue, setFilterValue] = useState('');
-  const [prevFilterValues, setPrevFilterValues] = useState<string[]>([]);
-  const filterHistoryPointer = useRef(0);
+  const input = useRef<HTMLInputElement>(null);
+  const [typed, setTyped] = useState('');
+  const [historyValue, setHistoryValue, { pointer, back, forward, go }] = useStateWithHistory('');
 
-  useEffect(() => {
-    const waitInput = setTimeout(() => filterValue && onSetFilter(filterValue), 500);
-    return () => clearTimeout(waitInput);
-  }, [filterValue]);
+  useDebounce(
+    () => {
+      if ((input.current!.value as string) !== '') {
+        setSearchFilter(input.current!.value);
+      }
+    },
+    500,
+    [typed],
+  );
 
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setFilterValue(e.target.value);
-  };
-
-  const resetHandler = () => {
-    setFilterValue('');
-  };
-
-  const searchHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    // stable search
+  const historyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      // pass value to table for re-render
-      if (!filterValue) {
-        onSetFilter('');
-      }
-
-      if (filterValue) {
-        setPrevFilterValues((prev) => [...prev, filterValue]);
-        filterHistoryPointer.current = prevFilterValues.length + 1;
-        onSetFilter(filterValue);
-      }
+      setSearchFilter(typed);
+      setHistoryValue(typed);
+      setTyped('');
     }
 
-    // history
     if (e.key === 'ArrowUp') {
-      if (prevFilterValues.length > 0) {
-        const curValue = ref.current!.value;
-
-        if (!curValue) {
-          filterHistoryPointer.current -= 1;
-          setFilterValue(prevFilterValues[filterHistoryPointer.current]);
-        }
-
-        if (curValue) {
-          filterHistoryPointer.current =
-            filterHistoryPointer.current > 0 ? filterHistoryPointer.current - 1 : filterHistoryPointer.current;
-          const prevValue = prevFilterValues[filterHistoryPointer.current];
-          setFilterValue(prevValue);
-        }
-      }
+      back();
+      go(pointer - 1);
+      setTyped(historyValue);
     }
 
     if (e.key === 'ArrowDown') {
-      if (prevFilterValues.length > 0) {
-        const curValue = ref.current!.value;
-
-        if (!curValue) {
-          setFilterValue('');
-        }
-
-        if (curValue) {
-          const nextPointer = filterHistoryPointer.current + 1;
-
-          if (nextPointer < prevFilterValues.length) {
-            filterHistoryPointer.current += 1;
-            const prevValue = prevFilterValues[nextPointer];
-            setFilterValue(prevValue);
-          }
-
-          if (nextPointer === prevFilterValues.length) {
-            filterHistoryPointer.current = prevFilterValues.length;
-            setFilterValue('');
-          }
-        }
-      }
+      forward();
+      go(pointer + 1);
+      setTyped(historyValue);
     }
   };
 
@@ -88,14 +45,14 @@ function UserFilterInput({ onSetFilter }: UserFilterProps) {
     <div className="w-[50%] min-w-fit max-w-[40rem]">
       <Input
         placeholder="Search a name or email..."
-        onChange={changeHandler}
-        onFocus={resetHandler}
-        onKeyDown={searchHandler}
-        value={filterValue}
-        ref={ref}
+        onChange={(e) => setTyped(e.currentTarget.value)}
+        onClick={(e) => setTyped('')}
+        onKeyDown={historyHandler}
+        value={typed}
+        ref={input}
       />
     </div>
   );
 }
 
-export default UserFilterInput;
+export default UsersFilterInput;

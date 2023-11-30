@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 type UserFilterStore = {
   searchFilter?: string | null;
-  setSearchfilter?: (inputFilter: string) => void;
+  setSearchFilter: (input: string) => void;
   rolesFilter?: string | null;
   setRolesFilter?: (orFilter: string) => void;
   sorts?: string | null;
@@ -11,9 +11,10 @@ type UserFilterStore = {
   setRowsPerPage?: (orFilter: string) => void;
   currentPage?: string | null;
   setCurrentPage?: (orFilter: string) => void;
+  getTotalPage?: () => void;
 };
 
 export const useUserFilterStore = create<UserFilterStore>()((set) => ({
-  searchFilter: '',
-  setInputFilter: (inputFilter?: string) => set({ searchFilter: inputFilter }),
+  searchFilter: null,
+  setSearchFilter: (input) => set({ searchFilter: input }),
 }));

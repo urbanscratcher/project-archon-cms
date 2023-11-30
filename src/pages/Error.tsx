@@ -16,6 +16,10 @@ function Error() {
         return { title: 'Unauthenticated', description: 'Please retry or sign up to be authenticated' };
       case 404:
         return { title: 'Not found', description: 'Please go back and retry' };
+      case 409:
+        return { title: 'Conflict', description: 'You entered duplicated resource, please retry with new one' };
+      case 429:
+        return { title: 'Too many requests', description: 'Too many request from this IP, please retry in an hour' };
       default:
         return { title: 'Something went wrong', description: 'Please go back and retry' };
     }
