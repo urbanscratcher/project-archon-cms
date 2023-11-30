@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import useSignUp from '../features/authentication/useSignUp';
 import { SignUpSchema } from '../models/User';
 import Form from '../ui/Form';
-import Head from '../ui/Head';
+import MainHead from '../ui/Head';
 import Input from '../ui/Input';
 import Spinner from '../ui/Spinner';
 import TextLink from '../ui/TextLink';
@@ -45,13 +45,13 @@ function SignUp() {
     <>
       {!error && (
         <Form onSubmit={handleSubmit(submitHandler)}>
-          <Head>
-            <Head.Title>Sign up</Head.Title>
-            <Head.Description>
+          <MainHead>
+            <MainHead.Title>Sign up</MainHead.Title>
+            <MainHead.Description>
               Create an account or
               <TextLink to="/signin">Sign in</TextLink>
-            </Head.Description>
-          </Head>
+            </MainHead.Description>
+          </MainHead>
           <Form.RowHorizontal>
             <Form.RowVertical
               label={'First Name'}

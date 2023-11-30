@@ -1,19 +1,21 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import Button from '../button/Button';
-import { DialogBackground, DialogBox, DialogDescription, DialogHeader, DialogPortal, DialogTitle } from './Dialog';
+import Dialog from './Dialog';
 
 type AlertDialogProps = {
   title: string;
   description: string;
+  continueLabel?: string;
   onContinue: () => void;
+  cancelLabel?: string;
   onCancel: () => void;
 };
 
-export function AlertDialogFooter({ children }: PropsWithChildren) {
+AlertDialog.Footer = function Footer({ children }: PropsWithChildren) {
   return <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">{children}</div>;
-}
+};
 
-export function AlertDialogCancel({ children, onClickCancel }: PropsWithChildren & { onClickCancel: () => void }) {
+AlertDialog.Cancel = function Cancel({ children, onClickCancel }: PropsWithChildren & { onClickCancel: () => void }) {
   return (
     <Button
       size="sm"
@@ -23,9 +25,9 @@ export function AlertDialogCancel({ children, onClickCancel }: PropsWithChildren
       {children}
     </Button>
   );
-}
+};
 
-export function AlertDialogAction({ children, onClickAction }: PropsWithChildren & { onClickAction: () => void }) {
+AlertDialog.Action = function Action({ children, onClickAction }: PropsWithChildren & { onClickAction: () => void }) {
   return (
     <Button
       size="sm"
@@ -35,15 +37,22 @@ export function AlertDialogAction({ children, onClickAction }: PropsWithChildren
       {children}
     </Button>
   );
-}
+};
 
-function AlertDialog({ title, description, onContinue, onCancel, children }: AlertDialogProps & PropsWithChildren) {
-  console.log('Rendering...');
-
+function AlertDialog({
+  title,
+  description,
+  onContinue,
+  continueLabel,
+  onCancel,
+  cancelLabel,
+  children,
+}: AlertDialogProps & PropsWithChildren) {
   const [show, setShow] = useState(true);
   if (!show) return null;
 
   const onClickCancel = () => {
+    console.log(closed);
     onCancel();
     setShow(false);
   };
@@ -55,20 +64,22 @@ function AlertDialog({ title, description, onContinue, onCancel, children }: Ale
 
   return (
     <>
-      <DialogPortal>
-        <DialogBackground />
-        <DialogBox>
-          <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogDescription>{description}</DialogDescription>
-          </DialogHeader>
-          {children}
-          <AlertDialogFooter>
-            <AlertDialogCancel onClickCancel={onClickCancel}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClickAction={onClickAction}>Continue</AlertDialogAction>
-          </AlertDialogFooter>
-        </DialogBox>
-      </DialogPortal>
+      {!closed && (
+        <Dialog.Portal>
+          <Dialog.Background />
+          <Dialog.Box>
+            <Dialog.Header>
+              <Dialog.Title>{title}</Dialog.Title>
+              <Dialog.Description>{description}</Dialog.Description>
+            </Dialog.Header>
+            {children}
+            <AlertDialog.Footer>
+              <AlertDialog.Cancel onClickCancel={onClickCancel}>{cancelLabel ?? 'Cancel'}</AlertDialog.Cancel>
+              <AlertDialog.Action onClickAction={onClickAction}>{continueLabel ?? 'Continue'}</AlertDialog.Action>
+            </AlertDialog.Footer>
+          </Dialog.Box>
+        </Dialog.Portal>
+      )}
     </>
   );
 }

@@ -1,14 +1,12 @@
-import { useState, type FocusEvent, useEffect } from 'react';
-import AlertDialog from '../../ui/dialog/AlertDialog';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState, type FocusEvent } from 'react';
 import Error from '../../pages/Error';
+import { Dropdown } from '../../ui/Dropdown';
+import { SelectOptions } from '../../ui/DropdownAction';
 import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
-import DropdownMenuBox from '../../ui/dropdown/DropdownMenuBox';
-import DropdownMenuContainer from '../../ui/dropdown/DropdownMenuContainer';
-import DropdownOptions from '../../ui/dropdown/DropdownMenuItemOptions';
-import { SelectOptions } from './UserFilterRole';
+import AlertDialog from '../../ui/dialog/AlertDialog';
 import useUpdateRole from './useUpdateRole';
-import { useQueryClient } from '@tanstack/react-query';
 
 type UserRoleCellProps = {
   idx: number;
@@ -26,7 +24,7 @@ function UserRoleCell({ idx, userRole, options }: UserRoleCellProps) {
   // update data
   const { mutate, isPending, error } = useUpdateRole({ role: userRole });
 
-  if (error) return <Error>{error.message}</Error>;
+  if (error) return <Error />;
 
   const onContinue = (menuItem: SelectOptions) => {
     // update data
@@ -88,18 +86,17 @@ function UserRoleCell({ idx, userRole, options }: UserRoleCellProps) {
         {isPending ? <Spinner withText={false} /> : menuItems.filter((m) => m.selected === true)[0].item}
       </Button>
       {!closed && (
-        <DropdownMenuContainer>
-          <DropdownMenuBox>
-            {menuItems.map((m) => (
-              <DropdownOptions
-                key={m.item}
-                item={m.item}
-                selected={m.selected}
-                onSelect={onSetMenuItem}
-              />
-            ))}
-          </DropdownMenuBox>
-        </DropdownMenuContainer>
+        <Dropdown.Content>
+          {menuItems.map((m) => (
+            <Dropdown.CheckItem
+              key={m.item}
+              checked={m.selected}
+              onCheckedChange={() => onSetMenuItem(m)}
+            >
+              {m.item}
+            </Dropdown.CheckItem>
+          ))}
+        </Dropdown.Content>
       )}
     </div>
   );

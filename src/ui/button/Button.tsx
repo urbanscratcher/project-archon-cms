@@ -14,9 +14,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const getSize = (size: string): string => {
       switch (size) {
         case 'icon':
-          return 'px-1 py-1 text-md rounded-md';
+          return 'px-1 py-2 text-md rounded-md';
         case 'sm':
-          return 'px-4 py-2 text-sm rounded-md';
+          return 'px-4 py-2 text-md rounded-md';
         case 'md':
           return 'px-5 py-3 text-md rounded-lg';
         case 'lg':
@@ -31,13 +31,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         case 'primary':
           return 'bg-navy-700 text-navy-50 hover:bg-navy-600 border-none  shadow-sm';
         case 'dropdown':
-          return 'border border-zinc-300 bg-white hover:bg-zinc-50 inline-flex items-center justify-center font-medium active:bg-zinc-100 h-10 gap-1  shadow-sm';
+          return 'border border-zinc-300 bg-white hover:bg-zinc-50 flex items-center justify-center active:bg-zinc-100 gap-1 shadow-sm';
         case 'borderless':
           return 'flex rounded-md  hover:bg-zinc-100 active:bg-zinc-200/50 items-center justify-center';
         case 'muted':
           return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm flex items-center';
-        case 'muted-icon':
-          return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm h-8 w-8 items-center justify-center text-sm flex';
         default:
           return '';
       }

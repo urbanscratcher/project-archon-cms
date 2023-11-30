@@ -5,7 +5,7 @@ import PasswordInput from '../features/authentication/PasswordInput';
 import { useSignInStore } from '../features/authentication/signInStore';
 import useSignIn from '../features/authentication/useSignIn';
 import Form from '../ui/Form';
-import Head from '../ui/Head';
+import MainHead from '../ui/Head';
 import Spinner from '../ui/Spinner';
 import TextLink from '../ui/TextLink';
 import Button from '../ui/button/Button';
@@ -45,13 +45,13 @@ function SignIn() {
     <>
       {!error && (
         <Form onSubmit={submitHandler}>
-          <Head>
-            <Head.Title>Sign in</Head.Title>
-            <Head.Description>
+          <MainHead>
+            <MainHead.Title>Sign in</MainHead.Title>
+            <MainHead.Description>
               Sign in to your account or
               <TextLink to="/signup">Create an account</TextLink>
-            </Head.Description>
-          </Head>
+            </MainHead.Description>
+          </MainHead>
           <Form.RowVertical
             label={'Email'}
             error={emailError ? emailError : ''}

@@ -7,8 +7,8 @@ function Spinner({ light = false, withText = true }: SpinnerProps) {
   return (
     <div
       className={`
-        inline-flex
-        max-h-5
+        h-inherit
+        flex
         items-center
         justify-center gap-2
         ${light ? 'text-navy-50/85' : 'text-zinc-500/80'}

@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { User } from '../../pages/Users';
+import { User } from '../../pages/Topic';
 import { type ColumnDef } from '../../utils/types';
 import UserNameCell from './UserNameCell';
 import UserRoleCell from './UserRoleCell';

@@ -1,12 +1,14 @@
 import { useRef, useState, type KeyboardEvent } from 'react';
-import useDebounce from '../../hooks/useDebounce';
-import useStateWithHistory from '../../hooks/useStateWithHistory';
-import Input from '../../ui/Input';
-import { useUserFilterStore } from './usersStore';
+import useDebounce from '../hooks/useDebounce';
+import useStateWithHistory from '../hooks/useStateWithHistory';
+import Input from './Input';
 
-function UsersFilterInput() {
-  const { setSearchFilter } = useUserFilterStore();
+type InputActionProps = {
+  placeholder: string;
+  setAction: (value: string) => void;
+};
 
+function InputAction({ placeholder, setAction }: InputActionProps) {
   const input = useRef<HTMLInputElement>(null);
   const [typed, setTyped] = useState('');
   const [historyValue, setHistoryValue, { pointer, back, forward, go }] = useStateWithHistory('');
@@ -14,7 +16,7 @@ function UsersFilterInput() {
   useDebounce(
     () => {
       if ((input.current!.value as string) !== '') {
-        setSearchFilter(input.current!.value);
+        setAction(input.current!.value);
       }
     },
     500,
@@ -23,7 +25,7 @@ function UsersFilterInput() {
 
   const historyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      setSearchFilter(typed);
+      setAction(typed);
       setHistoryValue(typed);
       setTyped('');
     }
@@ -44,7 +46,7 @@ function UsersFilterInput() {
   return (
     <div className="w-[50%] min-w-fit max-w-[40rem]">
       <Input
-        placeholder="Search a name or email..."
+        placeholder={placeholder}
         onChange={(e) => setTyped(e.currentTarget.value)}
         onClick={(e) => setTyped('')}
         onKeyDown={historyHandler}
@@ -55,4 +57,4 @@ function UsersFilterInput() {
   );
 }
 
-export default UsersFilterInput;
+export default InputAction;

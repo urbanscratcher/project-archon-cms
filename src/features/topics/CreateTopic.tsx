@@ -1,12 +1,15 @@
-import { useMutation } from '@tanstack/react-query';
-import { type FormEvent, useRef } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRef, type FormEvent } from 'react';
 import topicApi from '../../services/apiTopic';
+import Input from '../../ui/Input';
 import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
-import Input from '../../ui/Input';
+import Dialog from '../../ui/dialog/Dialog';
 
-function CreateTopic({ token, queryClient }: any) {
-  const ref = useRef<HTMLInputElement>(null);
+function CreateTopic() {
+  const input = useRef<HTMLInputElement>(null);
+  const queryClient = useQueryClient();
+  const token = localStorage.getItem('access_token') ?? '';
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: (name: string) => topicApi.create({ name: name }, token),
@@ -20,9 +23,9 @@ function CreateTopic({ token, queryClient }: any) {
 
   const createHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (ref.current?.value) {
-      mutate(ref.current.value);
-      ref.current.value = '';
+    if (input.current?.value) {
+      mutate(input.current.value);
+      input.current.value = '';
     }
   };
 
@@ -35,16 +38,33 @@ function CreateTopic({ token, queryClient }: any) {
         <Input
           type="text"
           placeholder="Create new topic..."
-          ref={ref}
+          ref={input}
         />
         <Button
           type="submit"
           buttonType="primary"
           size="sm"
+          style={{ minWidth: '5.4rem' }}
         >
-          {isPending ? <Spinner /> : 'Create'}
+          {isPending ? (
+            <Spinner
+              light
+              withText={false}
+            />
+          ) : (
+            'Create'
+          )}
         </Button>
-        {error && <p className="col-span-full">{error.message}</p>}
+        {error && (
+          <Dialog
+            title={'Error'}
+            description={error.message}
+            actionName="Confirm"
+            onAction={() => {
+              return;
+            }}
+          ></Dialog>
+        )}
       </form>
     </>
   );

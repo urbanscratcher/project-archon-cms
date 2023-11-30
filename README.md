@@ -50,8 +50,8 @@
 - 날짜: Date-fns
 - 서버 통신: Axios
 - 암호화: Crypto-js (for AES256 encryption)
-- 그외: Lodash, Eslint, Prettier
 - 참고한 UI 스타일링: Shadcn/ui, Radix 기반
+- 개발 도구: VSCode, Docker, GitHub Copilot, Console Ninja, Redux DevTools, Eslint, Prettier
 
 ## 개발 여담
 

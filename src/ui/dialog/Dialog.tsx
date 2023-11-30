@@ -9,11 +9,11 @@ type DialogProps = {
   onAction: (e) => void;
 };
 
-export function DialogBackground() {
-  return <div className="min-w-screen absolute z-40 min-h-screen w-full bg-zinc-50/30 backdrop-blur-md"></div>;
-}
+Dialog.Background = function Background() {
+  return <div className="fixed z-40 min-h-screen w-screen bg-zinc-50/30 backdrop-blur-md"></div>;
+};
 
-export function DialogBox({ children }: PropsWithChildren) {
+Dialog.Box = function Box({ children }: PropsWithChildren) {
   return (
     <div
       role="alertdialog"
@@ -22,9 +22,9 @@ export function DialogBox({ children }: PropsWithChildren) {
       {children}
     </div>
   );
-}
+};
 
-export function DialogHeader({ children }: PropsWithChildren) {
+Dialog.Header = function Header({ children }: PropsWithChildren) {
   return (
     <div
       role="alert"
@@ -33,21 +33,20 @@ export function DialogHeader({ children }: PropsWithChildren) {
       {children}
     </div>
   );
-}
+};
 
-export function DialogTitle({ children }: PropsWithChildren) {
+Dialog.Title = function Title({ children }: PropsWithChildren) {
   return <h2 className="text-lg font-semibold">{children}</h2>;
-}
+};
 
-export function DialogDescription({ children }: PropsWithChildren) {
+Dialog.Description = function Description({ children }: PropsWithChildren) {
   return <div>{children}</div>;
-}
-
-function DialogFooter({ children }: PropsWithChildren) {
+};
+Dialog.Footer = function Footer({ children }: PropsWithChildren) {
   return <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">{children}</div>;
-}
+};
 
-function DialogAction({ children, onClickAction }: PropsWithChildren & { onClickAction: (e) => void }) {
+Dialog.Action = function Action({ children, onClickAction }: PropsWithChildren & { onClickAction: (e) => void }) {
   return (
     <Button
       size="sm"
@@ -57,11 +56,11 @@ function DialogAction({ children, onClickAction }: PropsWithChildren & { onClick
       {children}
     </Button>
   );
-}
+};
 
-export function DialogPortal({ children }: PropsWithChildren) {
+Dialog.Portal = function Portal({ children }: PropsWithChildren) {
   return createPortal(children, document.getElementById('portal') as HTMLElement);
-}
+};
 
 function Dialog({ title, description, actionName, onAction, children }: PropsWithChildren & DialogProps) {
   const [show, setShow] = useState(true);
@@ -74,19 +73,19 @@ function Dialog({ title, description, actionName, onAction, children }: PropsWit
 
   return (
     <>
-      <DialogPortal>
-        <DialogBackground />
-        <DialogBox>
-          <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogDescription>{description}</DialogDescription>
-          </DialogHeader>
+      <Dialog.Portal>
+        <Dialog.Background />
+        <Dialog.Box>
+          <Dialog.Header>
+            <Dialog.Title>{title}</Dialog.Title>
+            <Dialog.Description>{description}</Dialog.Description>
+          </Dialog.Header>
           {children}
-          <DialogFooter>
-            <DialogAction onClickAction={(e) => onClickAction(e)}>{actionName}</DialogAction>
-          </DialogFooter>
-        </DialogBox>
-      </DialogPortal>
+          <Dialog.Footer>
+            <Dialog.Action onClickAction={(e) => onClickAction(e)}>{actionName}</Dialog.Action>
+          </Dialog.Footer>
+        </Dialog.Box>
+      </Dialog.Portal>
     </>
   );
 }
