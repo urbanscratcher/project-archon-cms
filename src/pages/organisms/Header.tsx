@@ -1,21 +1,19 @@
 import { type PropsWithChildren } from 'react';
-import GlobalNavMenu from '../../ui/HeaderMenu';
+import PersonalMenu from '../../ui/HeaderMenu';
 import Profile from '../../ui/Profile';
 
-function Header() {
-  console.log('Rendering...');
-
+function NavBar() {
   return (
-    <Header.Container>
+    <NavBar.Container>
       <Profile />
-      <GlobalNavMenu />
-    </Header.Container>
+      <PersonalMenu />
+    </NavBar.Container>
   );
 }
 
-export default Header;
+export default NavBar;
 
-Header.Container = function Container({ children }: PropsWithChildren) {
+NavBar.Container = function Container({ children }: PropsWithChildren) {
   return (
     <header
       className="flex

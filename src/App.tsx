@@ -12,6 +12,7 @@ import Topics from './pages/Topics';
 import Users from './pages/Users';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Redirect from './ui/Redirect';
+import Error from './pages/Error';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -86,6 +87,10 @@ function App(): ReactNode {
             <Route
               path="*"
               element={<PageNotFound />}
+            />
+            <Route
+              path="error"
+              element={<Error />}
             />
           </Routes>
         </BrowserRouter>

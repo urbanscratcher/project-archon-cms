@@ -4,7 +4,8 @@ import Input from '../../ui/Input';
 type UserFilterProps = {
   onSetFilter: (value: string) => void;
 };
-function UserInputFilter({ onSetFilter }: UserFilterProps) {
+
+function UserFilterInput({ onSetFilter }: UserFilterProps) {
   const ref = useRef<HTMLInputElement>(null);
   const [filterValue, setFilterValue] = useState('');
   const [prevFilterValues, setPrevFilterValues] = useState<string[]>([]);
@@ -97,4 +98,4 @@ function UserInputFilter({ onSetFilter }: UserFilterProps) {
   );
 }
 
-export default UserInputFilter;
+export default UserFilterInput;

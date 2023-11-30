@@ -1,5 +1,5 @@
 import { FocusEvent, useState } from 'react';
-import { SelectOptions } from '../features/users/UserRoleFilter';
+import { SelectOptions } from '../features/users/UserFilterRole';
 import Button from './button/Button';
 import DropdownMenuBox from './dropdown/DropdownMenuBox';
 import DropdownMenuContainer from './dropdown/DropdownMenuContainer';

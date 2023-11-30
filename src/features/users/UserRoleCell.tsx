@@ -6,7 +6,7 @@ import Button from '../../ui/button/Button';
 import DropdownMenuBox from '../../ui/dropdown/DropdownMenuBox';
 import DropdownMenuContainer from '../../ui/dropdown/DropdownMenuContainer';
 import DropdownOptions from '../../ui/dropdown/DropdownMenuItemOptions';
-import { SelectOptions } from './UserRoleFilter';
+import { SelectOptions } from './UserFilterRole';
 import useUpdateRole from './useUpdateRole';
 import { useQueryClient } from '@tanstack/react-query';
 

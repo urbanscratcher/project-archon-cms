@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import SignForm from '../features/authentication/SignFormHeader';
+import Head from '../ui/Head';
 import useSignUp from '../features/authentication/useSignUp';
 import { SignUpSchema } from '../models/User';
 import Form from '../ui/Form';
@@ -40,13 +40,13 @@ function SignUp() {
         <Error error={error} />
       ) : (
         <Form onSubmit={handleSubmit(submitHandler)}>
-          <SignForm>
-            <SignForm.Title>Sign up</SignForm.Title>
-            <SignForm.Description>
+          <Head>
+            <Head.Title>Sign up</Head.Title>
+            <Head.Description>
               Create an account or
               <TextLink to="/signin">Sign in</TextLink>
-            </SignForm.Description>
-          </SignForm>
+            </Head.Description>
+          </Head>
           <Form.RowHorizontal>
             <Form.RowVertical
               label={'First Name'}

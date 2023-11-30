@@ -2,13 +2,13 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 import topicApi from '../services/apiTopic';
 import Error from './Error';
-import MainHeader from '../ui/MainHeader';
 import Button from '../ui/button/Button';
 import AlertDialog from '../ui/dialog/AlertDialog';
 import Dialog from '../ui/dialog/Dialog';
 import Input from '../ui/Input';
 import { MainLayout } from './Users';
 import CreateTopic from '../features/topics/CreateTopic';
+import Head from '../ui/Head';
 
 type Topic = {
   idx: number;
@@ -126,10 +126,10 @@ function Topics() {
         </AlertDialog>
       )}
       <MainLayout>
-        <MainHeader
-          title="Topics"
-          desc="A list of topics to be managed (only for admins, editors)"
-        />
+        <Head>
+          <Head.Title>Topics</Head.Title>
+          <Head.Description>A list of topics to be managed (only for admins, editors)</Head.Description>
+        </Head>
         <CreateTopic
           token={token}
           queryClient={queryClient}

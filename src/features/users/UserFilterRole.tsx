@@ -13,7 +13,7 @@ export type SelectOptions = {
   selected: boolean;
 };
 
-function UserRoleFilter({ onSetFilter }: UserRoleFilterProps) {
+function UserFilterRole({ onSetFilter }: UserRoleFilterProps) {
   const [closed, setClosed] = useState(true);
   const [options, setOptions] = useState<SelectOptions[]>([
     { item: 'user', selected: true },
@@ -74,4 +74,4 @@ function UserRoleFilter({ onSetFilter }: UserRoleFilterProps) {
   );
 }
 
-export default UserRoleFilter;
+export default UserFilterRole;

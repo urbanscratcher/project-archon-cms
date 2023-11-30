@@ -1,13 +1,14 @@
 import { PropsWithChildren, useState } from 'react';
-import UserInputFilter from '../features/users/UserInputFilter';
-import UserRoleFilter, { SelectOptions } from '../features/users/UserRoleFilter';
+import UserFilterInput from '../features/users/UserFilterInput';
+import UserFilterRole, { SelectOptions } from '../features/users/UserFilterRole';
 import UserTableBody from '../features/users/UserTable';
 import userColumnDefs from '../features/users/userColumnDefs';
-import MainHeader from '../ui/MainHeader';
 import Pagination from '../ui/Pagination';
 import Table from '../ui/table/Table';
 import TableBox from '../ui/table/TableBox';
 import { TableHead } from '../ui/table/TableHead';
+import Head from '../ui/Head';
+import { UserFilter } from '../features/users/UserFilterLayout';
 
 export type Topic = {
   idx: number;
@@ -41,10 +42,6 @@ function UserContentLayout({ children }: PropsWithChildren) {
   );
 }
 
-function UserFilterLayout({ children }: PropsWithChildren) {
-  return <div className="flex flex-wrap items-center justify-between gap-1">{children}</div>;
-}
-
 function Users() {
   const [inputFilter, setInputFilter] = useState('');
   const [roleFilter, setRoleFilter] = useState<SelectOptions[]>([]);
@@ -76,15 +73,15 @@ function Users() {
 
   return (
     <MainLayout>
-      <MainHeader
-        title={'users'}
-        desc={'A list of users to be managed (only for admins)'}
-      />
+      <Head>
+        <Head.Title>Users</Head.Title>
+        <Head.Description>A list of users to be managed (only for admins)</Head.Description>
+      </Head>
       <UserContentLayout>
-        <UserFilterLayout>
-          <UserInputFilter onSetFilter={onSetInputFilter} />
-          <UserRoleFilter onSetFilter={onSetRoleFilter} />
-        </UserFilterLayout>
+        <UserFilter>
+          <UserFilterInput onSetFilter={onSetInputFilter} />
+          <UserFilterRole onSetFilter={onSetRoleFilter} />
+        </UserFilter>
         <TableBox>
           <Table>
             <TableHead columnDefs={userColumnDefs} />

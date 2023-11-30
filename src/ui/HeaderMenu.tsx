@@ -2,11 +2,11 @@ import { PropsWithChildren } from 'react';
 import useSignOut from '../features/authentication/useSignOut';
 import Button from './button/Button';
 
-export default function GlobalNavMenu() {
+export default function PersonalMenu() {
   const onSignOut = useSignOut();
 
   return (
-    <GlobalNavMenu.Container>
+    <PersonalMenu.Container>
       <Button
         buttonType="borderless"
         size="icon"
@@ -23,10 +23,10 @@ export default function GlobalNavMenu() {
       >
         <span className="icon-[lucide--log-out]" />
       </Button>
-    </GlobalNavMenu.Container>
+    </PersonalMenu.Container>
   );
 }
 
-GlobalNavMenu.Container = function Container({ children }: PropsWithChildren) {
+PersonalMenu.Container = function Container({ children }: PropsWithChildren) {
   return <nav className="flex scale-125">{children}</nav>;
 };

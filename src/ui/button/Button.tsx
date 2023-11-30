@@ -20,7 +20,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         case 'md':
           return 'px-5 py-3 text-md rounded-lg';
         case 'lg':
-          return 'px-5 py-10 text-lg rounded-lg';
+          return 'px-7 py-4 text-lg rounded-lg';
         default:
           return '';
       }
@@ -35,7 +35,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         case 'borderless':
           return 'flex rounded-md  hover:bg-zinc-100 active:bg-zinc-200/50 items-center justify-center';
         case 'muted':
-          return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm';
+          return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm flex items-center';
         case 'muted-icon':
           return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm h-8 w-8 items-center justify-center text-sm flex';
         default:

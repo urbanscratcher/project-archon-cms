@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../pages/organisms/Header';
+import NavBar from '../pages/organisms/Header';
 import Sidebar from '../pages/organisms/Sidebar';
 import Main from '../ui/Main';
 
@@ -12,7 +12,7 @@ export default function AppLayout() {
       <AppLayout.Portal />
       <AppLayout.Container>
         <Sidebar />
-        <Header />
+        <NavBar />
         <Main>
           <Outlet />
         </Main>

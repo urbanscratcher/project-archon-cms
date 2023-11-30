@@ -1,14 +1,14 @@
 import { useEffect, useRef, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import EmailInput from '../features/authentication/EmailInput';
 import PasswordInput from '../features/authentication/PasswordInput';
-import SignForm from '../features/authentication/SignFormHeader';
-import useSignIn from '../features/authentication/useSignIn';
 import { useSignInStore } from '../features/authentication/signInStore';
+import useSignIn from '../features/authentication/useSignIn';
+import Form from '../ui/Form';
+import Head from '../ui/Head';
 import Spinner from '../ui/Spinner';
 import TextLink from '../ui/TextLink';
 import Button from '../ui/button/Button';
-import Form from '../ui/Form';
-import Error from './Error';
 
 /**
  * @description Form w/o react hook form
@@ -16,11 +16,18 @@ import Error from './Error';
  */
 function SignIn() {
   console.log('Rendering...');
+  const navigate = useNavigate();
 
   const { signIn, isPending, error } = useSignIn();
   const { emailError, passwordError } = useSignInStore();
   const emailInput = useRef<HTMLInputElement>(null);
   const pwInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (error) {
+      navigate('/error', { state: { message: error.message, status: error?.response?.status } });
+    }
+  }, [error]);
 
   useEffect(() => {
     emailInput.current!.focus();
@@ -36,17 +43,15 @@ function SignIn() {
 
   return (
     <>
-      {error ? (
-        <Error error={error} />
-      ) : (
+      {!error && (
         <Form onSubmit={submitHandler}>
-          <SignForm>
-            <SignForm.Title>Sign in</SignForm.Title>
-            <SignForm.Description>
+          <Head>
+            <Head.Title>Sign in</Head.Title>
+            <Head.Description>
               Sign in to your account or
               <TextLink to="/signup">Create an account</TextLink>
-            </SignForm.Description>
-          </SignForm>
+            </Head.Description>
+          </Head>
           <Form.RowVertical
             label={'Email'}
             error={emailError ? emailError : ''}

@@ -1,17 +1,23 @@
+import { PropsWithChildren } from 'react';
 import Logo from '../ui/Logo';
 
-function PageNotFound() {
-  //
-
+function PageNotFound({ children }: PropsWithChildren | null) {
   return (
-    <main className="mx-auto my-auto grid h-fit w-fit translate-y-[40vh] grid-cols-[auto_auto_auto] grid-rows-[auto_auto] items-center gap-2 tracking-tight text-zinc-600">
-      <header className="row-span-full w-fit px-5 grayscale">
-        <Logo />
-      </header>
-      <hr className="row-span-full mr-6 h-full w-[1px] bg-zinc-300" />
-      <h3 role="presentation">404 Page Not Found</h3>
-      <p role="presentation">The requested URL was not found on this server</p>
-    </main>
+    <>
+      <section className="mx-auto my-auto flex h-fit w-fit translate-y-[40vh] items-center tracking-tight text-zinc-600">
+        <header className="w-fit px-5 py-1 grayscale">
+          <Logo />
+        </header>
+        <div
+          role="presentation"
+          className="flex flex-col gap-2 border-l border-l-zinc-300 px-5 py-1"
+        >
+          <h3 className="">404 Page Not Found</h3>
+          <p className="grid-col-[3/4]">The requested URL was not found on this server</p>
+          {children && children}
+        </div>
+      </section>
+    </>
   );
 }
 
