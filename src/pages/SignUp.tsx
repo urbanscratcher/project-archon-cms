@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useSignUp from '../features/authentication/useSignUp';
-import { SignUpSchema } from '../models/User';
+import { SignUpSchema } from '../models/Auth';
 import Form from '../ui/Form';
 import MainHead from '../ui/Head';
 import Input from '../ui/Input';

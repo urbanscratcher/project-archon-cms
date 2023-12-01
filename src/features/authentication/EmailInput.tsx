@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent } from 'react';
 import checkValidValue from '../../hooks/useZodValidation';
-import { EmailSchema } from '../../models/User';
+import { EmailSchema } from '../../models/Auth';
 import Input from '../../ui/Input';
 import { InputProps } from './InputProps';
 import { useSignInStore } from './signInStore';

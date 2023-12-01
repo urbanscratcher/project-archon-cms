@@ -1,10 +1,8 @@
 import { useCallback } from 'react';
+import Table from '../../ui/Table';
 import UserTableBody from './UserTableBody';
-import userColumnDefs from './userColumnDefs';
+import UserTableHead from './UserTableHead';
 import { useUserFilterStore } from './usersStore';
-import Table from '../../ui/table/Table';
-import TableBox from '../../ui/table/TableBox';
-import { TableHead } from '../../ui/table/TableHead';
 
 function UsersTable() {
   const { setTotal, searchFilter, selectedRoles, offset, limit } = useUserFilterStore();
@@ -36,15 +34,13 @@ function UsersTable() {
   const queryParams = { filter: makeFilterQuery(searchFilter ?? '', selectedRoles), offset, limit };
 
   return (
-    <TableBox>
-      <Table>
-        <TableHead columnDefs={userColumnDefs} />
-        <UserTableBody
-          queryParams={queryParams}
-          setTotal={setTotal}
-        />
-      </Table>
-    </TableBox>
+    <Table>
+      <UserTableHead />
+      <UserTableBody
+        queryParams={queryParams}
+        setTotal={setTotal}
+      />
+    </Table>
   );
 }
 

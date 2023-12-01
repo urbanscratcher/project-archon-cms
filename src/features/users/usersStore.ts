@@ -34,8 +34,8 @@ export const useUserFilterStore = create<UserFilterStore>()((set) => ({
   setLimit: (l) => set({ limit: l }),
   offset: 0,
   setOffset: (o) => set({ offset: o }),
-  total: 14,
+  total: 1,
   setTotal: (t) => set({ total: t }),
   userSet: [],
-  setUserSet: (u) => set({ users: u }),
+  setUserSet: (u) => set({ userSet: u }),
 }));

@@ -1,9 +1,9 @@
-import { camelCase, isArray, isObject, snakeCase, transform } from 'lodash';
+import { camelCase, isArray, isDate, isObject, snakeCase, transform } from 'lodash';
 
 export function toCamelCase(obj: any) {
   return transform(obj, (acc: any, value: any, key: any, target: any) => {
     const snakeKey = isArray(target) ? key : camelCase(key);
-    acc[snakeKey] = isObject(value) ? toCamelCase(value) : value;
+    acc[snakeKey] = isObject(value) ? (isDate(value) ? value : toCamelCase(value)) : value;
   });
 }
 

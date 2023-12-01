@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { type User } from '../../pages/Topic';
+import { User, UsersSchema } from '../../models/Users';
 import Spinner from '../../ui/Spinner';
-import TableBody, { TableBodySimple } from '../../ui/table/TableBody';
+import Table from '../../ui/Table';
+import { TableBodyFull } from '../../ui/TableBodyFull';
 import useUsers from './useUsers';
 import userColumnDefs from './userColumnDefs';
 
@@ -14,49 +15,35 @@ function UserTableBody({ queryParams, setTotal }: UserTableProps) {
   const { users, isLoading, error } = useUsers(queryParams);
 
   useEffect(() => {
-    if (users?.total) setTotal(users.total);
-  }, [users, setTotal]);
+    users && setTotal(users.total);
+  }, [users?.total]);
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <TableBodySimple columnLength={userColumnDefs.length}>
+      <TableBodyFull>
         <Spinner />
-      </TableBodySimple>
+      </TableBodyFull>
     );
-
-  if (error)
-    return (
-      <TableBodySimple columnLength={userColumnDefs.length}>{/* <Error>{error.message}</Error> */}</TableBodySimple>
-    );
-
-  // data mapping
-  let newData;
-  let userList = [];
-
-  if (users?.data) {
-    newData = users.data.map((u: any): User => {
-      return {
-        idx: u.idx,
-        firstName: u.first_name,
-        lastName: u.last_name,
-        email: u.email,
-        role: u.role,
-        avatar: u.avatar,
-        topics: u.topics,
-        createdAt: new Date(u.created_at),
-      };
-    });
-    userList = { ...users, data: newData };
   }
-  console.log('data mapping done!');
+
+  if (error) return <TableBodyFull>{error.message}</TableBodyFull>;
+
+  if (users?.total <= 0) return <TableBodyFull>No Data Found</TableBodyFull>;
+
+  const userList = UsersSchema.parse(users).data;
 
   return (
     <>
       {users && (
-        <TableBody
-          columnDefs={userColumnDefs}
-          listData={userList}
-        />
+        <Table.Body>
+          {userList.map((row: User) => (
+            <Table.Row key={row.idx}>
+              {userColumnDefs.map((def) => (
+                <Table.Cell key={`${def.head}_${row.idx}`}>{def.displayFn(row)}</Table.Cell>
+              ))}
+            </Table.Row>
+          ))}
+        </Table.Body>
       )}
     </>
   );

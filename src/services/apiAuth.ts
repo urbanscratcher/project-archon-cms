@@ -1,4 +1,4 @@
-import { SignIn, SignUp } from '../models/User';
+import { SignIn, SignUp } from '../models/Auth';
 import { request } from './axiosSetting';
 
 const authApi = {

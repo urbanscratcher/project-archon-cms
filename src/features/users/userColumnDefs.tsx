@@ -9,13 +9,11 @@ const userColumnDefs: ColumnDef<User>[] = [
   {
     type: 'index',
     head: 'no',
-    width: 'w-[5%] text-center',
-    displayFn: (u) => u.idx,
+    displayFn: (u) => <p className="text-center text-sm text-zinc-500">{u.idx}</p>,
   },
   {
     type: 'data',
     head: 'name',
-    width: 'w-[20%]',
     displayFn: (u) => (
       <UserNameCell
         avatar={u?.avatar}
@@ -27,7 +25,6 @@ const userColumnDefs: ColumnDef<User>[] = [
   {
     type: 'data',
     head: 'role',
-    width: 'w-[12%]',
     displayFn: (u) => (
       <UserRoleCell
         idx={u.idx}
@@ -36,12 +33,11 @@ const userColumnDefs: ColumnDef<User>[] = [
       />
     ),
   },
-  { type: 'data', head: 'email', width: 'w-[25%]', displayFn: (u) => u.email },
-  { type: 'data', head: 'topics', width: 'w-[25%]', displayFn: (u) => <UserTopicsCell topics={u?.topics} /> },
+  { type: 'data', head: 'email', displayFn: (u) => u.email },
+  { type: 'data', head: 'topics', displayFn: (u) => <UserTopicsCell topics={u?.topics} /> },
   {
     type: 'data',
     head: 'joined at',
-    width: 'w-[13%]',
     displayFn: (u) => <p className="whitespace-nowrap">{format(u.createdAt, 'yyyy-MM-dd')}</p>,
   },
 ];

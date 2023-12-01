@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import userApi, { QueryParams } from '../../services/apiUser';
+import { QueryParam } from '../../models/QueryParam';
+import userApi from '../../services/apiUser';
 
-function useUsers(params?: QueryParams) {
+function useUsers(params?: QueryParam) {
   const {
     isLoading,
     data: users,
