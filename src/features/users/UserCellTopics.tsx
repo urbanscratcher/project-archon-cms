@@ -1,10 +1,10 @@
 import Badge from '../../ui/Badge';
 
-type UserTopicsCellProps = {
+type UserCellTopicsProps = {
   topics?: any[];
 };
 
-function UserTopicsCell({ topics }: UserTopicsCellProps) {
+function UserCellTopics({ topics }: UserCellTopicsProps) {
   if (!topics) return;
 
   return (
@@ -19,4 +19,4 @@ function UserTopicsCell({ topics }: UserTopicsCellProps) {
   );
 }
 
-export default UserTopicsCell;
+export default UserCellTopics;

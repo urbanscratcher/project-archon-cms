@@ -1,3 +1,4 @@
+import { PropsWithChildren, ReactNode } from 'react';
 import useToggle from '../hooks/useToggle';
 import { Dropdown } from './Dropdown';
 import Button from './button/Button';
@@ -7,26 +8,27 @@ export type SelectOptions = {
   selected: boolean;
 };
 
-type DropdownActionProps = {
-  options: string[];
-  selectedOptions: string[];
-  selectOption: (value: string) => void;
-  unselectOption: (value: string) => void;
-  buttonText: string;
+type DropdownActionProps<T> = {
+  options: T[];
+  selectedOptions: T[];
+  selectOption: (value: T) => void;
+  unselectOption: (value: T) => void;
+  buttonText?: string;
   closedAfterSelect?: boolean;
 };
 
-function DropdownAction({
+function DropdownAction<T>({
   options,
   selectedOptions,
   selectOption,
   unselectOption,
   buttonText,
+  children,
   closedAfterSelect = false,
-}: DropdownActionProps) {
+}: DropdownActionProps<T> & PropsWithChildren) {
   const [closed, toggle] = useToggle(true);
 
-  const selectHandler = (o: string) => {
+  const selectHandler = (o: T) => {
     selectedOptions.includes(o) ? unselectOption(o) : selectOption(o);
     closedAfterSelect && toggle(true);
   };
@@ -40,16 +42,17 @@ function DropdownAction({
         onClick={toggle}
       >
         {buttonText}
+        {children}
       </Button>
       {!closed && (
         <Dropdown.Content>
           {options.map((r) => (
             <Dropdown.CheckItem
-              key={r}
+              key={r as string}
               checked={selectedOptions.includes(r)}
               onCheckedChange={() => selectHandler(r)}
             >
-              {r}
+              {r as string}
             </Dropdown.CheckItem>
           ))}
         </Dropdown.Content>

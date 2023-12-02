@@ -48,7 +48,7 @@ function InputAction({ placeholder, setAction }: InputActionProps) {
       <Input
         placeholder={placeholder}
         onChange={(e) => setTyped(e.currentTarget.value)}
-        onClick={(e) => setTyped('')}
+        onClick={() => setTyped('')}
         onKeyDown={historyHandler}
         value={typed}
         ref={input}

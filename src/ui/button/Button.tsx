@@ -1,9 +1,9 @@
 import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react';
 
 type ButtonProps = {
-  size?: 'sm' | 'md' | 'lg' | 'icon';
-  buttonType?: 'primary' | 'dropdown' | 'borderless' | 'muted' | 'muted-icon';
-  buttonFunction?: 'delete' | 'hamburger-vertical' | 'send';
+  size?: 'sm' | 'md' | 'icon';
+  buttonType?: 'primary' | 'dropdown' | 'borderless' | 'muted' | 'sort';
+  buttonFunction?: 'delete';
   disabled?: boolean;
   children?: ReactNode;
 } & ComponentPropsWithoutRef<'button'>;
@@ -14,13 +14,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const getSize = (size: string): string => {
       switch (size) {
         case 'icon':
-          return 'px-1 py-2 text-md rounded-md';
+          return 'px-1 py-2 text-md rounded-md flex justify-center items-center';
         case 'sm':
           return 'px-4 py-2 text-md rounded-md';
         case 'md':
           return 'px-5 py-3 text-md rounded-lg';
-        case 'lg':
-          return 'px-7 py-4 text-lg rounded-lg';
         default:
           return '';
       }
@@ -29,13 +27,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const getType = (type: string): string => {
       switch (type) {
         case 'primary':
-          return 'bg-navy-700 text-navy-50 hover:bg-navy-600 border-none  shadow-sm';
+          return 'bg-navy-700 text-navy-50 hover:bg-navy-600 border-none  shadow-sm font-normal';
         case 'dropdown':
-          return 'border border-zinc-300 bg-white hover:bg-zinc-50 flex items-center justify-center active:bg-zinc-100 gap-1 shadow-sm';
+          return 'border border-zinc-300 bg-white hover:bg-zinc-50 flex items-center justify-between active:bg-zinc-100 gap-1 shadow-sm font-normal';
         case 'borderless':
-          return 'flex rounded-md  hover:bg-zinc-100 active:bg-zinc-200/50 items-center justify-center';
+          return 'flex rounded-md  hover:bg-zinc-100 active:bg-zinc-200/50 items-center justify-center font-normal';
         case 'muted':
-          return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm flex items-center';
+          return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm font-normal';
+        case 'sort':
+          return 'flex rounded-md  hover:bg-zinc-200 active:bg-zinc-300/80 items-center justify-center px-3 py-1 rounded-md gap-1 font-medium';
         default:
           return '';
       }
@@ -49,7 +49,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           w-full
           whitespace-nowrap
           text-center
-          font-normal
           capitalize
           transition-colors
           disabled:pointer-events-none
@@ -60,11 +59,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {children && children}
         {buttonType === 'dropdown' && <span className="icon-[lucide--chevron-down]"></span>}
-        {buttonFunction === 'hamburger-vertical' && (
-          <span className="icon-[lucide--more-vertical] m-2 text-zinc-600"></span>
-        )}
         {buttonFunction === 'delete' && <span className="icon-[lucide--trash-2] m-2 text-zinc-600"></span>}
-        {buttonFunction === 'send' && <span className="icon-[lucide--send] m-2 text-zinc-600"></span>}
       </button>
     );
   },

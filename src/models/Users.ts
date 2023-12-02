@@ -38,6 +38,7 @@ const UserSchema = z
 
 export const UsersSchema = getListSchema(UserSchema);
 
+export type Role = z.infer<typeof RoleSchema>;
 export type User = z.infer<typeof UserSchema>;
 export type Users = z.infer<typeof UsersSchema>;
 export type UsersFilter = z.infer<typeof UsersFilterSchema>;

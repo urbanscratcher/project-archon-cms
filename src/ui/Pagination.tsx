@@ -1,5 +1,4 @@
-import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
-import { useUserFilterStore } from '../features/users/usersStore';
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import DropdownAction from './DropdownAction';
 import Button from './button/Button';
 
@@ -15,12 +14,16 @@ const rowsPerPageOptions = ['5', '10', '20', '30', '40', '50'];
 
 function Pagination({ onSetLimit, onSetOffset, limit, offset, total }: PaginationProps) {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([limit.toString()]);
+  const lastPage = Math.ceil(total / limit);
+  const curPage = Math.floor(offset / limit) + 1;
+
   const selectOption = useCallback(
     (option: string) => {
       selectedOptions[0] !== option && setSelectedOptions([option]);
     },
     [selectedOptions, setSelectedOptions],
   );
+
   const unselectOption = useCallback(
     (option: string) => {
       selectedOptions[0] !== option &&
@@ -36,18 +39,15 @@ function Pagination({ onSetLimit, onSetOffset, limit, offset, total }: Paginatio
     }
   }, [selectedOptions, onSetLimit, onSetOffset]);
 
-  const lastPage = useMemo(() => Math.ceil(total / limit), [total, limit]);
-  const curPage = useMemo(() => Math.floor(offset / limit) + 1, [offset, limit]);
-
-  const clickPrevHandler = () => {
+  const clickPrevHandler = useCallback(() => {
     if (offset <= 0) return;
     onSetOffset(offset - limit);
-  };
+  }, [offset, limit, onSetOffset]);
 
-  const clickNextHandler = () => {
+  const clickNextHandler = useCallback(() => {
     if (offset + limit >= total) return;
     onSetOffset(offset + limit);
-  };
+  }, [offset, limit, total, onSetOffset]);
 
   return (
     <Pagination.Content>

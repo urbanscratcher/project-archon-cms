@@ -12,7 +12,11 @@ export function getQueryStr(filterSchema: any) {
     .object({
       offset: z.number().int().min(0, 'Minimum 0').default(0).optional(),
       limit: z.number().int().min(1, 'Minimum 1').max(100, 'Maximum 100').default(10).optional(),
-      sorts: z.string().array().optional(),
+      sorts: z
+        .string()
+        .array()
+        .optional()
+        .transform((data) => (data ? JSON.stringify(data) : undefined)),
       filter: z
         .object({
           or: z.array(filterSchema).optional(),

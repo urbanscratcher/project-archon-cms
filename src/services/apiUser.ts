@@ -1,9 +1,9 @@
 import { QueryParam, getQueryStr } from '../models/QueryParam';
-import { UsersFilter, UsersFilterSchema } from '../models/Users';
+import { UsersFilterSchema } from '../models/Users';
 import { request } from './axiosSetting';
 
 const userApi = {
-  getList: (params: QueryParam<UsersFilter>) => request().get(`/users${getQueryStr(UsersFilterSchema).parse(params)}`),
+  getList: (params: QueryParam) => request().get(`/users${getQueryStr(UsersFilterSchema).parse(params)}`),
   getAllList: () => request().get('/users'),
   getDetail: (idx: number) => request().get(`/users/${idx}`),
   delete: (idx: number) => request().delete(`/users/${idx}`),

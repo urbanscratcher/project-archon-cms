@@ -1,21 +1,27 @@
 import { format } from 'date-fns';
 import { User } from '../../pages/Topic';
 import { type ColumnDef } from '../../utils/types';
-import UserNameCell from './UserNameCell';
-import UserRoleCell from './UserRoleCell';
-import UserTopicsCell from './UserTopicsCell';
+import UserCellName from './UserCellName';
+import UserCellRole from './UserCellRole';
+import UserCellTopics from './UserCellTopics';
 
 const userColumnDefs: ColumnDef<User>[] = [
   {
     type: 'index',
-    head: 'no',
+    head: 'No',
     displayFn: (u) => <p className="text-center text-sm text-zinc-500">{u.idx}</p>,
+    sortable: true,
+    sortKey: 'idx',
+    style: 'w-[7%]',
   },
   {
     type: 'data',
     head: 'name',
+    sortable: true,
+    sortKey: 'first_name',
+    style: 'w-[22%]',
     displayFn: (u) => (
-      <UserNameCell
+      <UserCellName
         avatar={u?.avatar}
         firstName={u.firstName}
         lastName={u.lastName}
@@ -25,19 +31,23 @@ const userColumnDefs: ColumnDef<User>[] = [
   {
     type: 'data',
     head: 'role',
+    style: 'w-[12%]',
     displayFn: (u) => (
-      <UserRoleCell
+      <UserCellRole
         idx={u.idx}
         userRole={u.role}
         options={['user', 'admin', 'editor', 'writer']}
       />
     ),
   },
-  { type: 'data', head: 'email', displayFn: (u) => u.email },
-  { type: 'data', head: 'topics', displayFn: (u) => <UserTopicsCell topics={u?.topics} /> },
+  { type: 'data', head: 'email', sortable: true, sortKey: 'email', style: 'w-[25%]', displayFn: (u) => u.email },
+  { type: 'data', head: 'topics', style: 'w-auto', displayFn: (u) => <UserCellTopics topics={u?.topics} /> },
   {
     type: 'data',
     head: 'joined at',
+    sortable: true,
+    sortKey: 'created_at',
+    style: 'w-[16%]',
     displayFn: (u) => <p className="whitespace-nowrap">{format(u.createdAt, 'yyyy-MM-dd')}</p>,
   },
 ];

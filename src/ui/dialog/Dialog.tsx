@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { type PropsWithChildren, useCallback, useState, type MouseEvent, type SyntheticEvent } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '../button/Button';
 
@@ -6,7 +6,7 @@ type DialogProps = {
   title: string;
   description: string;
   actionName: string;
-  onAction: (e) => void;
+  onAction: (e: SyntheticEvent) => void;
 };
 
 Dialog.Background = function Background() {
@@ -46,7 +46,10 @@ Dialog.Footer = function Footer({ children }: PropsWithChildren) {
   return <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">{children}</div>;
 };
 
-Dialog.Action = function Action({ children, onClickAction }: PropsWithChildren & { onClickAction: (e) => void }) {
+Dialog.Action = function Action({
+  children,
+  onClickAction,
+}: PropsWithChildren & { onClickAction: (e: MouseEvent) => void }) {
   return (
     <Button
       size="sm"
@@ -66,10 +69,14 @@ function Dialog({ title, description, actionName, onAction, children }: PropsWit
   const [show, setShow] = useState(true);
   if (!show) return null;
 
-  const onClickAction = (e) => {
-    onAction(e);
-    setShow(false);
-  };
+  // used useCallback since it is passed down to a child component
+  const onClickAction = useCallback(
+    (e: MouseEvent) => {
+      onAction(e);
+      setShow(false);
+    },
+    [onAction],
+  );
 
   return (
     <>
@@ -82,7 +89,7 @@ function Dialog({ title, description, actionName, onAction, children }: PropsWit
           </Dialog.Header>
           {children}
           <Dialog.Footer>
-            <Dialog.Action onClickAction={(e) => onClickAction(e)}>{actionName}</Dialog.Action>
+            <Dialog.Action onClickAction={onClickAction}>{actionName}</Dialog.Action>
           </Dialog.Footer>
         </Dialog.Box>
       </Dialog.Portal>

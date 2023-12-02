@@ -1,12 +1,12 @@
 import { Avatar } from '../../ui/Avatar';
 
-type UserNameCellProps = {
+type UserCellNameProps = {
   avatar?: string;
   firstName: string;
   lastName: string;
 };
 
-function UserNameCell({ avatar, firstName, lastName }: UserNameCellProps) {
+function UserCellName({ avatar, firstName, lastName }: UserCellNameProps) {
   return (
     <div className="flex items-center gap-2">
       <div className="aspect-square w-8 overflow-clip rounded-full">
@@ -19,4 +19,4 @@ function UserNameCell({ avatar, firstName, lastName }: UserNameCellProps) {
   );
 }
 
-export default UserNameCell;
+export default UserCellName;

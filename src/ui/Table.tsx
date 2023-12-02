@@ -3,15 +3,16 @@ import { ComponentPropsWithoutRef, type PropsWithChildren } from 'react';
 function Table({ children }: PropsWithChildren) {
   return (
     <div className="min-w-[64px] max-w-full overflow-scroll rounded-md border border-zinc-300 xl:overflow-visible">
-      <table className="w-full caption-bottom">{children}</table>
+      <table className="w-full table-fixed caption-bottom">{children}</table>
     </div>
   );
 }
 
-Table.HeadCell = function HeadCell({ children }: PropsWithChildren) {
+Table.HeadCell = function HeadCell({ children, style }: PropsWithChildren & { style?: string }) {
   return (
     <th
-      className={`
+      className={`        
+        ${style}
         pl-2
         text-left
         font-medium
@@ -74,6 +75,16 @@ Table.CellFull = function CellFull({ children }: PropsWithChildren) {
 
 Table.Body = function Body({ children }: PropsWithChildren) {
   return <tbody className="[&_tr:last-child]:border-0">{children}</tbody>;
+};
+
+Table.BodyFull = function BodyFull({ children }: PropsWithChildren) {
+  return (
+    <Table.Body>
+      <Table.Row>
+        <Table.CellFull>{children}</Table.CellFull>
+      </Table.Row>
+    </Table.Body>
+  );
 };
 
 export default Table;

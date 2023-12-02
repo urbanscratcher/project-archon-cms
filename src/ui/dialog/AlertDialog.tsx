@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import Button from '../button/Button';
 import Dialog from './Dialog';
 
@@ -17,25 +17,29 @@ AlertDialog.Footer = function Footer({ children }: PropsWithChildren) {
 
 AlertDialog.Cancel = function Cancel({ children, onClickCancel }: PropsWithChildren & { onClickCancel: () => void }) {
   return (
-    <Button
-      size="sm"
-      buttonType="muted"
-      onClick={onClickCancel}
-    >
-      {children}
-    </Button>
+    <div className="sm:w-fit">
+      <Button
+        size="sm"
+        buttonType="muted"
+        onClick={onClickCancel}
+      >
+        {children}
+      </Button>
+    </div>
   );
 };
 
 AlertDialog.Action = function Action({ children, onClickAction }: PropsWithChildren & { onClickAction: () => void }) {
   return (
-    <Button
-      size="sm"
-      buttonType="primary"
-      onClick={onClickAction}
-    >
-      {children}
-    </Button>
+    <div className="sm:w-fit">
+      <Button
+        size="sm"
+        buttonType="primary"
+        onClick={onClickAction}
+      >
+        {children}
+      </Button>
+    </div>
   );
 };
 
@@ -51,16 +55,17 @@ function AlertDialog({
   const [show, setShow] = useState(true);
   if (!show) return null;
 
-  const onClickCancel = () => {
-    console.log(closed);
+  // used useCallback since it is passed down to a child component
+  const onClickCancel = useCallback(() => {
     onCancel();
     setShow(false);
-  };
+  }, [onCancel]);
 
-  const onClickAction = () => {
+  // used useCallback since it is passed down to a child component
+  const onClickAction = useCallback(() => {
     onContinue();
     setShow(false);
-  };
+  }, [onContinue]);
 
   return (
     <>

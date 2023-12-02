@@ -1,8 +1,8 @@
-import { ColumnDef, type Dto, type ListData } from '../../utils/types';
+import { ColumnDef } from '../../utils/types';
 import Table from '../Table';
 
 type TableBodyProps<T> = {
-  data: ListData<T & Dto> & string;
+  data: any;
   columnDefs: ColumnDef<T>[];
   simple?: boolean;
 };
@@ -24,7 +24,7 @@ function TableBody<T>({ data, columnDefs, simple = false }: TableBodyProps<T>) {
 
   return (
     <Table.Body>
-      {data.data.map((row) => (
+      {data.data.map((row: any) => (
         <Table.Row key={row.idx}>
           {columnDefs.map((def) => (
             <Table.Cell key={`${def.head}_${row.idx}`}>{def.displayFn(row)}</Table.Cell>
