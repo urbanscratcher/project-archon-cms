@@ -1,5 +1,5 @@
 import { ColumnDef } from '../../utils/types';
-import Table from '../Table';
+import Table from './Table';
 
 type TableBodyProps<T> = {
   data: any;

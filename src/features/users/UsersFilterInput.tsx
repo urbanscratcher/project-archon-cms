@@ -1,4 +1,4 @@
-import InputAction from '../../ui/InputAction';
+import InputAction from '../../ui/input/InputAction';
 import { useUserFilterStore } from './usersStore';
 
 function UsersFilterInput() {

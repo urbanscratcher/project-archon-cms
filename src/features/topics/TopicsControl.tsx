@@ -3,8 +3,7 @@ import { PropsWithChildren, useState } from 'react';
 import useToggle from '../../hooks/useToggle';
 import Error from '../../pages/Error';
 import topicApi from '../../services/apiTopic';
-import Input from '../../ui/Input';
-import Spinner from '../../ui/Spinner';
+import Input from '../../ui/input/Input';
 import Button from '../../ui/button/Button';
 import AlertDialog from '../../ui/dialog/AlertDialog';
 import Dialog from '../../ui/dialog/Dialog';
@@ -27,7 +26,7 @@ function TopicsControl({ topic }: { topic: Topic }) {
     mutationFn: ({ name }: { name: string }) => topicApi.updateName(topic.idx, { name }, token),
     onSuccess: () => {
       console.log('success');
-      queryClient.refetchQueries({ queryKey: ['topics'] });
+      queryClient.invalidateQueries({ queryKey: ['topics'] });
     },
     onError: (error) => {
       console.log('error...', error);
@@ -39,6 +38,7 @@ function TopicsControl({ topic }: { topic: Topic }) {
   };
 
   const editHandler = () => {
+    // console.log('edit mutate...?');
     mutate({ name: newName });
   };
 
@@ -50,7 +50,7 @@ function TopicsControl({ topic }: { topic: Topic }) {
   } = useMutation({
     mutationFn: ({ idx }: { idx: number }) => topicApi.delete(idx, token),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ['topics'] });
+      queryClient.invalidateQueries({ queryKey: ['topics'] });
     },
     onError: (error) => {
       console.log('error...', error);
@@ -68,31 +68,32 @@ function TopicsControl({ topic }: { topic: Topic }) {
   return (
     <>
       {showEdit && (
-        <Dialog
+        <AlertDialog
           title="Edit Topic Name"
           description="Make changes to topic name here. Click save when you're done"
-          actionName="Save changes"
-          onAction={editHandler}
+          isLoading={isPending}
+          continueLabel="Save"
+          onContinue={editHandler}
+          onCancel={() => toggleEdit(false)}
         >
-          {isPending && <Spinner />}
-          {updateError && <Error />}
-          {!isPending && !updateError && (
-            <Input
-              placeholder={topic.name}
-              onChange={(e) => setNewName(e.target.value)}
-            />
-          )}
-        </Dialog>
+          <Input
+            disabled={isPending}
+            placeholder={topic.name}
+            onChange={(e) => setNewName(e.target.value)}
+          />
+          {updateError && <Error.Message errorState={updateError} />}{' '}
+        </AlertDialog>
       )}
       {showDelete && (
         <AlertDialog
           title="Are you sure?"
           description="Your action to delete can't be restored again"
+          isLoading={isDeletePending}
+          continueLabel="Delete"
           onContinue={deleteHandler}
-          onCancel={() => {}}
+          onCancel={() => toggleDelete(false)}
         >
-          {isDeletePending && <Spinner />}
-          {deleteError && <Error />}
+          {deleteError && <Error.Message errorState={deleteError} />}
         </AlertDialog>
       )}
       <TopicsControl.Container>

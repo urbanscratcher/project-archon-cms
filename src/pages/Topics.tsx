@@ -1,7 +1,8 @@
+import CreateTopic from '../features/topics/CreateTopic';
+import TopicList from '../features/topics/TopicList';
 import MainHead from '../ui/Head';
-import { MainLayout } from '../ui/MainLayout';
 import { MainBody } from '../ui/MainBody';
-import TopicsContent from '../features/topics/TopicsContent';
+import { MainLayout } from '../ui/MainLayout';
 
 function Topics() {
   return (
@@ -12,7 +13,10 @@ function Topics() {
           <MainHead.Description>A list of topics to be managed (only for admins, editors)</MainHead.Description>
         </MainHead>
         <MainBody>
-          <TopicsContent />
+          <CreateTopic />
+          <TopicList.Box>
+            <TopicList />
+          </TopicList.Box>
         </MainBody>
       </MainLayout>
     </>

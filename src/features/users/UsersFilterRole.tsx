@@ -1,4 +1,4 @@
-import DropdownAction from '../../ui/DropdownAction';
+import DropdownAction from '../../ui/dropdown/DropdownAction';
 import { useUserFilterStore } from './usersStore';
 
 function UsersFilterRole() {
@@ -8,8 +8,8 @@ function UsersFilterRole() {
       buttonText="Filter by Role"
       options={roleOptions}
       selectedOptions={selectedRoles}
-      selectOption={selectRole}
-      unselectOption={unselectRole}
+      onSelect={selectRole}
+      onUnselect={unselectRole}
     />
   );
 }

@@ -8,7 +8,7 @@ import userColumnDefs from '../features/users/userColumnDefs';
 import MainHead from '../ui/Head';
 import { MainBody } from '../ui/MainBody';
 import { MainLayout } from '../ui/MainLayout';
-import Table from '../ui/Table';
+import Table from '../ui/table/Table';
 
 function Users() {
   return (

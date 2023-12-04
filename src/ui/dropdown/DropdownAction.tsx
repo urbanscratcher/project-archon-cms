@@ -1,7 +1,6 @@
-import { PropsWithChildren, ReactNode } from 'react';
-import useToggle from '../hooks/useToggle';
-import { Dropdown } from './Dropdown';
-import Button from './button/Button';
+import { useEffect, useState, type MouseEvent, type PropsWithChildren } from 'react';
+import Dropdown from './Dropdown';
+import Button from '../button/Button';
 
 export type SelectOptions = {
   item: string;
@@ -11,8 +10,8 @@ export type SelectOptions = {
 type DropdownActionProps<T> = {
   options: T[];
   selectedOptions: T[];
-  selectOption: (value: T) => void;
-  unselectOption: (value: T) => void;
+  onSelect: (value: T) => void;
+  onUnselect: (value: T) => void;
   buttonText?: string;
   closedAfterSelect?: boolean;
 };
@@ -20,32 +19,42 @@ type DropdownActionProps<T> = {
 function DropdownAction<T>({
   options,
   selectedOptions,
-  selectOption,
-  unselectOption,
+  onSelect,
+  onUnselect,
   buttonText,
   children,
   closedAfterSelect = false,
 }: DropdownActionProps<T> & PropsWithChildren) {
-  const [closed, toggle] = useToggle(true);
+  const [closed, setClosed] = useState(true);
+  const [showDown, setShowDown] = useState(true);
 
   const selectHandler = (o: T) => {
-    selectedOptions.includes(o) ? unselectOption(o) : selectOption(o);
-    closedAfterSelect && toggle(true);
+    selectedOptions.includes(o) ? onUnselect(o) : onSelect(o);
+    closedAfterSelect && setClosed(true);
+  };
+
+  const clickHandler = (e: MouseEvent) => {
+    const loc = e.currentTarget.getBoundingClientRect();
+    if (window.innerHeight * 0.7 < loc.top) {
+      setShowDown(false);
+    }
+
+    setClosed(!closed);
   };
 
   return (
-    <Dropdown onToggle={toggle}>
+    <Dropdown onToggle={setClosed}>
       <Button
         size="sm"
         buttonType="dropdown"
         aria-expanded={!closed}
-        onClick={toggle}
+        onClick={clickHandler}
       >
         {buttonText}
         {children}
       </Button>
       {!closed && (
-        <Dropdown.Content>
+        <Dropdown.Content showDown={showDown}>
           {options.map((r) => (
             <Dropdown.CheckItem
               key={r as string}

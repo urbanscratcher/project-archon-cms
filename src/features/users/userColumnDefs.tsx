@@ -1,14 +1,14 @@
 import { format } from 'date-fns';
-import { User } from '../../pages/Topic';
 import { type ColumnDef } from '../../utils/types';
 import UserCellName from './UserCellName';
 import UserCellRole from './UserCellRole';
 import UserCellTopics from './UserCellTopics';
+import { User } from '../../models/Users';
 
 const userColumnDefs: ColumnDef<User>[] = [
   {
     type: 'index',
-    head: 'No',
+    head: 'idx',
     displayFn: (u) => <p className="text-center text-sm text-zinc-500">{u.idx}</p>,
     sortable: true,
     sortKey: 'idx',

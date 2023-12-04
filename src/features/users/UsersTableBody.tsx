@@ -2,16 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { QueryParam } from '../../models/QueryParam';
 import { User, UsersSchema } from '../../models/Users';
 import Spinner from '../../ui/Spinner';
-import Table from '../../ui/Table';
+import Table from '../../ui/table/Table';
 import useUsers from './useUsers';
 import userColumnDefs from './userColumnDefs';
 import { useUserFilterStore } from './usersStore';
 
 function UsersTableBody() {
+  console.log('Rendering...');
   const { searchFilter, selectedRoles, offset, limit, sorts, setTotal } = useUserFilterStore();
-  const [queryParams, setQueryParams] = useState<QueryParam>();
-
-  // useCallback since the fn is in the dependency array
   const makeQueryParams = useCallback(
     (searchFilter?: string, selectedRoles?: string[], offset?: number, limit?: number, sorts?: string[]) => {
       const andConditions = [];
@@ -34,11 +32,16 @@ function UsersTableBody() {
         or: orConditions.length <= 0 ? undefined : orConditions,
       };
 
-      const queryParams = { filter: filterQuery, offset: offset, limit: limit, sorts: sorts };
+      const sortsQuery = !sorts || sorts?.length <= 0 ? undefined : sorts;
+
+      const queryParams = { filter: filterQuery, offset: offset, limit: limit, sorts: sortsQuery };
 
       return queryParams;
     },
     [],
+  );
+  const [queryParams, setQueryParams] = useState<QueryParam>(
+    makeQueryParams(searchFilter ?? '', selectedRoles, offset, limit, sorts),
   );
 
   useEffect(() => {
@@ -46,6 +49,10 @@ function UsersTableBody() {
   }, [searchFilter, selectedRoles, offset, limit, makeQueryParams, sorts]);
 
   const { users, isLoading, error } = useUsers(queryParams);
+
+  useEffect(() => {
+    users && console.log(users.data[0].role);
+  }, [users]);
 
   useEffect(() => {
     users && setTotal(users.total);
@@ -60,7 +67,6 @@ function UsersTableBody() {
   }
 
   if (error) return <Table.BodyFull>{error.message}</Table.BodyFull>;
-
   if (users?.total <= 0) return <Table.BodyFull>No Data Found</Table.BodyFull>;
 
   const userList = UsersSchema.parse(users).data;

@@ -16,6 +16,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
           px-4        
           py-2
           shadow-sm
+          disabled:pointer-events-none
+          disabled:bg-zinc-100
         ${props.className ?? ''}`}
     />
   );

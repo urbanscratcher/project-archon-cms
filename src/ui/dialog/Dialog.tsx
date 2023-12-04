@@ -1,12 +1,21 @@
-import { type PropsWithChildren, useCallback, useState, type MouseEvent, type SyntheticEvent } from 'react';
+import {
+  type PropsWithChildren,
+  useCallback,
+  useState,
+  type MouseEvent,
+  type SyntheticEvent,
+  type ReactNode,
+} from 'react';
 import { createPortal } from 'react-dom';
 import Button from '../button/Button';
+import Spinner from '../Spinner';
 
 type DialogProps = {
   title: string;
   description: string;
-  actionName: string;
+  actionName: ReactNode;
   onAction: (e: SyntheticEvent) => void;
+  isLoading?: boolean;
 };
 
 Dialog.Background = function Background() {
@@ -43,17 +52,23 @@ Dialog.Description = function Description({ children }: PropsWithChildren) {
   return <div>{children}</div>;
 };
 Dialog.Footer = function Footer({ children }: PropsWithChildren) {
-  return <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">{children}</div>;
+  return (
+    <div className="flex flex-col-reverse gap-2 sm:w-fit sm:flex-row sm:justify-end sm:justify-self-end">
+      {children}
+    </div>
+  );
 };
 
 Dialog.Action = function Action({
   children,
   onClickAction,
-}: PropsWithChildren & { onClickAction: (e: MouseEvent) => void }) {
+  isLoading,
+}: PropsWithChildren & { onClickAction: (e: MouseEvent) => void; isLoading?: boolean }) {
   return (
     <Button
       size="sm"
       buttonType="primary"
+      disabled={isLoading}
       onClick={onClickAction}
     >
       {children}
@@ -65,9 +80,8 @@ Dialog.Portal = function Portal({ children }: PropsWithChildren) {
   return createPortal(children, document.getElementById('portal') as HTMLElement);
 };
 
-function Dialog({ title, description, actionName, onAction, children }: PropsWithChildren & DialogProps) {
+function Dialog({ title, description, actionName, onAction, children, isLoading }: PropsWithChildren & DialogProps) {
   const [show, setShow] = useState(true);
-  if (!show) return null;
 
   // used useCallback since it is passed down to a child component
   const onClickAction = useCallback(
@@ -89,7 +103,19 @@ function Dialog({ title, description, actionName, onAction, children }: PropsWit
           </Dialog.Header>
           {children}
           <Dialog.Footer>
-            <Dialog.Action onClickAction={onClickAction}>{actionName}</Dialog.Action>
+            <Dialog.Action
+              isLoading={isLoading}
+              onClickAction={onClickAction}
+            >
+              {isLoading ? (
+                <Spinner
+                  light
+                  withText={false}
+                />
+              ) : (
+                actionName
+              )}
+            </Dialog.Action>
           </Dialog.Footer>
         </Dialog.Box>
       </Dialog.Portal>

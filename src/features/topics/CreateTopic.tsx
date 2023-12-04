@@ -1,28 +1,25 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRef, type FormEvent } from 'react';
-import topicApi from '../../services/apiTopic';
-import Input from '../../ui/Input';
+import { useRef, type FormEvent, useState, useEffect } from 'react';
+import Input from '../../ui/input/Input';
 import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
 import Dialog from '../../ui/dialog/Dialog';
+import useCreateTopic from './useCreateTopic';
+import Error, { makeErrorMsg } from '../../pages/Error';
+import { AxiosError } from 'axios';
 
 function CreateTopic() {
   const input = useRef<HTMLInputElement>(null);
-  const queryClient = useQueryClient();
-  const token = localStorage.getItem('access_token') ?? '';
+  const { mutate, isPending, error } = useCreateTopic();
+  const [showError, setShowError] = useState(false);
 
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: (name: string) => topicApi.create({ name: name }, token),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ['topics'] });
-    },
-    onError: (error) => {
-      console.log('error...', error);
-    },
-  });
+  useEffect(() => {
+    setShowError(true);
+  }, [error]);
 
   const createHandler = (e: FormEvent<HTMLFormElement>) => {
+    // to prevent refreshing the page
     e.preventDefault();
+
     if (input.current?.value) {
       mutate(input.current.value);
       input.current.value = '';
@@ -45,6 +42,7 @@ function CreateTopic() {
           buttonType="primary"
           size="sm"
           style={{ minWidth: '5.4rem' }}
+          disabled={isPending}
         >
           {isPending ? (
             <Spinner
@@ -55,12 +53,13 @@ function CreateTopic() {
             'Create'
           )}
         </Button>
-        {error && (
+        {error && showError && error instanceof AxiosError && (
           <Dialog
-            title={'Error'}
-            description={error.message}
+            title={makeErrorMsg(error.response!.status).title}
+            description={makeErrorMsg(error.response!.status).description}
             actionName="Confirm"
             onAction={() => {
+              setShowError(false);
               return;
             }}
           ></Dialog>

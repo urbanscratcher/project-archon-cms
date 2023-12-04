@@ -4,6 +4,8 @@ import {
   type PropsWithChildren,
   type ReactNode,
   type FocusEvent,
+  useRef,
+  useEffect,
 } from 'react';
 
 type DropdownProps = {
@@ -11,7 +13,7 @@ type DropdownProps = {
   onToggle: any;
 };
 
-export function Dropdown({ children, onToggle }: DropdownProps) {
+function Dropdown({ children, onToggle }: DropdownProps) {
   const closeHandler = (e: FocusEvent) => {
     onToggle(!e.currentTarget.contains(e.relatedTarget));
   };
@@ -25,9 +27,22 @@ export function Dropdown({ children, onToggle }: DropdownProps) {
     </div>
   );
 }
-Dropdown.Content = function Content({ children }: PropsWithChildren) {
+
+Dropdown.Content = function Content({ children, showDown }: PropsWithChildren & { showDown: boolean }) {
+  const boxRef = useRef(null);
+  const style = showDown ? 'left-0 top-full translate-y-1' : 'left-0 top-0 -translate-y-[calc(100%+0.25rem)]';
+
+  useEffect(() => {
+    if (showDown) {
+      console.log(boxRef.current);
+    }
+  }, [boxRef, showDown]);
+
   return (
-    <div className="absolute left-0 top-full z-10 min-w-max translate-y-1">
+    <div
+      className={'absolute z-10 min-w-max' + style}
+      ref={boxRef}
+    >
       <ul
         role="menu"
         className="min-w-[8rem] overflow-hidden rounded-sm border border-zinc-300 bg-white p-1 text-sm shadow-md"
@@ -37,6 +52,7 @@ Dropdown.Content = function Content({ children }: PropsWithChildren) {
     </div>
   );
 };
+
 Dropdown.CheckItem = function CheckItem({
   children,
   onCheckedChange,
@@ -51,12 +67,13 @@ Dropdown.CheckItem = function CheckItem({
     </Dropdown.Item>
   );
 };
+
 Dropdown.Item = function Item({
   children,
   onMouseDown,
   ...props
 }: ComponentPropsWithoutRef<'li'> & { onMouseDown: () => void }) {
-  const mouseDownHandler = (e: MouseEvent) => {
+  const clickHandler = (e: MouseEvent) => {
     e.preventDefault();
     onMouseDown();
   };
@@ -64,7 +81,7 @@ Dropdown.Item = function Item({
   return (
     <li
       {...props}
-      onMouseDown={mouseDownHandler}
+      onMouseDown={clickHandler}
       role="menuitem"
       className="relative cursor-default select-none items-center py-1.5 pl-8 pr-2 capitalize transition-colors hover:bg-zinc-100 focus:bg-zinc-100"
     >
@@ -72,3 +89,5 @@ Dropdown.Item = function Item({
     </li>
   );
 };
+
+export default Dropdown;

@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, type PropsWithChildren } from 'react';
+import { ReactNode, type PropsWithChildren } from 'react';
 
 function Table({ children }: PropsWithChildren) {
   return (
@@ -51,11 +51,18 @@ Table.Row = function Row({ children }: PropsWithChildren) {
   );
 };
 
-Table.Cell = function Cell({ children, ...otherProps }: ComponentPropsWithoutRef<'th'>) {
+type TableCellProps = {
+  children: ReactNode;
+  colSpan?: number;
+  key?: string;
+  className?: string;
+};
+
+Table.Cell = function Cell({ children, colSpan, className }: TableCellProps) {
   return (
     <td
-      className={'relative p-2 [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]'}
-      {...otherProps}
+      className={'relative p-2 [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]' + className}
+      colSpan={colSpan}
     >
       {children}
     </td>

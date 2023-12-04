@@ -1,6 +1,6 @@
 import { useRef, useState, type KeyboardEvent } from 'react';
-import useDebounce from '../hooks/useDebounce';
-import useStateWithHistory from '../hooks/useStateWithHistory';
+import useDebounce from '../../hooks/useDebounce';
+import useStateWithHistory from '../../hooks/useStateWithHistory';
 import Input from './Input';
 
 type InputActionProps = {

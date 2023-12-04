@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import checkValidValue from '../../hooks/useZodValidation';
 import { PasswordSchema } from '../../models/Auth';
-import Input from '../../ui/Input';
+import Input from '../../ui/input/Input';
 import { InputProps } from './InputProps';
 import { useSignInStore } from './signInStore';
 

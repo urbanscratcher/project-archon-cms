@@ -1,14 +1,16 @@
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { type PropsWithChildren, type ReactNode, useCallback, useState } from 'react';
 import Button from '../button/Button';
 import Dialog from './Dialog';
+import Spinner from '../Spinner';
 
 type AlertDialogProps = {
   title: string;
   description: string;
-  continueLabel?: string;
+  continueLabel?: ReactNode;
+  cancelLabel?: ReactNode;
   onContinue: () => void;
-  cancelLabel?: string;
   onCancel: () => void;
+  isLoading?: boolean;
 };
 
 AlertDialog.Footer = function Footer({ children }: PropsWithChildren) {
@@ -29,13 +31,18 @@ AlertDialog.Cancel = function Cancel({ children, onClickCancel }: PropsWithChild
   );
 };
 
-AlertDialog.Action = function Action({ children, onClickAction }: PropsWithChildren & { onClickAction: () => void }) {
+AlertDialog.Action = function Action({
+  children,
+  onClickAction,
+  isLoading,
+}: PropsWithChildren & { onClickAction: () => void; isLoading?: boolean }) {
   return (
     <div className="sm:w-fit">
       <Button
         size="sm"
         buttonType="primary"
         onClick={onClickAction}
+        disabled={isLoading ? true : false}
       >
         {children}
       </Button>
@@ -51,9 +58,9 @@ function AlertDialog({
   onCancel,
   cancelLabel,
   children,
+  isLoading,
 }: AlertDialogProps & PropsWithChildren) {
   const [show, setShow] = useState(true);
-  if (!show) return null;
 
   // used useCallback since it is passed down to a child component
   const onClickCancel = useCallback(() => {
@@ -80,7 +87,19 @@ function AlertDialog({
             {children}
             <AlertDialog.Footer>
               <AlertDialog.Cancel onClickCancel={onClickCancel}>{cancelLabel ?? 'Cancel'}</AlertDialog.Cancel>
-              <AlertDialog.Action onClickAction={onClickAction}>{continueLabel ?? 'Continue'}</AlertDialog.Action>
+              <AlertDialog.Action
+                isLoading={isLoading}
+                onClickAction={onClickAction}
+              >
+                {isLoading ? (
+                  <Spinner
+                    light
+                    withText={false}
+                  />
+                ) : (
+                  continueLabel ?? 'Continue'
+                )}
+              </AlertDialog.Action>
             </AlertDialog.Footer>
           </Dialog.Box>
         </Dialog.Portal>

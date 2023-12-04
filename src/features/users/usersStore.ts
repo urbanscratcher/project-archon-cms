@@ -21,12 +21,12 @@ type UserFilterStore = {
 };
 
 export const useUserFilterStore = create<UserFilterStore>()((set) => ({
+  sorts: [],
   selectRole: (role: Role) =>
     set((state) => ({
       selectedRoles: [...state.selectedRoles, role],
     })),
   unselectRole: (role: Role) => set((state) => ({ selectedRoles: state.selectedRoles.filter((r) => r !== role) })),
-  sorts: [],
   addSorts: (s) =>
     set((state) => {
       if (state.sorts.includes(s)) {

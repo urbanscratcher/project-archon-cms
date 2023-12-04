@@ -1,5 +1,5 @@
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
-import DropdownAction from './DropdownAction';
+import DropdownAction from './dropdown/DropdownAction';
 import Button from './button/Button';
 
 type PaginationProps = {
@@ -57,8 +57,8 @@ function Pagination({ onSetLimit, onSetOffset, limit, offset, total }: Paginatio
           buttonText={selectedOptions[0]}
           options={rowsPerPageOptions}
           selectedOptions={selectedOptions}
-          selectOption={selectOption}
-          unselectOption={unselectOption}
+          onSelect={selectOption}
+          onUnselect={unselectOption}
           closedAfterSelect={true}
         />
       </Pagination.ControlBox>
