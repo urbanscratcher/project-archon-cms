@@ -3,10 +3,18 @@ import { TopicSchema } from './Topic';
 import { toCamelCase } from '../utils/helpers';
 import { getListSchema } from './QueryParam';
 
-export const CreatorSchema = z.object({
-  idx: z.number(),
-  first_name: z.string(),
-  last_name: z.string(),
+export const CreatorSchema = z
+  .object({
+    idx: z.number(),
+    first_name: z.string(),
+    last_name: z.string(),
+  })
+  .transform((data) => toCamelCase(data));
+
+export const InsightsFilterSchema = z.object({
+  title: z.string().optional(),
+  topic_idx: z.number().optional(),
+  created_by: z.number().optional(),
 });
 
 const InsightSchema = z

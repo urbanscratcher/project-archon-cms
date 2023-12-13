@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { Insight } from '../../models/Insights';
 import { type ColumnDef } from '../../utils/types';
 
@@ -23,23 +24,16 @@ export const insightColumnDefs: ColumnDef<Insight>[] = [
     head: 'title',
     sortable: true,
     sortKey: 'title',
-    style: 'w-[25%]',
-    displayFn: (i) => <p className="whitespace-nowrap">{i.title}</p>,
+    style: 'w-[43%]',
+    displayFn: (i) => <p className="whitespace-wrap">{i.title}</p>,
   },
-  {
-    type: 'data',
-    head: 'summary',
-    style: 'w-[15%]',
-    displayFn: (i) => <p className="whitespace-nowrap">{i.summary}</p>,
-  },
-
   {
     type: 'data',
     head: 'created by',
-    style: 'w-[20%]',
+    style: 'w-[18%]',
     displayFn: (i) => (
       <p>
-        {i.user.firstName} {i.user.lastName}
+        {i.createdBy.firstName} {i.createdBy.lastName}
       </p>
     ),
   },
@@ -48,7 +42,7 @@ export const insightColumnDefs: ColumnDef<Insight>[] = [
     head: 'created at',
     sortable: true,
     sortKey: 'created_at',
-    style: 'w-[18%]',
-    displayFn: (i) => <p className="whitespace-nowrap">{i.createdAt}</p>,
+    style: 'w-[22%]',
+    displayFn: (i) => <p className="whitespace-nowrap">{format(i.createdAt, 'yyyy-MM-dd / hh:mm a')}</p>,
   },
 ];

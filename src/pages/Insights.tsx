@@ -16,7 +16,12 @@ function Insights() {
         <Table>
           <Table.HeadRow>
             {insightColumnDefs.map((def) => (
-              <Table.HeadCell key={def.head}>{def.head}</Table.HeadCell>
+              <Table.HeadCell
+                key={def.head}
+                style={def.style}
+              >
+                {def.head}
+              </Table.HeadCell>
             ))}
           </Table.HeadRow>
           <InsightsTableBody />

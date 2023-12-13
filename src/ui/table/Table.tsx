@@ -61,7 +61,7 @@ type TableCellProps = {
 Table.Cell = function Cell({ children, colSpan, className }: TableCellProps) {
   return (
     <td
-      className={'relative p-2 [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]' + className}
+      className={'relative p-2 [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] ' + className}
       colSpan={colSpan}
     >
       {children}

@@ -9,7 +9,6 @@ import userColumnDefs from './userColumnDefs';
 import { useUserFilterStore } from './usersStore';
 
 function UsersTableBody() {
-  console.log('Rendering...');
   const { searchFilter, selectedRoles, offset, limit, sorts, setTotal } = useUserFilterStore();
 
   const [queryParams, setQueryParams] = useState<QueryParam>(
@@ -21,10 +20,6 @@ function UsersTableBody() {
   }, [searchFilter, selectedRoles, offset, limit, makeQueryParams, sorts]);
 
   const { users, isLoading, error } = useUsers(queryParams);
-
-  useEffect(() => {
-    users && console.log(users.data[0].role);
-  }, [users]);
 
   useEffect(() => {
     users && setTotal(users.total);
