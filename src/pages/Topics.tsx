@@ -6,20 +6,18 @@ import { MainLayout } from '../ui/MainLayout';
 
 function Topics() {
   return (
-    <>
-      <MainLayout>
-        <MainHead>
-          <MainHead.Title>Topics</MainHead.Title>
-          <MainHead.Description>A list of topics to be managed (only for admins, editors)</MainHead.Description>
-        </MainHead>
-        <MainBody>
-          <CreateTopic />
-          <TopicList.Box>
-            <TopicList />
-          </TopicList.Box>
-        </MainBody>
-      </MainLayout>
-    </>
+    <MainLayout>
+      <MainHead>
+        <MainHead.Title>Topics</MainHead.Title>
+        <MainHead.Description>A list of topics to be managed (only for admins, editors)</MainHead.Description>
+      </MainHead>
+      <MainBody>
+        <CreateTopic />
+        <TopicList.Box>
+          <TopicList />
+        </TopicList.Box>
+      </MainBody>
+    </MainLayout>
   );
 }
 

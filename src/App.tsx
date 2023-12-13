@@ -13,6 +13,7 @@ import Users from './pages/Users';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Redirect from './ui/Redirect';
 import Error from './pages/Error';
+import Insights from './pages/Insights';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,7 +62,7 @@ function App(): ReactNode {
               />
               <Route
                 path="insights"
-                element={<div>/insights</div>}
+                element={<Insights />}
               />
               <Route
                 path="profile"

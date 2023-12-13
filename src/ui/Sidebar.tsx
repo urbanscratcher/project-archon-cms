@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
-import Logo from '../../ui/Logo';
-import NavMenu from '../../ui/NavMenu';
+import Logo from './Logo';
+import NavMenu from './NavMenu';
 
 export default function Sidebar() {
   return (
@@ -35,12 +35,14 @@ Sidebar.Container = function Container({ children }: PropsWithChildren) {
   return (
     <nav
       className="
+        sticky top-12
+        z-20
         row-span-full
         flex
-        flex-col gap-12                  
-        overflow-hidden
-        px-6
-        py-6"
+        h-0
+        w-[260px] flex-col gap-12                  
+        px-8
+        "
     >
       {children}
     </nav>

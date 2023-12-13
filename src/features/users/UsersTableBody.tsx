@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { QueryParam } from '../../models/QueryParam';
 import { User, UsersSchema } from '../../models/Users';
 import Spinner from '../../ui/Spinner';
 import Table from '../../ui/table/Table';
+import { makeQueryParams } from '../../utils/helpers';
 import useUsers from './useUsers';
 import userColumnDefs from './userColumnDefs';
 import { useUserFilterStore } from './usersStore';
@@ -10,36 +11,7 @@ import { useUserFilterStore } from './usersStore';
 function UsersTableBody() {
   console.log('Rendering...');
   const { searchFilter, selectedRoles, offset, limit, sorts, setTotal } = useUserFilterStore();
-  const makeQueryParams = useCallback(
-    (searchFilter?: string, selectedRoles?: string[], offset?: number, limit?: number, sorts?: string[]) => {
-      const andConditions = [];
-      const orConditions: any[] = [];
 
-      if (searchFilter && searchFilter !== '') {
-        andConditions.push({ first_name: `like:${searchFilter}` });
-        andConditions.push({ last_name: `like:${searchFilter}` });
-        andConditions.push({ email: `like:${searchFilter}` });
-      }
-
-      if (selectedRoles && selectedRoles?.length > 0) {
-        selectedRoles.forEach((r) => {
-          orConditions.push({ role: r });
-        });
-      }
-
-      const filterQuery = {
-        and: andConditions.length <= 0 ? undefined : andConditions,
-        or: orConditions.length <= 0 ? undefined : orConditions,
-      };
-
-      const sortsQuery = !sorts || sorts?.length <= 0 ? undefined : sorts;
-
-      const queryParams = { filter: filterQuery, offset: offset, limit: limit, sorts: sortsQuery };
-
-      return queryParams;
-    },
-    [],
-  );
   const [queryParams, setQueryParams] = useState<QueryParam>(
     makeQueryParams(searchFilter ?? '', selectedRoles, offset, limit, sorts),
   );

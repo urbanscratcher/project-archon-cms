@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
-import NavBar from '../pages/organisms/Header';
-import Sidebar from '../pages/organisms/Sidebar';
+import NavBar from '../ui/Navbar';
+import Sidebar from '../ui/Sidebar';
 import Main from '../ui/Main';
 
 export default function AppLayout() {
@@ -25,10 +25,6 @@ AppLayout.Container = function Container({ children }: PropsWithChildren) {
   return (
     <div
       className="
-  grid
-  min-h-screen        
-  grid-cols-[18rem_auto]
-  grid-rows-[auto_1fr]
   text-zinc-800
   "
     >

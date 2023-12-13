@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react';
-import PersonalMenu from '../../ui/HeaderMenu';
-import Profile from '../../ui/Profile';
+import PersonalMenu from './HeaderMenu';
+import Profile from './Profile';
 
 function NavBar() {
   return (
@@ -16,11 +16,17 @@ export default NavBar;
 NavBar.Container = function Container({ children }: PropsWithChildren) {
   return (
     <header
-      className="flex
-      h-16 items-center
+      className="
+      sticky
+      top-0
+      z-10
+      flex
+      h-16
+      w-full items-center
       justify-end
       gap-8 overflow-hidden
-      px-8      
+      bg-white/40
+      px-8
       backdrop-blur-md
       "
     >
