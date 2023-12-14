@@ -17,17 +17,13 @@ NavBar.Container = function Container({ children }: PropsWithChildren) {
   return (
     <header
       className="
-      sticky
-      top-0
-      z-10
       flex
       h-16
-      w-full items-center
+      w-[calc(100vw-260px)] items-center
       justify-end
       gap-8 overflow-hidden
-      bg-white/40
+      bg-white
       px-8
-      backdrop-blur-md
       "
     >
       {children}

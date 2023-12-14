@@ -10,20 +10,26 @@ export default function AppLayout() {
       <AppLayout.Portal />
       <AppLayout.Container>
         <Sidebar />
-        <NavBar />
-        <Main>
-          <Outlet />
-        </Main>
+        <AppLayout.ContentArea>
+          <NavBar />
+          <Main>
+            <Outlet />
+          </Main>
+        </AppLayout.ContentArea>
       </AppLayout.Container>
     </>
   );
 }
 
+AppLayout.ContentArea = function ContentArea({ children }: PropsWithChildren) {
+  return <div className="flex flex-col">{children}</div>;
+};
+
 AppLayout.Container = function Container({ children }: PropsWithChildren) {
   return (
     <div
       className="
-  text-zinc-800
+   flex text-zinc-800
   "
     >
       {children}

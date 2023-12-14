@@ -23,6 +23,10 @@ export default function Sidebar() {
           text="insights"
         />
         <NavMenu.Item
+          icon="icon-[lucide--star]"
+          text="Coverage"
+        />
+        <NavMenu.Item
           icon="icon-[lucide--user-circle-2]"
           text="Profile"
         />
@@ -35,13 +39,11 @@ Sidebar.Container = function Container({ children }: PropsWithChildren) {
   return (
     <nav
       className="
-        sticky top-12
-        z-20
         row-span-full
-        flex
-        h-0
-        w-[260px] flex-col gap-12                  
+        flex min-w-[260px] flex-col                  
+        gap-12
         px-8
+        pt-5
         "
     >
       {children}
