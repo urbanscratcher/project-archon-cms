@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Insight } from '../../models/Insights';
 import { type ColumnDef } from '../../utils/types';
-import UserCellName from '../users/UserCellName';
+import UserCellName from '../../ui/UserBadge';
 import Badge from '../../ui/Badge';
 
 export const insightColumnDefs: ColumnDef<Insight>[] = [

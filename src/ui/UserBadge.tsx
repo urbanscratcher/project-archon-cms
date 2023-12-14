@@ -1,4 +1,4 @@
-import { Avatar } from '../../ui/Avatar';
+import { Avatar } from './Avatar';
 
 type UserCellNameProps = {
   avatar?: string;

@@ -5,16 +5,17 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AppLayout from './layouts/AppLayout';
 import SignLayout from './layouts/SignLayout';
+import Error from './pages/Error';
+import Insights from './pages/Insights';
 import PageNotFound from './pages/PageNotFound';
+import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Topics from './pages/Topics';
 import Users from './pages/Users';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Redirect from './ui/Redirect';
-import Error from './pages/Error';
-import Insights from './pages/Insights';
-import Profile from './pages/Profile';
+import Insight from './pages/Insight';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,7 +31,7 @@ function App(): ReactNode {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <ErrorBoundary fallback={<div>Something went wrong</div>}>
+      <ErrorBoundary fallback={<Error />}>
         <BrowserRouter>
           <Routes>
             <Route
@@ -66,6 +67,10 @@ function App(): ReactNode {
                 element={<Insights />}
               />
               <Route
+                path="insights/:insightIdx"
+                element={<Insight />}
+              />
+              <Route
                 path="profile"
                 element={<Profile />}
               />
@@ -76,6 +81,7 @@ function App(): ReactNode {
                   <SignLayout />
                 </Redirect>
               }
+              errorElement={<Error />}
             >
               <Route
                 path="signin"

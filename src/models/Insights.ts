@@ -15,10 +15,12 @@ export const CreatorSchema = z
 export const InsightsFilterSchema = z.object({
   title: z.string().optional(),
   topic_idx: z.string().optional(),
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
   created_by: z.string().optional(),
 });
 
-const InsightSchema = z
+export const InsightSchema = z
   .object({
     idx: z.number(),
     title: z.string(),
@@ -28,6 +30,7 @@ const InsightSchema = z
     topic: TopicSchema,
     created_by: CreatorSchema,
     created_at: z.coerce.date(),
+    edited_at: z.coerce.date().optional(),
   })
   .transform((data) => toCamelCase(data));
 

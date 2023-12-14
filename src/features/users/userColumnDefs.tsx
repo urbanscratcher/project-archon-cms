@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { type ColumnDef } from '../../utils/types';
-import UserCellName from './UserCellName';
+import UserCellName from '../../ui/UserBadge';
 import UserCellRole from './UserCellRole';
 import UserCellTopics from './UserCellTopics';
 import { User } from '../../models/Users';

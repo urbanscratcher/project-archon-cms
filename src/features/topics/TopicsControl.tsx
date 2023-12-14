@@ -3,11 +3,10 @@ import { PropsWithChildren, useState } from 'react';
 import useToggle from '../../hooks/useToggle';
 import Error from '../../pages/Error';
 import topicApi from '../../services/apiTopic';
-import Input from '../../ui/input/Input';
 import Button from '../../ui/button/Button';
 import AlertDialog from '../../ui/dialog/AlertDialog';
-import Dialog from '../../ui/dialog/Dialog';
-import { Topic } from './topicsStore';
+import Input from '../../ui/input/Input';
+import { Topic } from '../../models/Topic';
 
 function TopicsControl({ topic }: { topic: Topic }) {
   const token = localStorage.getItem('access_token') ?? '';

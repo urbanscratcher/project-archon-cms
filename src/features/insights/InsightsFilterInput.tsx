@@ -6,7 +6,7 @@ function InsightsFilterInput() {
 
   return (
     <InputAction
-      placeholder="Search a title..."
+      placeholder="Search a title or writer's name..."
       setAction={setSearchFilter}
     />
   );

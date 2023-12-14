@@ -1,4 +1,4 @@
-import { ReactNode, type PropsWithChildren } from 'react';
+import { ReactNode, type PropsWithChildren, ComponentPropsWithoutRef } from 'react';
 
 function Table({ children }: PropsWithChildren) {
   return (
@@ -37,14 +37,17 @@ Table.HeadRow = function HeadRow({ children }: PropsWithChildren) {
   return <tr className="h-10 bg-zinc-50 transition-colors hover:bg-zinc-100">{children}</tr>;
 };
 
-Table.Row = function Row({ children }: PropsWithChildren) {
+Table.Row = function Row({ children, className, ...otherProps }: PropsWithChildren & ComponentPropsWithoutRef<'tr'>) {
   return (
     <tr
-      className="
+      className={
+        `
       border-b
       border-b-zinc-300
       transition-colors hover:bg-zinc-50
-    data-[state=selected]:bg-zinc-100"
+    data-[state=selected]:bg-zinc-100 ` + className
+      }
+      {...otherProps}
     >
       {children}
     </tr>

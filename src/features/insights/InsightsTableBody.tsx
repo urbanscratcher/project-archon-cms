@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Insight, InsightsSchema } from '../../models/Insights';
 import Spinner from '../../ui/Spinner';
 import Table from '../../ui/table/Table';
@@ -6,6 +6,7 @@ import { insightColumnDefs } from './insightColumnDefs';
 import { useInsightsFilterStore } from './insightsStore';
 import useInsights from './useInsights';
 import { QueryParam } from '../../models/QueryParam';
+import { useNavigate } from 'react-router-dom';
 
 const makeQueryParams = (
   searchFilter?: string | null | undefined,
@@ -19,6 +20,8 @@ const makeQueryParams = (
 
   if (searchFilter && searchFilter !== '') {
     andConditions.push({ title: `like:${searchFilter}` });
+    andConditions.push({ first_name: `like:${searchFilter}` });
+    andConditions.push({ last_name: `like:${searchFilter}` });
   }
 
   if (selectedTopicIdx) {
@@ -38,6 +41,8 @@ const makeQueryParams = (
 };
 
 function InsightsTableBody() {
+  const navigate = useNavigate();
+
   const { searchFilter, selectedTopic, offset, limit, sorts, setTotal } = useInsightsFilterStore();
   const [queryParams, setQueryParams] = useState<QueryParam>(
     makeQueryParams(searchFilter, selectedTopic?.idx, offset, limit, sorts),
@@ -64,12 +69,21 @@ function InsightsTableBody() {
 
   const insightList = InsightsSchema.parse(insights).data;
 
+  function clickHandler(e: MouseEvent, idx: number) {
+    navigate(`/insights/${idx}`);
+  }
+
   return (
     <>
       {insights && (
         <Table.Body>
           {insightList.map((row: Insight) => (
-            <Table.Row key={row.idx}>
+            <Table.Row
+              role="button"
+              key={row.idx}
+              className="cursor-pointer"
+              onClick={(e) => clickHandler(e, row.idx)}
+            >
               {insightColumnDefs.map((def) => (
                 <Table.Cell key={`${def.head}_${row.idx}`}>{def.displayFn(row)}</Table.Cell>
               ))}

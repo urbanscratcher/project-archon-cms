@@ -1,12 +1,10 @@
-import { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
+import Main from '../ui/Main';
 import NavBar from '../ui/Navbar';
 import Sidebar from '../ui/Sidebar';
-import Main from '../ui/Main';
 
 export default function AppLayout() {
-  console.log('Rendering...');
-
   return (
     <>
       <AppLayout.Portal />
