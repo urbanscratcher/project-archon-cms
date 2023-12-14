@@ -5,8 +5,6 @@ import useUser from '../hooks/useUser';
 import { Avatar } from './Avatar';
 
 export default function Profile() {
-  console.log('Rendering...');
-
   const navigate = useNavigate();
   const [value, setValue] = useLocalStorage('access_token', '');
   if (!value) navigate('/signin');

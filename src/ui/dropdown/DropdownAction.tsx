@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent, type PropsWithChildren } from 'react';
+import { useState, type MouseEvent, type PropsWithChildren } from 'react';
 import Dropdown from './Dropdown';
 import Button from '../button/Button';
 
@@ -7,11 +7,19 @@ export type SelectOptions = {
   selected: boolean;
 };
 
+type StringOption<T> = T & {
+  name?: never;
+};
+type ObjectWithNameOption<T> = T & {
+  name?: string;
+};
+type DropdownOption<T> = StringOption<T> | ObjectWithNameOption<T>;
+
 type DropdownActionProps<T> = {
-  options: T[];
-  selectedOptions: T[];
-  onSelect: (value: T) => void;
-  onUnselect: (value: T) => void;
+  options: DropdownOption<T>[];
+  selectedOptions: DropdownOption<T>[];
+  onSelect: (value: DropdownOption<T>) => void;
+  onUnselect: (value: DropdownOption<T>) => void;
   buttonText?: string;
   closedAfterSelect?: boolean;
 };
@@ -28,7 +36,7 @@ function DropdownAction<T>({
   const [closed, setClosed] = useState(true);
   const [showDown, setShowDown] = useState(true);
 
-  const selectHandler = (o: T) => {
+  const selectHandler = (o: DropdownOption<T>) => {
     selectedOptions.includes(o) ? onUnselect(o) : onSelect(o);
     closedAfterSelect && setClosed(true);
   };
@@ -55,13 +63,13 @@ function DropdownAction<T>({
       </Button>
       {!closed && (
         <Dropdown.Content showDown={showDown}>
-          {options.map((r) => (
+          {options.map((o) => (
             <Dropdown.CheckItem
-              key={r as string}
-              checked={selectedOptions.includes(r)}
-              onCheckedChange={() => selectHandler(r)}
+              key={typeof o === 'string' ? o : o.name}
+              checked={selectedOptions.includes(o)}
+              onCheckedChange={() => selectHandler(o)}
             >
-              {r as string}
+              {typeof o === 'string' ? o : o.name}
             </Dropdown.CheckItem>
           ))}
         </Dropdown.Content>

@@ -4,7 +4,7 @@ import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
 import Dialog from '../../ui/dialog/Dialog';
 import useCreateTopic from './useCreateTopic';
-import Error, { makeErrorMsg } from '../../pages/Error';
+import { makeErrorMsg } from '../../pages/Error';
 import { AxiosError } from 'axios';
 
 function CreateTopic() {

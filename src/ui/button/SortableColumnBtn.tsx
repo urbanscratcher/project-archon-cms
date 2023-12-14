@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
-import SortableBtn, { SortStatus } from '../../ui/button/SortableBtn';
-import { useUserFilterStore } from './usersStore';
+import SortableBtn, { SortStatus } from './SortableBtn';
+import { useUserFilterStore } from '../../features/users/usersStore';
+import { ColumnDef } from '../../utils/types';
 
-function UsersSortableBtn({ def }: any) {
+type SortableColumnBtnProps = {
+  def: ColumnDef<any>;
+};
+
+function SortableColumnBtn({ def }: SortableColumnBtnProps) {
   const { sorts } = useUserFilterStore();
   const [sortStatus, setSortStatus] = useState<SortStatus>(() => {
     if (sorts?.includes(`${def.sortKey}`)) return 'asc';
@@ -45,4 +50,4 @@ function UsersSortableBtn({ def }: any) {
   );
 }
 
-export default UsersSortableBtn;
+export default SortableColumnBtn;

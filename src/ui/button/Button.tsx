@@ -29,7 +29,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         case 'primary':
           return 'bg-navy-700 text-navy-50 hover:bg-navy-600 border-none  shadow-sm font-normal';
         case 'dropdown':
-          return 'border border-zinc-300 bg-white hover:bg-zinc-50 flex items-center justify-between active:bg-zinc-100 gap-1 shadow-sm font-normal';
+          return 'border border-zinc-300 bg-white hover:bg-zinc-50 flex items-center justify-between active:bg-zinc-100 gap-1 shadow-sm font-normal min-w-[6rem]';
         case 'borderless':
           return 'flex rounded-md  hover:bg-zinc-100 active:bg-zinc-200/50 items-center justify-center font-normal';
         case 'muted':

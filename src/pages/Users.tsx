@@ -2,7 +2,7 @@ import UsersFilter from '../features/users/UsersFilter';
 import UsersFilterInput from '../features/users/UsersFilterInput';
 import UsersFilterRole from '../features/users/UsersFilterRole';
 import UsersPagination from '../features/users/UsersPagination';
-import UsersSortableBtn from '../features/users/UsersSortableBtn';
+import SortableColumnBtn from '../ui/button/SortableColumnBtn';
 import UsersTableBody from '../features/users/UsersTableBody';
 import userColumnDefs from '../features/users/userColumnDefs';
 import MainHead from '../ui/Head';
@@ -30,7 +30,7 @@ function Users() {
                   key={def.head}
                   style={def.style}
                 >
-                  {def.sortable ? <UsersSortableBtn def={def} /> : def.head}
+                  {def.sortable ? <SortableColumnBtn def={def} /> : def.head}
                 </Table.HeadCell>
               ))}
             </Table.HeadRow>

@@ -11,7 +11,7 @@ export const UsersFilterSchema = z.object({
   role: RoleSchema.optional(),
 });
 
-const UserSchema = z
+export const UserSchema = z
   .object({
     idx: z.number(),
     email: z.string(),
