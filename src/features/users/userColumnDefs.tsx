@@ -7,17 +7,10 @@ import { User } from '../../models/Users';
 
 const userColumnDefs: ColumnDef<User>[] = [
   {
-    type: 'index',
-    head: 'idx',
-    displayFn: (u) => <p className="text-center text-sm text-zinc-500">{u.idx}</p>,
-    sortKey: 'idx',
-    style: 'w-[7%]',
-  },
-  {
     type: 'data',
     head: 'name',
     sortKey: 'first_name',
-    style: 'w-[22%]',
+    style: 'w-[15rem] truncate',
     displayFn: (u) => (
       <UserCellName
         avatar={u?.avatar}
@@ -29,7 +22,7 @@ const userColumnDefs: ColumnDef<User>[] = [
   {
     type: 'data',
     head: 'role',
-    style: 'w-[12%]',
+    style: 'w-[10rem]',
     displayFn: (u) => (
       <UserCellRole
         idx={u.idx}
@@ -38,13 +31,18 @@ const userColumnDefs: ColumnDef<User>[] = [
       />
     ),
   },
-  { type: 'data', head: 'email', sortKey: 'email', style: 'w-[25%]', displayFn: (u) => u.email },
-  { type: 'data', head: 'topics', style: 'w-auto', displayFn: (u) => <UserCellTopics topics={u?.topics} /> },
+  { type: 'data', head: 'email', sortKey: 'email', style: 'w-[17rem]', displayFn: (u) => u.email },
+  {
+    type: 'data',
+    head: 'topics',
+    style: 'w-auto w-[14rem] truncate',
+    displayFn: (u) => <UserCellTopics topics={u?.topics} />,
+  },
   {
     type: 'data',
     head: 'joined at',
     sortKey: 'idx',
-    style: 'w-[16%]',
+    style: 'w-auto',
     displayFn: (u) => <p className="whitespace-nowrap">{format(u.createdAt, 'yyyy-MM-dd')}</p>,
   },
 ];

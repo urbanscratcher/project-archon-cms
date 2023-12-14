@@ -10,7 +10,7 @@ type ButtonProps = {
 
 // eslint-disable-next-line react/display-name
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ size, buttonType, disabled = false, buttonFunction, children, ...props }, ref) => {
+  ({ size, buttonType, disabled = false, buttonFunction, children, className, ...props }, ref) => {
     const getSize = (size: string): string => {
       switch (size) {
         case 'icon':
@@ -45,7 +45,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         {...props}
-        className={`
+        className={
+          `
           w-full
           whitespace-nowrap
           text-center
@@ -54,7 +55,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           disabled:pointer-events-none
           disabled:opacity-50 
         ${size && getSize(size)} ${buttonType && getType(buttonType)}
-      `}
+      ` + className
+        }
         disabled={disabled}
       >
         {children && children}

@@ -11,7 +11,7 @@ function InsightsTableHead() {
       {insightColumnDefs.map((def) => (
         <Table.HeadCell
           key={def.head}
-          style={def.style}
+          className={def.style}
         >
           {def?.sortKey ? (
             <SortableColumnBtn
@@ -21,7 +21,7 @@ function InsightsTableHead() {
               onRemoveSorts={removeSorts}
             />
           ) : (
-            def.head
+            <p className="pl-2">{def.head}</p>
           )}
         </Table.HeadCell>
       ))}

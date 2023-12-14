@@ -1,13 +1,14 @@
-import InputAction from '../../ui/input/InputAction';
+import SearchFilter from '../../ui/SearchFilter';
 import { useUserFilterStore } from './usersStore';
 
 function UsersFilterInput() {
-  const { setSearchFilter } = useUserFilterStore();
+  const { setSearchFilter, searchFilter } = useUserFilterStore();
 
   return (
-    <InputAction
+    <SearchFilter
       placeholder="Search a name or email..."
-      setAction={setSearchFilter}
+      onSetSearchFilter={setSearchFilter}
+      searchFilter={searchFilter}
     />
   );
 }

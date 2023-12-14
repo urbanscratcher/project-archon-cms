@@ -5,13 +5,16 @@ function UsersPagination() {
   const { limit, setLimit, offset, setOffset, total } = useUserFilterStore();
 
   return (
-    <Pagination
-      onSetLimit={setLimit}
-      onSetOffset={setOffset}
-      limit={limit}
-      offset={offset}
-      total={total}
-    />
+    <div className="flex justify-between">
+      <p className=" text-zinc-500">Total {total}</p>
+      <Pagination
+        onSetLimit={setLimit}
+        onSetOffset={setOffset}
+        limit={limit}
+        offset={offset}
+        total={total}
+      />
+    </div>
   );
 }
 

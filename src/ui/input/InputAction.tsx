@@ -44,7 +44,7 @@ function InputAction({ placeholder, setAction }: InputActionProps) {
   };
 
   return (
-    <div className="w-[50%] min-w-fit max-w-[40rem]">
+    <div className="w-[20rem] min-w-fit">
       <Input
         placeholder={placeholder}
         onChange={(e) => setTyped(e.currentTarget.value)}

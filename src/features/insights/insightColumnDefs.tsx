@@ -21,7 +21,7 @@ export const insightColumnDefs: ColumnDef<Insight>[] = [
     type: 'data',
     head: 'title',
     style: 'w-[43%]',
-    displayFn: (i) => <p className="whitespace-wrap">{i.title}</p>,
+    displayFn: (i) => <p className="max-w-[30rem] truncate">{i.title}</p>,
   },
   {
     type: 'data',

@@ -23,12 +23,8 @@ export default function Sidebar() {
           text="insights"
         />
         <NavMenu.Item
-          icon="icon-[lucide--star]"
-          text="Coverage"
-        />
-        <NavMenu.Item
           icon="icon-[lucide--user-circle-2]"
-          text="Profile"
+          text="profile"
         />
       </NavMenu>
     </Sidebar.Container>

@@ -6,6 +6,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AppLayout from './layouts/AppLayout';
 import SignLayout from './layouts/SignLayout';
 import Error from './pages/Error';
+import Insight from './pages/Insight';
 import Insights from './pages/Insights';
 import PageNotFound from './pages/PageNotFound';
 import Profile from './pages/Profile';
@@ -15,7 +16,6 @@ import Topics from './pages/Topics';
 import Users from './pages/Users';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Redirect from './ui/Redirect';
-import Insight from './pages/Insight';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -81,7 +81,6 @@ function App(): ReactNode {
                   <SignLayout />
                 </Redirect>
               }
-              errorElement={<Error />}
             >
               <Route
                 path="signin"

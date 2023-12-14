@@ -3,24 +3,22 @@ import { ReactNode, type PropsWithChildren, ComponentPropsWithoutRef } from 'rea
 function Table({ children }: PropsWithChildren) {
   return (
     <div className="min-w-[64px] max-w-full overflow-scroll rounded-md border border-zinc-300 xl:overflow-visible">
-      <table className="w-full table-fixed caption-bottom">{children}</table>
+      <table className="w-full table-fixed  caption-bottom">{children}</table>
     </div>
   );
 }
 
-Table.HeadCell = function HeadCell({ children, style }: PropsWithChildren & { style?: string }) {
+Table.HeadCell = function HeadCell({ children, className }: PropsWithChildren & { className?: string }) {
   return (
     <th
-      className={`        
-        ${style}
-        pl-2
+      className={
+        `        
         text-left
         font-medium
         capitalize
         text-zinc-500
-        [&:has([role=checkbox])]:pr-0
-        [&>[role=checkbox]]:translate-y-[2px]
-      `}
+      ` + className
+      }
       colSpan={1}
       scope="col"
     >
@@ -64,7 +62,7 @@ type TableCellProps = {
 Table.Cell = function Cell({ children, colSpan, className }: TableCellProps) {
   return (
     <td
-      className={'relative p-2 [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] ' + className}
+      className={'relative p-2 ' + className}
       colSpan={colSpan}
     >
       {children}

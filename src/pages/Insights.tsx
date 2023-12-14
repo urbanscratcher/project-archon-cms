@@ -1,6 +1,6 @@
 import InsightsFilter from '../features/insights/InsightsFilter';
-import InsightsFilterInput from '../features/insights/InsightsFilterInput';
-import InsightsFilterTopic from '../features/insights/InsightsFilterTopic';
+import { InsightsFilterSearch } from '../features/insights/InsightsFilterSearch';
+import { InsightsFilterTopic } from '../features/insights/InsightsFilterTopic';
 import InsightsPagination from '../features/insights/InsightsPagination';
 import InsightsTableBody from '../features/insights/InsightsTableBody';
 import InsightsTableHead from '../features/insights/InsightsTableHead';
@@ -18,7 +18,7 @@ function Insights() {
       </MainHead>
       <MainBody>
         <InsightsFilter>
-          <InsightsFilterInput />
+          <InsightsFilterSearch />
           <InsightsFilterTopic />
         </InsightsFilter>
         <Table>

@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import { Topic } from '../../models/Topic';
-import DropdownAction from '../../ui/dropdown/DropdownAction';
 import { useInsightsFilterStore } from './insightsStore';
+import DropdownAction from '../../ui/dropdown/DropdownAction';
+import { Topic } from '../../models/Topic';
+import { useQuery } from '@tanstack/react-query';
 import topicApi from '../../services/apiTopic';
 
-function InsightsFilterTopic() {
+export function InsightsFilterTopic() {
   // TODO: change api - get topics only used by a specific user if user is not admin
   const { data: topics, error, isLoading } = useQuery({ queryKey: ['topics'], queryFn: () => topicApi.getAllList() });
 
@@ -24,5 +24,3 @@ function InsightsFilterTopic() {
     />
   );
 }
-
-export default InsightsFilterTopic;
