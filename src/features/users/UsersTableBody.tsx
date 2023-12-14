@@ -3,20 +3,53 @@ import { QueryParam } from '../../models/QueryParam';
 import { User, UsersSchema } from '../../models/Users';
 import Spinner from '../../ui/Spinner';
 import Table from '../../ui/table/Table';
-import { makeQueryParams } from '../../utils/helpers';
 import useUsers from './useUsers';
 import userColumnDefs from './userColumnDefs';
 import { useUserFilterStore } from './usersStore';
+
+const makeQueryParams = (
+  searchFilter?: string | null | undefined,
+  selectedRoles?: string[],
+  offset?: number,
+  limit?: number,
+  sorts?: string[],
+) => {
+  const andConditions = [];
+  const orConditions: any[] = [];
+
+  if (searchFilter && searchFilter !== '') {
+    andConditions.push({ first_name: `like:${searchFilter}` });
+    andConditions.push({ last_name: `like:${searchFilter}` });
+    andConditions.push({ email: `like:${searchFilter}` });
+  }
+
+  if (selectedRoles && selectedRoles?.length > 0) {
+    selectedRoles.forEach((r) => {
+      orConditions.push({ role: r });
+    });
+  }
+
+  const filterQuery = {
+    and: andConditions.length <= 0 ? undefined : andConditions,
+    or: orConditions.length <= 0 ? undefined : orConditions,
+  };
+
+  const sortsQuery = !sorts || sorts?.length <= 0 ? undefined : sorts;
+
+  const queryParams = { filter: filterQuery, offset: offset, limit: limit, sorts: sortsQuery };
+
+  return queryParams;
+};
 
 function UsersTableBody() {
   const { searchFilter, selectedRoles, offset, limit, sorts, setTotal } = useUserFilterStore();
 
   const [queryParams, setQueryParams] = useState<QueryParam>(
-    makeQueryParams(searchFilter ?? '', selectedRoles, offset, limit, sorts),
+    makeQueryParams(searchFilter, selectedRoles, offset, limit, sorts),
   );
 
   useEffect(() => {
-    setQueryParams(makeQueryParams(searchFilter ?? '', selectedRoles, offset, limit, sorts));
+    setQueryParams(makeQueryParams(searchFilter, selectedRoles, offset, limit, sorts));
   }, [searchFilter, selectedRoles, offset, limit, makeQueryParams, sorts]);
 
   const { users, isLoading, error } = useUsers(queryParams);
@@ -25,6 +58,7 @@ function UsersTableBody() {
     users && setTotal(users.total);
   }, [users?.total]);
 
+  if (error) return <Table.BodyFull>{error.message}</Table.BodyFull>;
   if (isLoading) {
     return (
       <Table.BodyFull>
@@ -32,8 +66,6 @@ function UsersTableBody() {
       </Table.BodyFull>
     );
   }
-
-  if (error) return <Table.BodyFull>{error.message}</Table.BodyFull>;
   if (users?.total <= 0) return <Table.BodyFull>No Data Found</Table.BodyFull>;
 
   const userList = UsersSchema.parse(users).data;

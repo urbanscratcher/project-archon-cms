@@ -1,49 +1,46 @@
 import { useEffect, useState } from 'react';
-import SortableBtn, { SortStatus } from './SortableBtn';
-import { useUserFilterStore } from '../../features/users/usersStore';
 import { ColumnDef } from '../../utils/types';
+import SortableBtn, { SortStatus } from './SortableBtn';
 
 type SortableColumnBtnProps = {
   def: ColumnDef<any>;
+  onAddSorts: (sorts: string) => void;
+  onRemoveSorts: (sorts: string) => void;
+  sorts: string[];
 };
 
-function SortableColumnBtn({ def }: SortableColumnBtnProps) {
-  const { sorts } = useUserFilterStore();
-  const [sortStatus, setSortStatus] = useState<SortStatus>(() => {
+function SortableColumnBtn({ def, onAddSorts, onRemoveSorts, sorts }: SortableColumnBtnProps) {
+  const [sortOrder, setSortOrder] = useState<SortStatus>(() => {
     if (sorts?.includes(`${def.sortKey}`)) return 'asc';
     if (sorts?.includes(`-${def.sortKey}`)) return 'desc';
     return 'none';
   });
 
-  const onSort = (sortStatus: SortStatus) => {
-    setSortStatus(sortStatus);
-  };
-
-  const { addSorts, removeSorts } = useUserFilterStore();
+  const onSort = (sortStatus: SortStatus) => setSortOrder(sortStatus);
 
   useEffect(() => {
     if (def?.sortKey) {
-      switch (sortStatus) {
+      switch (sortOrder) {
         case 'desc':
-          removeSorts(`${def.sortKey}`);
-          addSorts(`-${def.sortKey}`);
+          onAddSorts(`-${def.sortKey}`);
+          onRemoveSorts(`${def.sortKey}`);
           break;
         case 'asc':
-          removeSorts(`-${def.sortKey}`);
-          addSorts(`${def.sortKey}`);
+          onAddSorts(`${def.sortKey}`);
+          onRemoveSorts(`-${def.sortKey}`);
           break;
         case 'none':
-          removeSorts(`-${def.sortKey}`);
-          removeSorts(def.sortKey!);
+          onAddSorts(`-idx`);
+          onRemoveSorts(def.sortKey);
           break;
       }
     }
-  }, [sortStatus]);
+  }, [sortOrder]);
 
   return (
     <SortableBtn
       onSort={onSort}
-      initialSortStatus={sortStatus}
+      initialSortStatus={sortOrder}
     >
       {def.head}
     </SortableBtn>

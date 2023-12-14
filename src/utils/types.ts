@@ -5,7 +5,6 @@ export type ColumnDef<T> = {
   head: string;
   displayFn: (t: T) => string | number | ReactNode | undefined;
   checkbox?: boolean;
-  sortable?: boolean;
   sortKey?: string;
   style?: string;
 };

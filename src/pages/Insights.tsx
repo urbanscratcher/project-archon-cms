@@ -1,13 +1,13 @@
+import InsightsFilter from '../features/insights/InsightsFilter';
+import InsightsFilterInput from '../features/insights/InsightsFilterInput';
+import InsightsFilterTopic from '../features/insights/InsightsFilterTopic';
+import InsightsPagination from '../features/insights/InsightsPagination';
+import InsightsTableBody from '../features/insights/InsightsTableBody';
+import InsightsTableHead from '../features/insights/InsightsTableHead';
 import MainHead from '../ui/Head';
 import { MainBody } from '../ui/MainBody';
 import { MainLayout } from '../ui/MainLayout';
 import Table from '../ui/table/Table';
-import { insightColumnDefs } from '../features/insights/insightColumnDefs';
-import InsightsTableBody from '../features/insights/InsightsTableBody';
-import SortableColumnBtn from '../ui/button/SortableColumnBtn';
-import InsightsFilter from '../features/insights/InsightsFilter';
-import InsightsFilterInput from '../features/insights/InsightsFilterInput';
-import InsightsFilterTopic from '../features/insights/InsightsFilterTopic';
 
 function Insights() {
   return (
@@ -24,18 +24,12 @@ function Insights() {
         <Table>
           <Table.Head>
             <Table.HeadRow>
-              {insightColumnDefs.map((def) => (
-                <Table.HeadCell
-                  key={def.head}
-                  style={def.style}
-                >
-                  {def.sortable ? <SortableColumnBtn def={def} /> : def.head}
-                </Table.HeadCell>
-              ))}
+              <InsightsTableHead />
             </Table.HeadRow>
           </Table.Head>
           <InsightsTableBody />
         </Table>
+        <InsightsPagination />
       </MainBody>
     </MainLayout>
   );

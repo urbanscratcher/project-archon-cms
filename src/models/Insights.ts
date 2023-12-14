@@ -8,13 +8,14 @@ export const CreatorSchema = z
     idx: z.number(),
     first_name: z.string(),
     last_name: z.string(),
+    avatar: z.string().optional(),
   })
   .transform((data) => toCamelCase(data));
 
 export const InsightsFilterSchema = z.object({
   title: z.string().optional(),
-  topic_idx: z.number().optional(),
-  created_by: z.number().optional(),
+  topic_idx: z.string().optional(),
+  created_by: z.string().optional(),
 });
 
 const InsightSchema = z

@@ -2,9 +2,8 @@ import UsersFilter from '../features/users/UsersFilter';
 import UsersFilterInput from '../features/users/UsersFilterInput';
 import UsersFilterRole from '../features/users/UsersFilterRole';
 import UsersPagination from '../features/users/UsersPagination';
-import SortableColumnBtn from '../ui/button/SortableColumnBtn';
 import UsersTableBody from '../features/users/UsersTableBody';
-import userColumnDefs from '../features/users/userColumnDefs';
+import UsersTableHead from '../features/users/UsersTableHead';
 import MainHead from '../ui/Head';
 import { MainBody } from '../ui/MainBody';
 import { MainLayout } from '../ui/MainLayout';
@@ -25,14 +24,7 @@ function Users() {
         <Table>
           <Table.Head>
             <Table.HeadRow>
-              {userColumnDefs.map((def) => (
-                <Table.HeadCell
-                  key={def.head}
-                  style={def.style}
-                >
-                  {def.sortable ? <SortableColumnBtn def={def} /> : def.head}
-                </Table.HeadCell>
-              ))}
+              <UsersTableHead />
             </Table.HeadRow>
           </Table.Head>
           <UsersTableBody />

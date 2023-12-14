@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { QueryParam } from '../../models/QueryParam';
 import insightApi from '../../services/apiInsight';
 
-function useInsights(params?: QueryParam) {
+function useInsights(params: QueryParam) {
   const {
     isLoading,
     data: insights,
     error,
-  } = useQuery({ queryKey: ['insights'], queryFn: () => insightApi.getAllList() });
+  } = useQuery({ queryKey: ['insights', params], queryFn: () => insightApi.getList(params) });
 
   return { isLoading, insights, error };
 }

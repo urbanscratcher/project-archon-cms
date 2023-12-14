@@ -10,14 +10,12 @@ const userColumnDefs: ColumnDef<User>[] = [
     type: 'index',
     head: 'idx',
     displayFn: (u) => <p className="text-center text-sm text-zinc-500">{u.idx}</p>,
-    sortable: true,
     sortKey: 'idx',
     style: 'w-[7%]',
   },
   {
     type: 'data',
     head: 'name',
-    sortable: true,
     sortKey: 'first_name',
     style: 'w-[22%]',
     displayFn: (u) => (
@@ -40,13 +38,12 @@ const userColumnDefs: ColumnDef<User>[] = [
       />
     ),
   },
-  { type: 'data', head: 'email', sortable: true, sortKey: 'email', style: 'w-[25%]', displayFn: (u) => u.email },
+  { type: 'data', head: 'email', sortKey: 'email', style: 'w-[25%]', displayFn: (u) => u.email },
   { type: 'data', head: 'topics', style: 'w-auto', displayFn: (u) => <UserCellTopics topics={u?.topics} /> },
   {
     type: 'data',
     head: 'joined at',
-    sortable: true,
-    sortKey: 'created_at',
+    sortKey: 'idx',
     style: 'w-[16%]',
     displayFn: (u) => <p className="whitespace-nowrap">{format(u.createdAt, 'yyyy-MM-dd')}</p>,
   },
