@@ -78,14 +78,15 @@ function InsightsTableBody() {
       {insights && (
         <Table.Body>
           {insightList.map((row: Insight) => (
-            <Table.Row
-              role="button"
-              key={row.idx}
-              className="cursor-pointer"
-              onClick={(e) => clickHandler(e, row.idx)}
-            >
+            <Table.Row key={row.idx}>
               {insightColumnDefs.map((def) => (
-                <Table.Cell key={`${def.head}_${row.idx}`}>{def.displayFn(row)}</Table.Cell>
+                <Table.Cell
+                  key={`${def.head}_${row.idx}`}
+                  onClick={def.head === 'title' ? (e) => clickHandler(e, row.idx) : undefined}
+                  className={def.head === 'title' ? 'cursor-pointer' : ''}
+                >
+                  {def.displayFn(row)}
+                </Table.Cell>
               ))}
             </Table.Row>
           ))}

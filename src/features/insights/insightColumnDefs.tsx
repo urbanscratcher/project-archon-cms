@@ -3,30 +3,37 @@ import { Insight } from '../../models/Insights';
 import { type ColumnDef } from '../../utils/types';
 import UserCellName from '../../ui/UserBadge';
 import Badge from '../../ui/Badge';
+import InsightsCoverCell from './InsightsCoverCell';
 
 export const insightColumnDefs: ColumnDef<Insight>[] = [
   {
-    type: 'index',
-    head: 'idx',
-    displayFn: (i) => <p className="text-center text-sm text-zinc-500">{i.idx}</p>,
-    style: 'w-[4%]',
+    type: 'menu',
+    head: 'main',
+    displayFn: (i) => <InsightsCoverCell insight={i} />,
+    style: 'w-[4rem]',
+  },
+  {
+    type: 'menu',
+    head: 'cover',
+    displayFn: (i) => <InsightsCoverCell insight={i} />,
+    style: 'w-[4rem]',
   },
   {
     type: 'data',
     head: 'topic',
-    style: 'w-[13%]',
+    style: 'w-[8rem]',
     displayFn: (i) => <Badge text={i.topic.name} />,
   },
   {
     type: 'data',
     head: 'title',
-    style: 'w-[43%]',
-    displayFn: (i) => <p className="max-w-[30rem] truncate">{i.title}</p>,
+    style: 'w-[26rem]',
+    displayFn: (i) => <p className="max-w-[30rem] truncate font-medium">{i.title}</p>,
   },
   {
     type: 'data',
     head: 'creator',
-    style: 'w-[18%]',
+    style: 'w-[12rem]',
     displayFn: (i) => (
       <UserCellName
         avatar={i?.createdBy.avatar}
@@ -39,7 +46,7 @@ export const insightColumnDefs: ColumnDef<Insight>[] = [
     type: 'data',
     head: 'created at',
     sortKey: 'idx',
-    style: 'w-[22%]',
+    style: 'w-auto',
     displayFn: (i) => <p className="whitespace-nowrap">{format(i.createdAt, 'yyyy-MM-dd hh:mm:ss')}</p>,
   },
 ];

@@ -1,4 +1,4 @@
-import { ReactNode, type PropsWithChildren, ComponentPropsWithoutRef } from 'react';
+import { ReactNode, type PropsWithChildren, ComponentPropsWithoutRef, MouseEvent } from 'react';
 
 function Table({ children }: PropsWithChildren) {
   return (
@@ -57,13 +57,15 @@ type TableCellProps = {
   colSpan?: number;
   key?: string;
   className?: string;
+  onClick?: (e: MouseEvent) => void;
 };
 
-Table.Cell = function Cell({ children, colSpan, className }: TableCellProps) {
+Table.Cell = function Cell({ children, colSpan, className, onClick }: TableCellProps) {
   return (
     <td
       className={'relative p-2 ' + className}
       colSpan={colSpan}
+      onClick={onClick}
     >
       {children}
     </td>
