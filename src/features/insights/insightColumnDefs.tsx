@@ -4,19 +4,20 @@ import { type ColumnDef } from '../../utils/types';
 import UserCellName from '../../ui/UserBadge';
 import Badge from '../../ui/Badge';
 import InsightsCoverCell from './InsightsCoverCell';
+import InsightsCoverMainCell from './InsightsCoverMainCell';
 
 export const insightColumnDefs: ColumnDef<Insight>[] = [
   {
     type: 'menu',
     head: 'main',
-    displayFn: (i) => <InsightsCoverCell insight={i} />,
-    style: 'w-[4rem]',
+    displayFn: (i) => <InsightsCoverMainCell insight={i} />,
+    style: 'w-[5rem]',
   },
   {
     type: 'menu',
     head: 'cover',
     displayFn: (i) => <InsightsCoverCell insight={i} />,
-    style: 'w-[4rem]',
+    style: 'w-[5rem]',
   },
   {
     type: 'data',
@@ -27,8 +28,8 @@ export const insightColumnDefs: ColumnDef<Insight>[] = [
   {
     type: 'data',
     head: 'title',
-    style: 'w-[26rem]',
-    displayFn: (i) => <p className="max-w-[30rem] truncate font-medium">{i.title}</p>,
+    style: 'w-[23rem]',
+    displayFn: (i) => <p className="w-full truncate font-medium">{i.title}</p>,
   },
   {
     type: 'data',

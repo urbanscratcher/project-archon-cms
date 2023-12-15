@@ -1,12 +1,12 @@
 import { MouseEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Insight, InsightsSchema } from '../../models/Insights';
+import { QueryParam } from '../../models/QueryParam';
 import Spinner from '../../ui/Spinner';
 import Table from '../../ui/table/Table';
 import { insightColumnDefs } from './insightColumnDefs';
 import { useInsightsFilterStore } from './insightsStore';
 import useInsights from './useInsights';
-import { QueryParam } from '../../models/QueryParam';
-import { useNavigate } from 'react-router-dom';
 
 const makeQueryParams = (
   searchFilter?: string | null | undefined,
