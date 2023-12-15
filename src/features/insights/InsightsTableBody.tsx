@@ -7,6 +7,8 @@ import Table from '../../ui/table/Table';
 import { insightColumnDefs } from './insightColumnDefs';
 import { useInsightsFilterStore } from './insightsStore';
 import useInsights from './useInsights';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { is } from 'date-fns/locale';
 
 const makeQueryParams = (
   searchFilter?: string | null | undefined,
@@ -40,14 +42,51 @@ const makeQueryParams = (
   return queryParams;
 };
 
-function InsightsTableBody() {
-  const navigate = useNavigate();
+const makeQueryParamsForCovers = (indice: number[], offset?: number, limit?: number) => {
+  const andConditions = [];
+  const orConditions: any[] = [];
 
-  const { searchFilter, selectedTopic, offset, limit, sorts, setTotal } = useInsightsFilterStore();
+  for (const idx of indice) {
+    andConditions.push({ insight_idx: `${idx}` });
+  }
+
+  const filterQuery = {
+    and: andConditions.length <= 0 ? undefined : andConditions,
+    or: orConditions.length <= 0 ? undefined : orConditions,
+  };
+
+  const queryParams = { filter: filterQuery, offset: offset, limit: limit };
+
+  return queryParams;
+};
+
+function InsightsTableBody() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const covers = queryClient.getQueryData(['covers']);
+  const coversIndice = covers ? covers?.data.map((c) => c.insight.idx) : [];
+
+  const { searchFilter, selectedTopic, offset, limit, sorts, setTotal, coverOnly, setCoverOnly } =
+    useInsightsFilterStore();
   const [queryParams, setQueryParams] = useState<QueryParam>(
     makeQueryParams(searchFilter, selectedTopic?.idx, offset, limit, sorts),
   );
 
+  // reset cover only false
+  useEffect(() => {
+    setCoverOnly(false);
+  }, []);
+
+  // cover only filter
+  useEffect(() => {
+    if (coverOnly) {
+      setQueryParams(makeQueryParamsForCovers(coversIndice, offset, limit));
+    } else {
+      setQueryParams(makeQueryParams(searchFilter, selectedTopic?.idx, offset, limit, sorts));
+    }
+  }, [coverOnly, setQueryParams, makeQueryParams, searchFilter, selectedTopic, offset, limit, sorts, covers]);
+
+  // normal filters
   useEffect(() => {
     setQueryParams(makeQueryParams(searchFilter, selectedTopic?.idx, offset, limit, sorts));
   }, [searchFilter, selectedTopic, offset, limit, makeQueryParams, sorts]);

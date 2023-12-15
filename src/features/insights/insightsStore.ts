@@ -18,9 +18,13 @@ type InsightsFilterStore = {
   selectedTopic: Topic | null;
   selectTopic: (topic: Topic) => void;
   unselectTopic: (topic: Topic) => void;
+  coverOnly: boolean;
+  setCoverOnly: (coverOnly: boolean) => void;
 };
 
 export const useInsightsFilterStore = create<InsightsFilterStore>()((set) => ({
+  coverOnly: false,
+  setCoverOnly: (coverOnly: boolean) => set({ coverOnly }),
   sorts: [],
   addSorts: (s) =>
     set((state) => {

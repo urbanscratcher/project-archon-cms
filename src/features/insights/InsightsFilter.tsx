@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 
 function InsightsFilter({ children }: PropsWithChildren) {
-  return <div className="flex flex-wrap items-center justify-between gap-1">{children}</div>;
+  return <div className="grid grid-cols-[auto_max-content_max-content] gap-5">{children}</div>;
 }
 
 export default InsightsFilter;

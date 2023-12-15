@@ -1,4 +1,5 @@
 import InsightsFilter from '../features/insights/InsightsFilter';
+import InsightsFilterCheckBox from '../features/insights/InsightsFilterCheckBox';
 import { InsightsFilterSearch } from '../features/insights/InsightsFilterSearch';
 import { InsightsFilterTopic } from '../features/insights/InsightsFilterTopic';
 import InsightsPagination from '../features/insights/InsightsPagination';
@@ -19,6 +20,7 @@ function Insights() {
       <MainBody>
         <InsightsFilter>
           <InsightsFilterSearch />
+          <InsightsFilterCheckBox />
           <InsightsFilterTopic />
         </InsightsFilter>
         <Table>

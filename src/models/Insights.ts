@@ -13,6 +13,7 @@ export const CreatorSchema = z
   .transform((data) => toCamelCase(data));
 
 export const InsightsFilterSchema = z.object({
+  insight_idx: z.string().optional(),
   title: z.string().optional(),
   topic_idx: z.string().optional(),
   first_name: z.string().optional(),
