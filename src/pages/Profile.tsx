@@ -4,12 +4,12 @@ import MainHead from '../ui/Head';
 import { MainBody } from '../ui/MainBody';
 import { MainLayout } from '../ui/MainLayout';
 import { format } from 'date-fns';
+import GlobalLoader from '../ui/GlobalLoader';
 
 function Profile() {
   const token = localStorage.getItem('access_token') ?? null;
   const { user, isAuthenticated, isLoading } = useUser(token as string);
 
-  if (isLoading) <div>loading...</div>;
   const userObj = UserSchema.safeParse(user);
 
   return (
@@ -18,6 +18,7 @@ function Profile() {
         <MainHead.Title>Profile</MainHead.Title>
       </MainHead>
       <MainBody>
+        {isLoading && <GlobalLoader />}
         {userObj.success && (
           <>
             <div>{userObj.data.role}</div>

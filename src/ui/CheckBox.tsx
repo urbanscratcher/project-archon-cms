@@ -8,7 +8,6 @@ type CheckBoxProps = {
 } & PropsWithChildren;
 function CheckBox({ id, labelText, onClicked, clicked }: CheckBoxProps) {
   const [checked, setChecked] = useState(clicked);
-
   const clickHandler = (checked: boolean) => {
     onClicked(!checked);
     setChecked(!checked);

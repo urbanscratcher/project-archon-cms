@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { MouseEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Insight, InsightsSchema } from '../../models/Insights';
@@ -7,8 +8,6 @@ import Table from '../../ui/table/Table';
 import { insightColumnDefs } from './insightColumnDefs';
 import { useInsightsFilterStore } from './insightsStore';
 import useInsights from './useInsights';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { is } from 'date-fns/locale';
 
 const makeQueryParams = (
   searchFilter?: string | null | undefined,

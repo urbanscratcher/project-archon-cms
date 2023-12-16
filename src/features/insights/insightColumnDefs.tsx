@@ -11,13 +11,13 @@ export const insightColumnDefs: ColumnDef<Insight>[] = [
     type: 'menu',
     head: 'main',
     displayFn: (i) => <InsightsCoverMainCell insight={i} />,
-    style: 'w-[5rem]',
+    style: 'w-[4rem]',
   },
   {
     type: 'menu',
     head: 'cover',
     displayFn: (i) => <InsightsCoverCell insight={i} />,
-    style: 'w-[5rem]',
+    style: 'w-[4rem]',
   },
   {
     type: 'data',

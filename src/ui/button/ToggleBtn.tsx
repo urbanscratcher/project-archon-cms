@@ -2,9 +2,8 @@ type ToggleBtnProps = {
   checked: boolean;
   onSetChecked: (value: boolean) => void;
   disabled: boolean;
-  onSetDisabled?: (value: boolean) => void;
 };
-function ToggleBtn({ checked, onSetChecked, disabled, onSetDisabled }: ToggleBtnProps) {
+function ToggleBtn({ checked, onSetChecked, disabled }: ToggleBtnProps) {
   return (
     <button
       onClick={(e) => {
@@ -16,7 +15,7 @@ function ToggleBtn({ checked, onSetChecked, disabled, onSetDisabled }: ToggleBtn
       data-state={checked ? 'checked' : 'unchecked'}
       value="on"
       disabled={disabled}
-      className="flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-zinc-700 data-[state=unchecked]:bg-zinc-300"
+      className="flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-zinc-600 data-[state=unchecked]:bg-zinc-300 data-[state=checked]:disabled:bg-navy-700"
     >
       <span
         data-state={checked ? 'checked' : 'unchecked'}

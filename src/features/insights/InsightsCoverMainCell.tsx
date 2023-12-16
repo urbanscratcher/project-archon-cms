@@ -60,14 +60,11 @@ function InsightsCoverMainCell({ insight }: { insight: Insight }) {
   return (
     <>
       {isCover && (
-        <div className="flex items-center gap-1">
-          <ToggleBtn
-            checked={checked}
-            onSetChecked={onSetChecked}
-            disabled={checked}
-          />
-          {checked && <span className="icon-[lucide--lock] text-zinc-500"></span>}
-        </div>
+        <ToggleBtn
+          checked={checked}
+          onSetChecked={onSetChecked}
+          disabled={checked}
+        />
       )}
     </>
   );
