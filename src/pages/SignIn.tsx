@@ -68,6 +68,7 @@ function SignIn() {
             <Button
               size="md"
               buttonType="primary"
+              fullWidth={true}
               disabled={isPending || !!emailError || !!passwordError}
             >
               {isPending ? <Spinner light /> : 'Sign in'}

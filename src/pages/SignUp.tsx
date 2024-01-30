@@ -11,12 +11,7 @@ import Spinner from '../ui/Spinner';
 import TextLink from '../ui/TextLink';
 import Button from '../ui/button/Button';
 
-/**
- * @description Form w/ react hook form
- */
 function SignUp() {
-  console.log('Rendering...');
-
   const navigate = useNavigate();
   const { signUp, error, isPending } = useSignUp();
   const firstNameRef = useRef<HTMLInputElement | null>(null);
@@ -38,7 +33,7 @@ function SignUp() {
   } = useForm({ resolver: zodResolver(SignUpSchema) });
   const submitHandler = async (data: any): Promise<void> => signUp(data);
 
-  // boilerplate code to get ref for focusing
+  // to get ref for focusing
   const { ref, ...rest } = register('first_name');
 
   return (
@@ -118,6 +113,7 @@ function SignUp() {
               size={'md'}
               disabled={isPending}
               buttonType={'primary'}
+              fullWidth={true}
             >
               {isPending ? <Spinner light /> : 'Sign up'}
             </Button>

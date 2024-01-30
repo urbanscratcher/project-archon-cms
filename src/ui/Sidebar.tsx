@@ -23,8 +23,8 @@ export default function Sidebar() {
           text="insights"
         />
         <NavMenu.Item
-          icon="icon-[lucide--user-circle-2]"
-          text="profile"
+          icon="icon-[lucide--settings]"
+          text="settings"
         />
       </NavMenu>
     </Sidebar.Container>

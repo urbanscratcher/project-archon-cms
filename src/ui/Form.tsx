@@ -4,12 +4,19 @@ type FormRowProps = {
   label?: string;
   error?: string;
   children: ReactNode;
-};
+} & ComponentPropsWithoutRef<'div'>;
 
-export default function Form({ children, ...otherProps }: ComponentPropsWithoutRef<'form'>) {
+type FormProps = {
+  borderless?: boolean;
+  children: ReactNode;
+} & ComponentPropsWithoutRef<'form'>;
+
+export default function Form({ borderless, children, ...otherProps }: FormProps) {
   return (
     <form
-      className={`overflow-hidden rounded-xl border border-solid border-zinc-200 px-7 py-8 shadow-sm `}
+      className={
+        `overflow-hidden rounded-xl px-7 py-8 shadow-sm` + `${borderless ? '' : 'border border-solid border-zinc-200'}`
+      }
       {...otherProps}
     >
       {children}
@@ -21,9 +28,12 @@ Form.Label = function Label({ children }: PropsWithChildren) {
   return <label className="flex font-medium">{children}</label>;
 };
 
-Form.RowVertical = function RowVertical({ label, error, children }: FormRowProps) {
+Form.RowVertical = function RowVertical({ label, error, children, ...otherProps }: FormRowProps) {
   return (
-    <div className="w-full gap-2 py-3">
+    <div
+      className="w-full gap-2 py-3"
+      {...otherProps}
+    >
       {label && (
         <Form.Label>
           {label}
@@ -41,9 +51,12 @@ Form.RowVertical = function RowVertical({ label, error, children }: FormRowProps
   );
 };
 
-Form.RowHorizontal = function RowHorizontal({ label, error, children }: FormRowProps) {
+Form.RowHorizontal = function RowHorizontal({ label, error, children, ...otherProps }: FormRowProps) {
   return (
-    <div className="flex gap-2">
+    <div
+      className="flex gap-2"
+      {...otherProps}
+    >
       {label && <Form.Label>{label}</Form.Label>}
       {children}
     </div>

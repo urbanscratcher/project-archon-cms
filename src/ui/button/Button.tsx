@@ -3,6 +3,7 @@ import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react';
 type ButtonProps = {
   size?: 'sm' | 'md' | 'icon';
   buttonType?: 'primary' | 'dropdown' | 'borderless' | 'muted' | 'sort';
+  fullWidth?: boolean;
   buttonFunction?: 'delete';
   disabled?: boolean;
   children?: ReactNode;
@@ -10,7 +11,7 @@ type ButtonProps = {
 
 // eslint-disable-next-line react/display-name
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ size, buttonType, disabled = false, buttonFunction, children, className, ...props }, ref) => {
+  ({ size, buttonType, disabled = false, buttonFunction, children, className, fullWidth, ...props }, ref) => {
     const getSize = (size: string): string => {
       switch (size) {
         case 'icon':
@@ -47,13 +48,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
         className={
           `
-          w-full
           whitespace-nowrap
           text-center
           capitalize
           transition-colors
           disabled:pointer-events-none
           disabled:opacity-50 
+          ${fullWidth && 'w-full'}
         ${size && getSize(size)} ${buttonType && getType(buttonType)}
       ` + className
         }

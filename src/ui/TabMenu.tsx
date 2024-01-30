@@ -1,17 +1,17 @@
 import { PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
 
-type NavMenuItemProps = {
+type TabMenuItemProps = {
   text: string;
   icon?: string;
   linkTo?: string;
 };
 
-export default function NavMenu({ children }: PropsWithChildren) {
-  return <ul className="flex flex-col gap-2">{children}</ul>;
+export default function TabMenu({ children }: PropsWithChildren) {
+  return <ul className="flex gap-2">{children}</ul>;
 }
 
-NavMenu.Item = function Item({ icon, text, linkTo }: NavMenuItemProps) {
+TabMenu.Item = function Item({ icon, text, linkTo }: TabMenuItemProps) {
   return (
     <li className="cursor-pointer">
       <NavLink
@@ -24,8 +24,9 @@ NavMenu.Item = function Item({ icon, text, linkTo }: NavMenuItemProps) {
             items-center justify-start
             gap-3            
             whitespace-nowrap
-            rounded-md 
+            rounded-full 
             px-4 py-2
+            text-sm
             transition-colors
             hover:bg-zinc-100
             active:bg-zinc-200/50

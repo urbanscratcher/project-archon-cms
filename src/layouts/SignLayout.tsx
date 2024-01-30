@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 import Logo from '../ui/Logo';
 
 export default function SignLayout() {
-  console.log('Rendering...');
   return (
     <div
       className=" grid

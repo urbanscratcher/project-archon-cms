@@ -9,13 +9,14 @@ import Error from './pages/Error';
 import Insight from './pages/Insight';
 import Insights from './pages/Insights';
 import PageNotFound from './pages/PageNotFound';
-import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Topics from './pages/Topics';
 import Users from './pages/Users';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Redirect from './ui/Redirect';
+import Profile from './features/settings/ProfileSetting';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -71,8 +72,12 @@ function App(): ReactNode {
                 element={<Insight />}
               />
               <Route
-                path="profile"
-                element={<Profile />}
+                path="settings"
+                element={<Settings />}
+              />
+              <Route
+                path="settings/:setting"
+                element={<Settings />}
               />
             </Route>
             <Route

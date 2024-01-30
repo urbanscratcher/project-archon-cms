@@ -1,14 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
-import insightApi from '../../services/apiInsight';
-import Error from '../../pages/Error';
-import { InsightSchema, InsightsSchema } from '../../models/Insights';
-import Profile from '../../ui/Profile';
-import { Avatar } from '../../ui/Avatar';
-import UserCellName from '../../ui/UserBadge';
 import { format } from 'date-fns';
-import Spinner from '../../ui/Spinner';
+import { useParams } from 'react-router-dom';
+import { InsightSchema } from '../../models/Insights';
+import Error from '../../pages/Error';
+import insightApi from '../../services/apiInsight';
 import Badge from '../../ui/Badge';
+import Spinner from '../../ui/Spinner';
+import UserCellName from '../../ui/UserBadge';
 
 function InsightDetail() {
   const { insightIdx } = useParams();
