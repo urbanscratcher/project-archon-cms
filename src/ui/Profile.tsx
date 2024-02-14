@@ -13,7 +13,7 @@ export default function Profile() {
 
   return (
     <Profile.Container>
-      <Avatar url={user.avatar} />
+      <Avatar src={user.avatar} />
       {user.first_name} {user.last_name}
     </Profile.Container>
   );

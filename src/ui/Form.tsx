@@ -15,7 +15,7 @@ export default function Form({ borderless, children, ...otherProps }: FormProps)
   return (
     <form
       className={
-        `overflow-hidden rounded-xl px-7 py-8 shadow-sm` + `${borderless ? '' : 'border border-solid border-zinc-200'}`
+        `overflow-hidden rounded-xl px-7 py-8 ` + `${borderless ? '' : 'border border-solid border-zinc-200 shadow-sm'}`
       }
       {...otherProps}
     >
@@ -31,7 +31,7 @@ Form.Label = function Label({ children }: PropsWithChildren) {
 Form.RowVertical = function RowVertical({ label, error, children, className, ...otherProps }: FormRowProps) {
   return (
     <div
-      className={`w-full gap-2 py-3 ${className ? className : ''}`}
+      className={`flex w-full flex-col gap-[3px] py-3 ${className ? className : ''}`}
       {...otherProps}
     >
       {label && (

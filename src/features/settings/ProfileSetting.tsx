@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useRef, useState } from 'react';
 import { User } from '../../models/Users';
 import { Avatar } from '../../ui/Avatar';
 import Form from '../../ui/Form';
@@ -8,6 +8,11 @@ import Input from '../../ui/input/Input';
 import CareerList from './CareerList';
 
 function ProfileSeting({ user }: { user: User }) {
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatar, setAvatar] = useState<string | null>(user?.avatar);
+  const uploadInputEl = useRef<HTMLInputElement>(null);
+
+  // set careers data
   let careers;
   if (user?.careers) {
     try {
@@ -15,6 +20,28 @@ function ProfileSeting({ user }: { user: User }) {
     } catch (e) {
       careers = undefined;
     }
+  }
+
+  // avatar preview
+  function uploadClickHandler(e: MouseEvent) {
+    e.preventDefault();
+    uploadInputEl.current && uploadInputEl.current.click();
+  }
+
+  function uploadChangeHandler(e: any) {
+    // check if a file exists
+    if (e.target.files.length === 0) {
+      return;
+    }
+
+    const file = e.target.files[0];
+    const fr = new FileReader();
+    fr.onload = (e) => {
+      const buffer = e.target && (e.target.result as string);
+      setAvatar(buffer);
+    };
+    fr.readAsDataURL(file);
+    setAvatarFile(file);
   }
 
   return (
@@ -32,26 +59,58 @@ function ProfileSeting({ user }: { user: User }) {
           // error={errors?.first_name?.message as string}
         >
           <Form.RowHorizontal className="flex-wrap gap-4">
-            <Avatar
-              url={user.avatar}
-              isLarge
-            />
+            <div className="relative flex h-28 w-28 items-center justify-center">
+              {avatar === user.avatar && (
+                <Avatar
+                  src={user.avatar}
+                  isLarge
+                ></Avatar>
+              )}
+              {avatar !== user.avatar && avatar !== null && (
+                <>
+                  <Avatar
+                    isLarge
+                    src={avatar}
+                  />
+                  <button
+                    className="absolute right-0 top-0 flex h-6 w-6 translate-x-[50%] translate-y-[-50%] items-center justify-center rounded-full bg-white hover:bg-zinc-100"
+                    onClick={(e: MouseEvent) => {
+                      e.preventDefault();
+                      setAvatar(user.avatar);
+                    }}
+                  >
+                    <span className="icon-[lucide--undo-2] h-5 w-5 bg-zinc-800"></span>
+                  </button>
+                </>
+              )}
+            </div>
             <Form.RowVertical className="w-[500px] place-self-center">
               <Form.RowHorizontal>
                 <Button
                   buttonType="muted"
                   size="sm"
-                  onClick={(e: MouseEvent) => e.preventDefault()}
+                  onClick={uploadClickHandler}
                 >
                   Upload
                 </Button>
-
+                <input
+                  hidden
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  accept="image/png, image/jpg, image/jpeg"
+                  onChange={uploadChangeHandler}
+                  ref={uploadInputEl}
+                />
                 <Button
                   buttonType="muted"
                   size="sm"
-                  onClick={(e: MouseEvent) => e.preventDefault()}
+                  onClick={(e: MouseEvent) => {
+                    e.preventDefault();
+                    setAvatar('');
+                  }}
                 >
-                  Set Default
+                  Remove
                 </Button>
               </Form.RowHorizontal>
 
@@ -71,6 +130,7 @@ function ProfileSeting({ user }: { user: User }) {
               type="text"
               value={user.firstName}
               disabled={false}
+              onChange={() => console.log('input changed')}
             />
           </Form.RowVertical>
           <Form.RowVertical
@@ -82,6 +142,7 @@ function ProfileSeting({ user }: { user: User }) {
               type="text"
               value={user.lastName}
               disabled={false}
+              onChange={() => console.log('input changed')}
             />
           </Form.RowVertical>
         </Form.RowVertical>
@@ -96,6 +157,7 @@ function ProfileSeting({ user }: { user: User }) {
             type="text"
             value={user.jobTitle}
             disabled={false}
+            onChange={() => console.log('input changed')}
           />
         </Form.RowVertical>
         <Form.RowVertical
@@ -107,6 +169,7 @@ function ProfileSeting({ user }: { user: User }) {
             type="text"
             value={user.biography}
             disabled={false}
+            onChange={() => console.log('input changed')}
           />
         </Form.RowVertical>
 
@@ -123,6 +186,10 @@ function ProfileSeting({ user }: { user: User }) {
             type="submit"
             size="md"
             buttonType="primary"
+            onClick={(e) => {
+              e.preventDefault();
+              console.log(avatarFile);
+            }}
           >
             Update
           </Button>

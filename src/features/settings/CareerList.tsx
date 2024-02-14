@@ -77,7 +77,10 @@ function CareerList({ careers }: { careers: string[] }) {
             onMouseDown={() => setDraggable(-1)}
             className="flex gap-1"
           >
-            <Input value={career} />
+            <Input
+              value={career}
+              onChange={() => console.log('input changed')}
+            />
             <Button
               buttonType="borderless"
               size="icon"
