@@ -16,7 +16,7 @@ import Topics from './pages/Topics';
 import Users from './pages/Users';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Redirect from './ui/Redirect';
-import Profile from './features/settings/ProfileSetting';
+import Profile from './features/settings/ProfileSeting';
 
 const queryClient = new QueryClient({
   defaultOptions: {

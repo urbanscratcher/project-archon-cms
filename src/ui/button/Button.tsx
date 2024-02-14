@@ -15,7 +15,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const getSize = (size: string): string => {
       switch (size) {
         case 'icon':
-          return 'px-1 py-2 text-md rounded-md flex justify-center items-center';
+          return 'px-2 py-2 text-md rounded-md flex justify-center items-center';
         case 'sm':
           return 'px-4 py-2 text-md rounded-md';
         case 'md':

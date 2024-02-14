@@ -43,7 +43,7 @@ function Settings() {
       <MainBody>
         <Topbar />
         {isLoading && <GlobalLoader />}
-        {userObj.success && setting === 'profile' ? (
+        {userData && setting === 'profile' ? (
           <ProfileSetting user={userData} />
         ) : setting === 'account' ? (
           <AccountSetting user={userData} />

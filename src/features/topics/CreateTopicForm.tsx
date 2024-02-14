@@ -7,7 +7,7 @@ import useCreateTopic from './useCreateTopic';
 import { makeErrorMsg } from '../../pages/Error';
 import { AxiosError } from 'axios';
 
-function CreateTopic() {
+function CreateTopicForm() {
   const input = useRef<HTMLInputElement>(null);
   const { mutate, isPending, error } = useCreateTopic();
   const [showError, setShowError] = useState(false);
@@ -69,4 +69,4 @@ function CreateTopic() {
   );
 }
 
-export default CreateTopic;
+export default CreateTopicForm;

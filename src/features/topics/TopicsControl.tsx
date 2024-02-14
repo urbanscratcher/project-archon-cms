@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { PropsWithChildren, useState } from 'react';
+import { useState } from 'react';
 import useToggle from '../../hooks/useToggle';
+import { Topic } from '../../models/Topic';
 import Error from '../../pages/Error';
 import topicApi from '../../services/apiTopic';
 import Button from '../../ui/button/Button';
 import AlertDialog from '../../ui/dialog/AlertDialog';
 import Input from '../../ui/input/Input';
-import { Topic } from '../../models/Topic';
 
 function TopicsControl({ topic }: { topic: Topic }) {
   const token = localStorage.getItem('access_token') ?? '';
@@ -37,7 +37,6 @@ function TopicsControl({ topic }: { topic: Topic }) {
   };
 
   const editHandler = () => {
-    // console.log('edit mutate...?');
     mutate({ name: newName });
   };
 
@@ -95,7 +94,10 @@ function TopicsControl({ topic }: { topic: Topic }) {
           {deleteError && <Error.Message errorState={deleteError} />}
         </AlertDialog>
       )}
-      <TopicsControl.Container>
+      <div
+        role="group"
+        className="flex"
+      >
         <Button
           buttonType="borderless"
           size="icon"
@@ -110,13 +112,9 @@ function TopicsControl({ topic }: { topic: Topic }) {
         >
           <span className="icon-[lucide--trash-2]"></span>
         </Button>
-      </TopicsControl.Container>
+      </div>
     </>
   );
 }
 
 export default TopicsControl;
-
-TopicsControl.Container = function Container({ children }: PropsWithChildren) {
-  return <div className="flex">{children}</div>;
-};

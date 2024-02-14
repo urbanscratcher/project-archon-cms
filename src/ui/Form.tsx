@@ -28,10 +28,10 @@ Form.Label = function Label({ children }: PropsWithChildren) {
   return <label className="flex font-medium">{children}</label>;
 };
 
-Form.RowVertical = function RowVertical({ label, error, children, ...otherProps }: FormRowProps) {
+Form.RowVertical = function RowVertical({ label, error, children, className, ...otherProps }: FormRowProps) {
   return (
     <div
-      className="w-full gap-2 py-3"
+      className={`w-full gap-2 py-3 ${className ? className : ''}`}
       {...otherProps}
     >
       {label && (
@@ -51,10 +51,10 @@ Form.RowVertical = function RowVertical({ label, error, children, ...otherProps 
   );
 };
 
-Form.RowHorizontal = function RowHorizontal({ label, error, children, ...otherProps }: FormRowProps) {
+Form.RowHorizontal = function RowHorizontal({ label, error, children, className, ...otherProps }: FormRowProps) {
   return (
     <div
-      className="flex gap-2"
+      className={`flex gap-2 ${className ? className : ''}`}
       {...otherProps}
     >
       {label && <Form.Label>{label}</Form.Label>}

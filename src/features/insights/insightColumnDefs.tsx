@@ -9,13 +9,13 @@ import InsightsCoverMainCell from './InsightsCoverMainCell';
 export const insightColumnDefs: ColumnDef<Insight>[] = [
   {
     type: 'menu',
-    head: 'main',
+    head: 'Head',
     displayFn: (i) => <InsightsCoverMainCell insight={i} />,
     style: 'w-[4rem]',
   },
   {
     type: 'menu',
-    head: 'cover',
+    head: 'Picks',
     displayFn: (i) => <InsightsCoverCell insight={i} />,
     style: 'w-[4rem]',
   },
