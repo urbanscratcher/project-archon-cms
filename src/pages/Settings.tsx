@@ -23,7 +23,7 @@ function Settings() {
   const userObj = UserSchema.safeParse(user);
 
   useEffect(() => {
-    if (userObj.success && !isLoading) {
+    if (userObj.success && !isLoading && isAuthenticated) {
       setUserData(userObj.data);
     }
   }, [user]);
@@ -43,7 +43,7 @@ function Settings() {
       <MainBody>
         <Topbar />
         {isLoading && <GlobalLoader />}
-        {userData && setting === 'profile' ? (
+        {JSON.stringify(userData) !== JSON.stringify({}) && userData && setting === 'profile' ? (
           <ProfileSetting user={userData} />
         ) : setting === 'account' ? (
           <AccountSetting user={userData} />

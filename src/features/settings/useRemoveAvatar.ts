@@ -1,20 +1,20 @@
 import { useMutation } from '@tanstack/react-query';
 import avatarApi from '../../services/apiAvatar';
 
-function useCreateAvatar() {
+function useRemoveAvatar() {
   const token = localStorage.getItem('access_token') ?? '';
 
   const { mutateAsync, isPending, error } = useMutation({
-    mutationFn: (formData: any) => avatarApi.upsert(token, formData),
-    onSuccess: (res: any) => {
-      return res.url;
+    mutationFn: () => avatarApi.remove(token),
+    onSuccess: () => {
+      console.log('removed successfully');
     },
     onError: (error) => {
       console.error('error...', error);
     },
   });
 
-  return { createAvatar: mutateAsync, isPending, error };
+  return { removeAvatar: mutateAsync, isPending, error };
 }
 
-export default useCreateAvatar;
+export default useRemoveAvatar;

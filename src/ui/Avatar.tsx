@@ -12,13 +12,15 @@ export function Avatar({ src, isLarge = false }: AvatarProps) {
 
   return (
     <div className={`${isLarge ? 'h-28 w-28' : 'h-8 w-8'} flex items-center justify-center`}>
-      <img
-        hidden={loading || failedLoad}
-        src={src}
-        alt={'user avatar'}
-        onLoad={() => setLoading(false)}
-        onError={() => setFailedLoad(true)}
-      />
+      {src !== null && src !== undefined && (
+        <img
+          hidden={loading || failedLoad}
+          src={src}
+          alt={'user avatar'}
+          onLoad={() => setLoading(false)}
+          onError={() => setFailedLoad(true)}
+        />
+      )}
       {(failedLoad || src === '' || src === undefined || src === null) && (
         <span className="icon-[lucide--user-circle] h-full w-full text-zinc-300"></span>
       )}

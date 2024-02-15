@@ -1,5 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import userApi from '../../services/apiUser';
+import useCreateAvatar from './useCreateAvatar';
+import useRemoveAvatar from './useRemoveAvatar';
 
 export type UpdateProfileState = {
   updateProfile: any;
@@ -8,22 +10,28 @@ export type UpdateProfileState = {
 };
 
 function useUpdateProfile(): UpdateProfileState {
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const token = localStorage.getItem('access_token') ?? '';
+  const { createAvatar } = useCreateAvatar();
+  const { removeAvatar } = useRemoveAvatar();
 
   const { mutate, isPending, error } = useMutation({
-    mutationFn: (profile) => {
-      console.log('mutating...', profile);
+    mutationFn: async (data: any) => {
+      // upload/remove avatar img
+      const formData = new FormData();
+      if (data.avatar_file) {
+        formData.append('avatar', data.avatar_file);
+        data.avatar = (await createAvatar(formData)).url;
+      }
 
-      // update via api
-      return new Promise((resolve, reject) => {
-        console.log('promise');
-        resolve('resolved');
-        // reject('reject');
-      });
+      if (data.shouldRemove) {
+        await removeAvatar();
+        data.avatar = '';
+      }
+      await userApi.update(data.idx, data, token);
     },
-    onSuccess: (data) => {
-      console.log('success', data);
-      navigate('/settings/profile', { replace: true });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user'] });
     },
     onError: (err) => {
       console.error(err);

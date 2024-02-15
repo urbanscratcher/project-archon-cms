@@ -10,23 +10,24 @@ import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
 import CareerList from './CareerList';
 import useUpdateProfile from './useUpdateProfile';
-import useCreateAvatar from './useCreateAvatar';
 
 function ProfileSeting({ user }: { user: User }) {
   const [avatar, setAvatar] = useState<string | null>(user?.avatar);
   const uploadInputEl = useRef<HTMLInputElement>(null);
   const { updateProfile, isPending, error } = useUpdateProfile();
-  const { createAvatar } = useCreateAvatar();
+  const [submitted, setSubmitted] = useState(false);
 
   // submit form
   const { register, handleSubmit, formState, setValue } = useForm({
     defaultValues: {
+      idx: user.idx,
       avatar_file: null,
       avatar: user.avatar,
       first_name: user.firstName,
       last_name: user.lastName,
       job_title: user.jobTitle,
       biography: user.biography,
+      shouldRemove: false,
     },
   });
 
@@ -59,20 +60,13 @@ function ProfileSeting({ user }: { user: User }) {
     };
     fr.readAsDataURL(file);
     setValue('avatar_file', file);
+    setSubmitted(false);
+    setValue('shouldRemove', false);
   }
 
   const submitHandler = async (data: any): Promise<void> => {
-    // upload avatar file
-    const formData = new FormData();
-    if (data.avatar_file) formData.append('avatar', data.avatar_file);
-    createAvatar(formData);
-
-    // set values
-    // set avatar value
-    // set career value
-
-    // update db
-    updateProfile(data);
+    await updateProfile(data);
+    setSubmitted(true);
   };
 
   return (
@@ -87,36 +81,42 @@ function ProfileSeting({ user }: { user: User }) {
             <MainHead.Description>This is how others will see you on the site.</MainHead.Description>
           </MainHead>
           <Form.RowVertical className="flex-1 py-3">
-            <Form.RowVertical
-              label={'Avatar'}
-              // error={errors?.first_name?.message as string}
-            >
-              <Form.RowHorizontal className="flex-wrap gap-4">
+            <Form.RowVertical label={'Avatar'}>
+              <Form.RowHorizontal className="flex-wrap items-center gap-4">
                 <div className="relative flex h-28 w-28 items-center justify-center">
-                  {avatar === user.avatar && (
-                    <Avatar
-                      src={user.avatar}
-                      isLarge
-                    ></Avatar>
-                  )}
-                  {avatar !== user.avatar && avatar !== null && (
+                  {isPending ? (
+                    <Spinner withText={false} />
+                  ) : (
                     <>
-                      <Avatar
-                        isLarge
-                        src={avatar}
-                      />
-                      <button
-                        className="absolute right-0 top-0 flex h-6 w-6 translate-x-[50%] translate-y-[-50%] items-center justify-center rounded-full bg-white hover:bg-zinc-100"
-                        onClick={(e: MouseEvent) => {
-                          e.preventDefault();
-                          setAvatar(user.avatar);
-                        }}
-                      >
-                        <span className="icon-[lucide--undo-2] h-5 w-5 bg-zinc-800"></span>
-                      </button>
+                      {((avatar === user.avatar && !submitted) || submitted) && (
+                        <Avatar
+                          src={avatar ?? ''}
+                          isLarge
+                        ></Avatar>
+                      )}
+                      {avatar !== user.avatar && avatar !== null && !submitted && (
+                        <>
+                          <Avatar
+                            isLarge
+                            src={avatar}
+                          />
+                          <button
+                            className="absolute right-0 top-0 flex h-6 w-6 translate-x-[50%] translate-y-[-50%] items-center justify-center rounded-full bg-white hover:bg-zinc-100"
+                            onClick={(e: MouseEvent) => {
+                              e.preventDefault();
+                              setAvatar(user.avatar);
+                              setValue('avatar_file', null);
+                              setValue('shouldRemove', false);
+                            }}
+                          >
+                            <span className="icon-[lucide--undo-2] h-5 w-5 bg-zinc-800"></span>
+                          </button>
+                        </>
+                      )}
                     </>
                   )}
                 </div>
+
                 <Form.RowVertical className="w-[500px] place-self-center">
                   <Form.RowHorizontal>
                     <Button
@@ -141,9 +141,12 @@ function ProfileSeting({ user }: { user: User }) {
                       onClick={(e: MouseEvent) => {
                         e.preventDefault();
                         setAvatar('');
+                        setValue('avatar_file', null);
+                        setSubmitted(false);
+                        setValue('shouldRemove', true);
                       }}
                     >
-                      Remove
+                      Default
                     </Button>
                   </Form.RowHorizontal>
 
