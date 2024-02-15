@@ -1,6 +1,5 @@
 import { MouseEvent, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { User } from '../../models/Users';
 import Error from '../../pages/Error';
 import { Avatar } from '../../ui/Avatar';
@@ -11,14 +10,25 @@ import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
 import CareerList from './CareerList';
 import useUpdateProfile from './useUpdateProfile';
+import useCreateAvatar from './useCreateAvatar';
 
 function ProfileSeting({ user }: { user: User }) {
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatar, setAvatar] = useState<string | null>(user?.avatar);
   const uploadInputEl = useRef<HTMLInputElement>(null);
-
-  const navigate = useNavigate();
   const { updateProfile, isPending, error } = useUpdateProfile();
+  const { createAvatar } = useCreateAvatar();
+
+  // submit form
+  const { register, handleSubmit, formState, setValue } = useForm({
+    defaultValues: {
+      avatar_file: null,
+      avatar: user.avatar,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      job_title: user.jobTitle,
+      biography: user.biography,
+    },
+  });
 
   // parse careers data to array
   let careers;
@@ -48,21 +58,22 @@ function ProfileSeting({ user }: { user: User }) {
       setAvatar(buffer);
     };
     fr.readAsDataURL(file);
-    setAvatarFile(file);
+    setValue('avatar_file', file);
   }
 
-  // submit form
-  const { register, handleSubmit, formState } = useForm({
-    defaultValues: {
-      avatar: user.avatar,
-      first_name: user.firstName,
-      last_name: user.lastName,
-      job_title: user.jobTitle,
-      biography: user.biography,
-    },
-  });
+  const submitHandler = async (data: any): Promise<void> => {
+    // upload avatar file
+    const formData = new FormData();
+    if (data.avatar_file) formData.append('avatar', data.avatar_file);
+    createAvatar(formData);
 
-  const submitHandler = async (data: any): Promise<void> => updateProfile(data);
+    // set values
+    // set avatar value
+    // set career value
+
+    // update db
+    updateProfile(data);
+  };
 
   return (
     <>
@@ -197,12 +208,6 @@ function ProfileSeting({ user }: { user: User }) {
                 buttonType="primary"
                 className="w-fit"
                 disabled={isPending}
-                onClick={(e: MouseEvent) => {
-                  // img upload
-                  // set values
-                  // set avatar value
-                  // set career value
-                }}
               >
                 {isPending ? (
                   <Spinner

@@ -15,7 +15,6 @@ const reqErrorInterceptor = (error: any): Promise<any> => {
 
 // Response Interceptor Setting -------------------------------------------
 const resConfigInterceptor = (res: AxiosResponse): AxiosResponse => {
-  console.log(`[Returning Res]`);
   return res;
 };
 
