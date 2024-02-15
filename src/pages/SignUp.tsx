@@ -6,10 +6,10 @@ import useSignUp from '../features/authentication/useSignUp';
 import { SignUpSchema } from '../models/Auth';
 import Form from '../ui/Form';
 import MainHead from '../ui/Head';
-import Input from '../ui/input/Input';
 import Spinner from '../ui/Spinner';
 import TextLink from '../ui/TextLink';
 import Button from '../ui/button/Button';
+import Input from '../ui/input/Input';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -31,9 +31,10 @@ function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(SignUpSchema) });
+
   const submitHandler = async (data: any): Promise<void> => signUp(data);
 
-  // to get ref for focusing
+  // get ref for focusing
   const { ref, ...rest } = register('first_name');
 
   return (

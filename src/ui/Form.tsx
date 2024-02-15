@@ -7,15 +7,17 @@ type FormRowProps = {
 } & ComponentPropsWithoutRef<'div'>;
 
 type FormProps = {
-  borderless?: boolean;
   children: ReactNode;
+  borderless?: boolean;
+  className?: string;
 } & ComponentPropsWithoutRef<'form'>;
 
-export default function Form({ borderless, children, ...otherProps }: FormProps) {
+export default function Form({ children, borderless, className, ...otherProps }: FormProps) {
   return (
     <form
       className={
-        `overflow-hidden rounded-xl px-7 py-8 ` + `${borderless ? '' : 'border border-solid border-zinc-200 shadow-sm'}`
+        `overflow-hidden rounded-xl px-7 py-8 ` +
+        `${borderless ? '' : 'border border-solid border-zinc-200 shadow-sm '} + ${className ? className : ''}`
       }
       {...otherProps}
     >

@@ -15,8 +15,8 @@ export const UserSchema = z
   .object({
     idx: z.number(),
     email: z.string(),
-    first_name: z.string(),
-    last_name: z.string(),
+    first_name: z.string().nonempty('Required').max(50, { message: 'Maximum 50' }),
+    last_name: z.string().nonempty('Required').max(50, { message: 'Maximum 50' }),
     role: RoleSchema,
     careers: z.string().optional(),
     avatar: z.string().optional(),

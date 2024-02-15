@@ -1,8 +1,14 @@
-import { useState, type DragEvent } from 'react';
+import { useState, type DragEvent, MouseEvent } from 'react';
 import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
+import { FieldValues, FormState, UseFormRegister } from 'react-hook-form';
 
-function CareerList({ careers }: { careers: string[] }) {
+type CareerList = {
+  careers: string[];
+  register?: UseFormRegister<FieldValues>;
+};
+
+function CareerList({ careers, register }: CareerList) {
   const [draggable, setDraggable] = useState(-1);
   const [dragged, setDragged] = useState(-1);
   const [displayedCareers, setDisplayedCareers] = useState(careers);
@@ -77,14 +83,11 @@ function CareerList({ careers }: { careers: string[] }) {
             onMouseDown={() => setDraggable(-1)}
             className="flex gap-1"
           >
-            <Input
-              value={career}
-              onChange={() => console.log('input changed')}
-            />
+            <Input defaultValue={career} />
             <Button
               buttonType="borderless"
               size="icon"
-              onClick={(e) => clickDeleteHandler(e, idx)}
+              onClick={(e: MouseEvent) => clickDeleteHandler(e, idx)}
             >
               <span className="icon-[lucide--trash-2]"></span>
             </Button>
