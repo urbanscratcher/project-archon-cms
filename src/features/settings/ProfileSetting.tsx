@@ -10,12 +10,24 @@ import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
 import CareerList from './CareerList';
 import useUpdateProfile from './useUpdateProfile';
+import CheckBox from '../../ui/CheckBox';
+import { Topic } from '../../models/Topic';
+import { useQuery } from '@tanstack/react-query';
+import topicApi from '../../services/apiTopic';
 
 function ProfileSeting({ user }: { user: User }) {
   const [avatar, setAvatar] = useState<string | null>(user?.avatar);
   const uploadInputEl = useRef<HTMLInputElement>(null);
   const { updateProfile, isPending, error } = useUpdateProfile();
   const [submitted, setSubmitted] = useState(false);
+
+  // get all topics
+  const {
+    data: topics,
+    error: topicsError,
+    isLoading: topicsIsLoading,
+  } = useQuery({ queryKey: ['topics'], queryFn: () => topicApi.getAllList() });
+
   // parse careers data to array
   let careers;
   if (user?.careers) {
@@ -38,6 +50,7 @@ function ProfileSeting({ user }: { user: User }) {
       biography: user.biography,
       shouldRemove: false,
       careers: careers,
+      topics: user.topics,
     },
   });
 
@@ -83,6 +96,7 @@ function ProfileSeting({ user }: { user: User }) {
             <MainHead.Title>Profile</MainHead.Title>
             <MainHead.Description>This is how others will see you on the site.</MainHead.Description>
           </MainHead>
+          <hr />
           <Form.RowVertical className="flex-1 py-3">
             <Form.RowVertical label={'Avatar'}>
               <Form.RowHorizontal className="flex-wrap items-center gap-4">
@@ -213,7 +227,40 @@ function ProfileSeting({ user }: { user: User }) {
               </Form.RowVertical>
             )}
             <Form.RowVertical label={'Topics'}>
-              <div>topics</div>
+              <ul className="mt-1 flex flex-wrap gap-8">
+                {!topicsIsLoading &&
+                  !topicsError &&
+                  topics.data.map((topic: Topic) => (
+                    <li key={topic.name}>
+                      <CheckBox
+                        id={topic.name}
+                        labelText={topic.name}
+                        onClicked={(e: MouseEvent) => {
+                          const tempArr =
+                            getValues('topics') && getValues('topics').length > 0 ? [...getValues('topics')] : [];
+
+                          const checked: boolean = e.currentTarget.getAttribute('data-state') === 'unchecked';
+
+                          if (checked) {
+                            tempArr.push(topic);
+                          } else {
+                            const excludeIdx = tempArr.findIndex((userTopic) => userTopic.idx === topic.idx);
+                            if (excludeIdx !== -1) {
+                              tempArr.splice(excludeIdx, 1);
+                            }
+                          }
+
+                          setValue('topics', tempArr);
+                        }}
+                        clicked={
+                          getValues('topics')
+                            ? getValues('topics').some((userTopic: Topic) => userTopic.idx === topic.idx)
+                            : false
+                        }
+                      />
+                    </li>
+                  ))}
+              </ul>
             </Form.RowVertical>
             <Form.RowVertical className="items-end">
               <Button

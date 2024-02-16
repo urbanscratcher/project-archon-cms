@@ -1,15 +1,16 @@
-import { PropsWithChildren, useState } from 'react';
+import { MouseEvent, PropsWithChildren, useState } from 'react';
 
 type CheckBoxProps = {
   labelText: string;
   id: string;
-  onClicked: (checked: boolean) => void;
   clicked: boolean;
+  onClicked: (e: MouseEvent, checked: boolean) => void;
 } & PropsWithChildren;
-function CheckBox({ id, labelText, onClicked, clicked }: CheckBoxProps) {
+
+function CheckBox({ id, labelText, clicked, onClicked }: CheckBoxProps) {
   const [checked, setChecked] = useState(clicked);
-  const clickHandler = (checked: boolean) => {
-    onClicked(!checked);
+  const clickHandler = (e, checked: boolean) => {
+    onClicked(e, !checked);
     setChecked(!checked);
   };
 
@@ -20,7 +21,7 @@ function CheckBox({ id, labelText, onClicked, clicked }: CheckBoxProps) {
         role="checkbox"
         aria-checked={checked}
         data-state={checked ? 'checked' : 'unchecked'}
-        onClick={() => clickHandler(checked)}
+        onClick={(e: MouseEvent) => clickHandler(e, checked)}
         className="peer h-4 w-4 rounded-[0.2rem] border border-zinc-700 data-[state=checked]:bg-zinc-800 data-[state=checked]:text-white"
         id={id}
       >
