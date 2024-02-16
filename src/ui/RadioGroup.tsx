@@ -2,12 +2,11 @@ import { MouseEvent } from 'react';
 
 type RadioGroupProps = {
   labelTexts: string[];
-  defaultText: string;
   selected: string;
   setSelected: any;
 };
 
-function RadioGroup({ labelTexts, defaultText, selected, setSelected }: RadioGroupProps) {
+function RadioGroup({ labelTexts, selected, setSelected }: RadioGroupProps) {
   const clickHandler = (e: MouseEvent, labelText: string) => {
     e.preventDefault();
     setSelected(labelText);
@@ -46,7 +45,6 @@ function RadioGroup({ labelTexts, defaultText, selected, setSelected }: RadioGro
               id={labelText}
               name={labelText}
               value={labelText}
-              defaultChecked={labelText === defaultText}
               disabled={false}
               onChange={(e) => e.preventDefault()}
             />

@@ -9,7 +9,9 @@ import Button from '../../ui/button/Button';
 
 function DisplaySetting() {
   const savedTextSize = localStorage.getItem('text_size');
-  const [selectedFont, setSelectedFont] = useState('Inter');
+  const savedFont = localStorage.getItem('font');
+
+  const [selectedFont, setSelectedFont] = useState(savedFont || 'Inter');
   const labelTexts = ['Inter', 'PT Serif', 'Inconsolata'];
   const [textSize, setTextSize] = useState(savedTextSize ? +savedTextSize : 100);
   const isPending = false;
@@ -63,7 +65,6 @@ function DisplaySetting() {
           <Form.RowVertical label={'Font'}>
             <RadioGroup
               labelTexts={labelTexts}
-              defaultText={'Inter'}
               selected={selectedFont}
               setSelected={setSelectedFont}
             />
