@@ -9,7 +9,7 @@ type CheckBoxProps = {
 
 function CheckBox({ id, labelText, clicked, onClicked }: CheckBoxProps) {
   const [checked, setChecked] = useState(clicked);
-  const clickHandler = (e, checked: boolean) => {
+  const clickHandler = (e: MouseEvent, checked: boolean) => {
     onClicked(e, !checked);
     setChecked(!checked);
   };

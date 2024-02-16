@@ -91,6 +91,7 @@ function ProfileSeting({ user }: { user: User }) {
         <Form
           onSubmit={handleSubmit(submitHandler)}
           className="lg:max-w-3xl"
+          borderless
         >
           <MainHead>
             <MainHead.Title>Profile</MainHead.Title>

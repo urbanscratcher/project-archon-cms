@@ -1,92 +1,114 @@
-import { useEffect } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
+import { useForm } from 'react-hook-form';
+import { AccountSchema } from '../../models/Auth';
 import { User } from '../../models/Users';
+import Error from '../../pages/Error';
 import Form from '../../ui/Form';
 import MainHead from '../../ui/Head';
+import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
-import { format } from 'date-fns';
+import useUpdateSetting from './useUpdateSetting';
 
 function AccountSetting({ user }: { user: User }) {
-  // const navigate = useNavigate();
-  // const { signUp, error, isPending } = useSignUp();
-  // const firstNameRef = useRef<HTMLInputElement | null>(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      past_password: '',
+      new_password: '',
+      new_password_confirm: '',
+    },
+    resolver: zodResolver(AccountSchema),
+  });
 
-  // useEffect(() => {
-  //   if (error) {
-  //     navigate('/error', { state: { message: error.message, status: error?.response?.status } });
-  //   }
-  // }, [error]);
+  const { updateSetting, isPending, error } = useUpdateSetting();
 
-  // useEffect(() => {
-  //   firstNameRef.current!.focus();
-  // }, []);
-
-  // submit handling
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm({ resolver: zodResolver(SignUpSchema) });
-  // const submitHandler = async (data: any): Promise<void> => signUp(data);
+  const submitHandler = async (data: any): Promise<void> => {
+    updateSetting(data);
+  };
 
   return (
-    <Form
-      onSubmit={() => console.log('submit')}
-      borderless
-    >
-      <MainHead>
-        <MainHead.Title>Account</MainHead.Title>
-        <MainHead.Description>
-          Update your account settings. Reset your email and password in secure.
-        </MainHead.Description>
-      </MainHead>
-      <Form.RowVertical className="flex-1 py-3 lg:max-w-2xl">
-        <Form.RowVertical
-          label={'Role'}
-          // error={errors?.first_name?.message as string}
+    <>
+      {!error ? (
+        <Form
+          onSubmit={handleSubmit(submitHandler)}
+          className="lg:max-w-3xl"
+          borderless
         >
-          <Input
-            name="role"
-            type="text"
-            value={user.role}
-            disabled={false}
-          />
-        </Form.RowVertical>
-        <Form.RowVertical
-          label={'Email'}
-          // error={errors?.first_name?.message as string}
-        >
-          <Input
-            name="email"
-            type="text"
-            value={user.email}
-            disabled={false}
-          />
-        </Form.RowVertical>
-        <Form.RowVertical
-          label={'Password'}
-          // error={errors?.first_name?.message as string}
-        >
-          <Input
-            name="password"
-            type="text"
-            disabled={false}
-          />
-        </Form.RowVertical>
-        <Form.RowHorizontal label={'Joined at'}>
-          <p>{format(user.createdAt, 'yyyy-MM-dd')}</p>
-        </Form.RowHorizontal>
-        <Form.RowVertical>
-          <Button
-            type="submit"
-            size="md"
-            buttonType="primary"
-          >
-            Update
-          </Button>
-        </Form.RowVertical>
-      </Form.RowVertical>
-    </Form>
+          <MainHead>
+            <MainHead.Title>Account</MainHead.Title>
+            <MainHead.Description>
+              Update your account settings. Reset your email and password in secure.
+            </MainHead.Description>
+          </MainHead>
+          <hr />
+          <Form.RowVertical className="flex-1 py-3 lg:max-w-2xl">
+            <Form.RowVertical label={'Role'}>
+              <p className="capitalize">{user.role}</p>
+            </Form.RowVertical>
+            <Form.RowVertical label={'Email'}>
+              <p className="capitalize">{user.email}</p>
+            </Form.RowVertical>
+            <Form.RowVertical
+              label={'Current Password'}
+              error={errors?.past_password?.message as string}
+            >
+              <Input
+                {...register('past_password')}
+                type="password"
+                disabled={false}
+              />
+            </Form.RowVertical>
+            <Form.RowVertical
+              label={'New Password'}
+              error={errors?.new_password?.message as string}
+            >
+              <Input
+                {...register('new_password')}
+                type="password"
+                disabled={false}
+              />
+            </Form.RowVertical>
+            <Form.RowVertical
+              label={'Confirm New Password'}
+              error={errors?.new_password_confirm?.message as string}
+            >
+              <Input
+                {...register('new_password_confirm')}
+                type="password"
+                disabled={false}
+              />
+            </Form.RowVertical>
+            <Form.RowHorizontal label={'Joined at'}>
+              <p>{format(user.createdAt, 'yyyy-MM-dd')}</p>
+            </Form.RowHorizontal>
+            <Form.RowVertical className="items-end">
+              <Button
+                size="md"
+                buttonType="primary"
+                className="w-fit"
+                disabled={isPending}
+              >
+                {isPending ? (
+                  <Spinner
+                    withText={false}
+                    light
+                  />
+                ) : (
+                  'Update'
+                )}
+              </Button>
+            </Form.RowVertical>
+          </Form.RowVertical>
+        </Form>
+      ) : (
+        <Error />
+      )}
+    </>
   );
 }
 

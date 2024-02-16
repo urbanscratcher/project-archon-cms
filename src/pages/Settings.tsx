@@ -43,15 +43,17 @@ function Settings() {
       <MainBody>
         <Topbar />
         {isLoading && <GlobalLoader />}
-        {JSON.stringify(userData) !== JSON.stringify({}) && userData && setting === 'profile' ? (
-          <ProfileSetting user={userData} />
-        ) : setting === 'account' ? (
-          <AccountSetting user={userData} />
-        ) : setting === 'display' ? (
-          <DisplaySetting />
-        ) : (
-          ''
-        )}
+        {JSON.stringify(userData) !== JSON.stringify({}) &&
+          userData &&
+          (setting === 'profile' ? (
+            <ProfileSetting user={userData} />
+          ) : setting === 'account' ? (
+            <AccountSetting user={userData} />
+          ) : setting === 'display' ? (
+            <DisplaySetting />
+          ) : (
+            ''
+          ))}
       </MainBody>
     </MainLayout>
   );

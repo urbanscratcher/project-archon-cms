@@ -24,6 +24,46 @@
   blockquote {
     @apply mt-6 border-l-2 pl-6 italic;
   }
+
+  /* slide range bar styling */
+  input[type='range'] {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    border-radius: 999px;
+    @apply h-1.5 rounded-full bg-zinc-300;
+  }
+
+  input[type='range']::-webkit-slider-runnable-track,
+  input[type='range']::-moz-range-track {
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    @apply h-1.5 rounded-full bg-zinc-300;
+  }
+
+  /* Thumb: webkit */
+  input[type='range']::-webkit-slider-thumb {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    border: solid 1px #666;
+    @apply h-4 w-4 rounded-full bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  input[type='range']::-moz-range-thumb {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    border: solid 1px #666;
+    @apply h-4 w-4 rounded-full bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50;
+  }
 }
 
 @layer components {

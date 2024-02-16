@@ -118,10 +118,10 @@ function CareerList({ register, setValue, careers }: CareerList) {
         ))}
       </ul>
       <button
-        className="mt-1 flex items-center justify-center rounded-md bg-zinc-100 py-3 font-normal text-zinc-400 hover:bg-zinc-200/50 hover:text-zinc-500 active:bg-zinc-200"
+        className="mt-1 flex items-center justify-center rounded-md bg-zinc-100 py-3 text-sm font-normal text-zinc-400 hover:bg-zinc-200/50 hover:text-zinc-500 active:bg-zinc-200"
         onClick={addDisplayedCareers}
       >
-        <span className="icon-[lucide--plus] "></span>
+        <span className="icon-[lucide--plus] "></span>&nbsp;Add Careers
       </button>
     </>
   );
