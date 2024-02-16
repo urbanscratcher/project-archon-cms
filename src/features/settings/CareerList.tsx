@@ -1,22 +1,31 @@
-import { useState, type DragEvent, MouseEvent } from 'react';
+import { MouseEvent, useState, type DragEvent, ChangeEvent } from 'react';
 import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
-import { FieldValues, FormState, UseFormRegister } from 'react-hook-form';
 
 type CareerList = {
+  register: any;
+  setValue: any;
   careers: string[];
-  register?: UseFormRegister<FieldValues>;
 };
 
-function CareerList({ careers, register }: CareerList) {
+function CareerList({ register, setValue, careers }: CareerList) {
+  const [dispCareers, setDispCareers] = useState(careers);
   const [draggable, setDraggable] = useState(-1);
   const [dragged, setDragged] = useState(-1);
-  const [displayedCareers, setDisplayedCareers] = useState(careers);
 
   const clickDeleteHandler = (e: MouseEvent, clickedIdx: number) => {
     e.preventDefault();
-    const tempArr = displayedCareers.filter((_, idx) => idx !== clickedIdx);
-    setDisplayedCareers(tempArr);
+    const tempArr = dispCareers.filter((_, idx) => idx !== clickedIdx);
+    setDispCareers(tempArr);
+    setValue('careers', tempArr);
+  };
+
+  const addDisplayedCareers = (e: MouseEvent) => {
+    e.preventDefault();
+    const tempArr = [...dispCareers];
+    tempArr.push('');
+    setDispCareers(tempArr);
+    setValue('careers', tempArr);
   };
 
   const dragStartHandler = (e: DragEvent) => {
@@ -38,11 +47,13 @@ function CareerList({ careers, register }: CareerList) {
     const droppedIdxAttribute = e.currentTarget?.getAttribute('data-idx');
     const droppedIdx = droppedIdxAttribute !== null ? parseInt(droppedIdxAttribute, 10) : -1;
 
-    if (droppedIdx >= 0 && droppedIdx < displayedCareers.length) {
-      const tempArr = [...displayedCareers];
-      tempArr[droppedIdx] = displayedCareers[dragged];
-      tempArr[dragged] = displayedCareers[droppedIdx];
-      setDisplayedCareers(tempArr);
+    // if el comes in
+    if (droppedIdx >= 0 && droppedIdx < dispCareers.length) {
+      const tempArr = [...dispCareers];
+      tempArr[droppedIdx] = dispCareers[dragged];
+      tempArr[dragged] = dispCareers[droppedIdx];
+      setDispCareers(tempArr);
+      setValue('careers', tempArr);
     }
 
     setDraggable(-1);
@@ -56,45 +67,63 @@ function CareerList({ careers, register }: CareerList) {
   };
 
   return (
-    <ul className="flex flex-col gap-1">
-      {displayedCareers.map((career: string, idx: number) => (
-        <li
-          key={career}
-          className={`grid grid-cols-[max-content_auto] rounded-md ${draggable === idx ? 'bg-zinc-100' : ''}`}
-          draggable={draggable === idx}
-          data-idx={idx}
-          onDragStart={(e: DragEvent) => dragStartHandler(e)}
-          onDragEnter={(e: DragEvent) => dragEnterHandler(e)}
-          onDragOver={(e: DragEvent) => e.preventDefault()}
-          onDrag={(e: DragEvent) => e.preventDefault()}
-          onDrop={(e: DragEvent) => dropHandler(e)}
-          onDragEnd={(e: DragEvent) => dragEndHandler(e)}
-        >
-          <button
-            className="cursor-grab self-center px-2"
-            onClick={(e) => e.preventDefault()}
-            onMouseDown={() => setDraggable(idx)}
-            onMouseUp={() => setDraggable(-1)}
+    <>
+      <ul className="flex flex-col gap-1">
+        {dispCareers.map((career: string, idx: number) => (
+          <li
+            key={`${careers}_${idx}`}
+            className={`grid grid-cols-[max-content_auto] rounded-md ${draggable === idx ? 'bg-zinc-100' : ''}`}
+            draggable={draggable === idx}
+            data-idx={idx}
+            onDragStart={(e: DragEvent) => dragStartHandler(e)}
+            onDragEnter={(e: DragEvent) => dragEnterHandler(e)}
+            onDragOver={(e: DragEvent) => e.preventDefault()}
+            onDrag={(e: DragEvent) => e.preventDefault()}
+            onDrop={(e: DragEvent) => dropHandler(e)}
+            onDragEnd={(e: DragEvent) => dragEndHandler(e)}
           >
-            <span className="icon-[lucide--grip-vertical]"></span>
-          </button>
-          <div
-            role="presentation"
-            onMouseDown={() => setDraggable(-1)}
-            className="flex gap-1"
-          >
-            <Input defaultValue={career} />
-            <Button
-              buttonType="borderless"
-              size="icon"
-              onClick={(e: MouseEvent) => clickDeleteHandler(e, idx)}
+            <button
+              className="cursor-grab self-center px-2"
+              onClick={(e) => e.preventDefault()}
+              onMouseDown={() => setDraggable(idx)}
+              onMouseUp={() => setDraggable(-1)}
             >
-              <span className="icon-[lucide--trash-2]"></span>
-            </Button>
-          </div>
-        </li>
-      ))}
-    </ul>
+              <span className="icon-[lucide--grip-vertical]"></span>
+            </button>
+            <div
+              role="presentation"
+              onMouseDown={() => setDraggable(-1)}
+              className="flex gap-1"
+            >
+              <Input
+                {...register(`careers.${idx}`, {
+                  validate: (text: string) => (text.length > 0 && text.length <= 200) || 'Min 1 and Max 200',
+                  onBlur: (e: ChangeEvent<HTMLInputElement>) => {
+                    const value = e.target.value;
+                    const tempArr = [...dispCareers];
+                    tempArr[idx] = value;
+                    setDispCareers(tempArr);
+                  },
+                })}
+              />
+              <Button
+                buttonType="borderless"
+                size="icon"
+                onClick={(e: MouseEvent) => clickDeleteHandler(e, idx)}
+              >
+                <span className="icon-[lucide--x]"></span>
+              </Button>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <button
+        className="mt-1 flex items-center justify-center rounded-md bg-zinc-100 py-3 font-normal text-zinc-400 hover:bg-zinc-200/50 hover:text-zinc-500 active:bg-zinc-200"
+        onClick={addDisplayedCareers}
+      >
+        <span className="icon-[lucide--plus] "></span>
+      </button>
+    </>
   );
 }
 

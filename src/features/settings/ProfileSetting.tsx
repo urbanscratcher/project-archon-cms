@@ -16,9 +16,18 @@ function ProfileSeting({ user }: { user: User }) {
   const uploadInputEl = useRef<HTMLInputElement>(null);
   const { updateProfile, isPending, error } = useUpdateProfile();
   const [submitted, setSubmitted] = useState(false);
+  // parse careers data to array
+  let careers;
+  if (user?.careers) {
+    try {
+      careers = JSON.parse('[' + user.careers.slice(1, -1).replace(/'/g, '"') + ']');
+    } catch (e) {
+      careers = undefined;
+    }
+  }
 
   // submit form
-  const { register, handleSubmit, formState, setValue } = useForm({
+  const { register, getValues, handleSubmit, formState, setValue } = useForm({
     defaultValues: {
       idx: user.idx,
       avatar_file: null,
@@ -28,18 +37,9 @@ function ProfileSeting({ user }: { user: User }) {
       job_title: user.jobTitle,
       biography: user.biography,
       shouldRemove: false,
+      careers: careers,
     },
   });
-
-  // parse careers data to array
-  let careers;
-  if (user?.careers) {
-    try {
-      careers = JSON.parse(user.careers.slice(1, -1).replace(/'/g, '"'));
-    } catch (e) {
-      careers = undefined;
-    }
-  }
 
   // preview avatar
   function uploadClickHandler(e: MouseEvent) {
@@ -65,7 +65,10 @@ function ProfileSeting({ user }: { user: User }) {
   }
 
   const submitHandler = async (data: any): Promise<void> => {
+    // update profile
     await updateProfile(data);
+
+    // change state to submitted
     setSubmitted(true);
   };
 
@@ -202,9 +205,16 @@ function ProfileSeting({ user }: { user: User }) {
             </Form.RowVertical>
             {careers && (
               <Form.RowVertical label={'Careers'}>
-                <CareerList careers={careers} />
+                <CareerList
+                  register={register}
+                  careers={getValues('careers')}
+                  setValue={setValue}
+                />
               </Form.RowVertical>
             )}
+            <Form.RowVertical label={'Topics'}>
+              <div>topics</div>
+            </Form.RowVertical>
             <Form.RowVertical className="items-end">
               <Button
                 size="md"

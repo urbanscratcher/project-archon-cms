@@ -24,10 +24,17 @@ function useUpdateProfile(): UpdateProfileState {
         data.avatar = (await createAvatar(formData)).url;
       }
 
+      // if img should be removed
       if (data.shouldRemove) {
         await removeAvatar();
         data.avatar = '';
       }
+
+      // careers parsing
+      data.careers = JSON.stringify(data.careers);
+      console.log(data);
+
+      // update
       await userApi.update(data.idx, data, token);
     },
     onSuccess: () => {
