@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TopicSchema } from './Topic';
-import { toCamelCase } from '../utils/helpers';
+import { toCamelCase, toSnakeCase } from '../utils/helpers';
 import { getListSchema } from './QueryParam';
 
 export const CreatorSchema = z

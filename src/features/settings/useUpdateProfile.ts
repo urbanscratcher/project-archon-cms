@@ -21,7 +21,7 @@ function useUpdateProfile(): UpdateProfileState {
       // upload/remove avatar img
       const formData = new FormData();
       if (data.avatar_file) {
-        formData.append('avatar', data.avatar_file);
+        formData.append('img', data.avatar_file);
         data.avatar = (await createAvatar(formData)).url;
       }
 

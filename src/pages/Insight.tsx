@@ -1,4 +1,4 @@
-import InsightDetail from '../features/insights/InsightDetail';
+import InsightDetail from '../features/insight/InsightDetail';
 import { MainBody } from '../ui/MainBody';
 import { MainLayout } from '../ui/MainLayout';
 

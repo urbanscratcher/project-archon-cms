@@ -51,7 +51,7 @@ function InsightDetail() {
       </div>
       {editedAt && (
         <div className="flex gap-2">
-          <div className="capitalize">edited at</div>
+          <div className="capitalize">Edited at</div>
           <div>{format(editedAt, 'yyyy-MM-dd hh:mm:ss a')}</div>
         </div>
       )}

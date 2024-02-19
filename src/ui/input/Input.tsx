@@ -2,10 +2,10 @@ import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
 type InputProps = ComponentPropsWithoutRef<'input'>;
 
-const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((otherProps, ref) => {
   return (
     <input
-      {...props}
+      {...otherProps}
       ref={ref}
       className={`
           w-full
@@ -13,12 +13,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
           border
           border-solid
           border-zinc-300        
-          px-4        
-          py-2
-          shadow-sm
+          px-4
+          py-2        
+          shadow-sm          
           disabled:pointer-events-none
           disabled:bg-zinc-100
-        ${props.className ?? ''}`}
+        ${otherProps.className ?? ''}`}
     />
   );
 });
