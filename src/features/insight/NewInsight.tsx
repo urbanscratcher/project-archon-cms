@@ -1,12 +1,13 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
+import insightApi from '../../services/apiInsight';
 import insightImgsApi from '../../services/apiInsightImgs';
 import { MainBody } from '../../ui/MainBody';
 import { MainLayout } from '../../ui/MainLayout';
 import Button from '../../ui/button/Button';
-import { CreateInsight, CreateInsightSchema } from '../../models/Insights';
-import insightApi from '../../services/apiInsight';
+import { useNavigate } from 'react-router-dom';
+
 function NewInsight() {
   const [title, setTitle] = useState<string>('');
   const [titleActive, setTitleActive] = useState(false);
@@ -18,6 +19,7 @@ function NewInsight() {
   const token = localStorage.getItem('access_token') ?? '';
   const uploadEl = useRef<HTMLInputElement>(null);
   const [thumbnailUrl, setThumbnailUrl] = useState<string>('');
+  const navigate = useNavigate();
 
   // thumbnail
   function uploadClickHandler(e: MouseEvent) {
@@ -90,7 +92,9 @@ function NewInsight() {
               topic_idx: 4,
             };
 
-            insightApi.create(body, token);
+            insightApi.create(body, token).then((r) => {
+              navigate(`/insights/${r.idx}`);
+            });
           }}
         >
           Publish

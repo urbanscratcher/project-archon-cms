@@ -31,15 +31,16 @@ function InsightDetail() {
   const { idx, title, thumbnail, content, summary, topic, createdBy, createdAt, editedAt } = insightData;
 
   return (
-    <div className="mx-auto flex max-w-[55rem] flex-col gap-2">
+    <div className="mx-auto flex w-full max-w-[55rem] flex-col gap-2">
       <Badge text={topic.name} />
       <h2>{title}</h2>
       <p className="text-sm">{summary}</p>
       <img
         src={thumbnail}
         alt={title}
+        className={'max-h-80 w-fit'}
       />
-      <p>{content}</p>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
       <UserCellName
         avatar={createdBy.avatar}
         firstName={createdBy.firstName}

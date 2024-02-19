@@ -1,12 +1,23 @@
 import { PropsWithChildren } from 'react';
 import useSignOut from '../features/authentication/useSignOut';
 import Button from './button/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function PersonalMenu() {
   const onSignOut = useSignOut();
+  const navigate = useNavigate();
 
   return (
     <PersonalMenu.Container>
+      <Button
+        buttonType="borderless"
+        size="icon"
+        onClick={() => {
+          navigate('/new-insight');
+        }}
+      >
+        <span className="icon-[lucide--pencil]" />
+      </Button>
       <Button
         buttonType="borderless"
         size="icon"
