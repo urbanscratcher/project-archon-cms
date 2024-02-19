@@ -90,10 +90,6 @@ function NewInsight() {
               topic_idx: 4,
             };
 
-            const string = JSON.stringify(body).replace(/\\"/g, '"');
-
-            console.log(body.content);
-
             insightApi.create(body, token);
           }}
         >
