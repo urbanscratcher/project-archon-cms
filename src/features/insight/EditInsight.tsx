@@ -1,29 +1,35 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { useQueryClient } from '@tanstack/react-query';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Insight } from '../../models/Insights';
 import { Topic } from '../../models/Topic';
+import insightApi from '../../services/apiInsight';
 import insightImgsApi from '../../services/apiInsightImgs';
 import { MainBody } from '../../ui/MainBody';
 import { MainLayout } from '../../ui/MainLayout';
 import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
 import TopicDropdown from './TopicDropdown';
-import useCreateInsight from './useCreateInsight';
 import useUploadImg from './useUploadImg';
+import useUpdateInsight from './useUpdateInsight';
 
-function NewInsight() {
-  const token = localStorage.getItem('access_token') ?? '';
+function EditInsight() {
+  const { insightIdx } = useParams();
+  const queryClient = useQueryClient();
+  const insight: Insight = queryClient.getQueryData(['insight', insightIdx]);
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState<string>('');
+  const token = localStorage.getItem('access_token') ?? '';
+  const [title, setTitle] = useState<string>(insight.title);
   const [titleActive, setTitleActive] = useState(false);
-  const [summary, setSummary] = useState('');
+  const [summary, setSummary] = useState(insight.summary);
   const [summaryActive, setSummaryActive] = useState(false);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(insight.content);
   const [contentActive, setContentActive] = useState(false);
-  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
-  const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(insight.topic);
+  const [thumbnailUrl, setThumbnailUrl] = useState(insight.thumbnail);
   const titleEl = useRef<HTMLInputElement>(null);
   const summaryEl = useRef<HTMLTextAreaElement>(null);
   const uploadEl = useRef<HTMLInputElement>(null);
@@ -35,11 +41,11 @@ function NewInsight() {
     data: thumbnailData,
   } = useUploadImg('thumbnail');
   const {
-    mutate: createInsight,
-    data: createInsightData,
-    isPending: createInsightIsPending,
-    error: createInsightError,
-  } = useCreateInsight();
+    mutate: updateInsight,
+    data: updateInsightData,
+    isPending: updateInsightIsPending,
+    error: updateInsightError,
+  } = useUpdateInsight();
   const [imgLoading, setImgLoading] = useState(false);
   const [editor, setEditor] = useState();
 
@@ -93,10 +99,15 @@ function NewInsight() {
   }
 
   useEffect(() => {
-    if (createInsightData?.idx > 0) {
-      navigate(`/insights/${createInsightData.idx}`);
+    console.log(updateInsightData);
+    if (updateInsightData) {
+      navigate(`/insights/${insight.idx}`);
     }
-  }, [createInsightData]);
+  }, [updateInsightData]);
+
+  if (updateInsightError) {
+    console.error('insight err...', updateInsightError);
+  }
 
   useEffect(() => {
     if (thumbnailData?.url) {
@@ -104,31 +115,24 @@ function NewInsight() {
     }
   }, [thumbnailData]);
 
-  useEffect(() => {
-    titleEl.current?.focus();
-  }, [titleEl]);
-
-  if (createInsightError) {
-    console.error('cr insight err...', createInsightError);
-  }
-
   return (
     <MainLayout>
       <MainBody>
-        {createInsightIsPending ? (
+        {updateInsightIsPending ? (
           <Spinner />
         ) : (
           <>
             <div className="flex justify-end gap-2">
-              <TopicDropdown onSelect={setSelectedTopic} />
+              <TopicDropdown
+                selected={selectedTopic ? selectedTopic : undefined}
+                onSelect={setSelectedTopic}
+              />
               <Button
                 className="h-fit w-fit self-end"
                 size="sm"
                 buttonType="primary"
                 disabled={thumbnailIsPending || imgLoading || !editor}
-                onClick={(e) => {
-                  e.preventDefault();
-
+                onClick={() => {
                   // validation
                   if (!title || title === '') {
                     titleEl.current?.focus();
@@ -161,10 +165,14 @@ function NewInsight() {
                     topic_idx: selectedTopic.idx,
                   };
 
-                  createInsight(body);
+                  const params = {
+                    idx: insight.idx,
+                    body: body,
+                  };
+                  updateInsight(params);
                 }}
               >
-                Publish
+                Update
               </Button>
             </div>
             <div className="grid grid-cols-[70px_1fr] items-center gap-6">
@@ -175,6 +183,7 @@ function NewInsight() {
                 placeholder="Title"
                 className={`w-full self-center border-b  py-2 text-4xl font-semibold focus:outline-none`}
                 ref={titleEl}
+                value={title}
                 onFocus={(e) => setTitleActive(true)}
                 onBlur={(e) => {
                   setTitle(e.currentTarget.value);
@@ -188,6 +197,7 @@ function NewInsight() {
                 Summary{summary === '' && <span className="text-navy-600">*</span>}
               </p>
               <textarea
+                value={summary}
                 ref={summaryEl}
                 placeholder="Type a summary (< 200 words)"
                 className={`w-full self-center py-2  text-xl focus:outline-none`}
@@ -278,4 +288,4 @@ function NewInsight() {
   );
 }
 
-export default NewInsight;
+export default EditInsight;

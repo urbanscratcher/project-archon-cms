@@ -4,8 +4,6 @@ import insightImgsApi from '../../services/apiInsightImgs';
 type UploadTarget = 'thumbnail' | 'insight';
 
 function useUploadImg(target: UploadTarget) {
-  const queryClient = useQueryClient();
-
   const token = localStorage.getItem('access_token') ?? '';
 
   const { mutate, data, isPending, error } = useMutation({

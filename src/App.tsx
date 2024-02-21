@@ -17,6 +17,7 @@ import Users from './pages/Users';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Redirect from './ui/Redirect';
 import NewInsight from './features/insight/NewInsight';
+import EditInsight from './features/insight/EditInsight';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -70,6 +71,10 @@ function App(): ReactNode {
               <Route
                 path="insights/:insightIdx"
                 element={<Insight />}
+              />
+              <Route
+                path="insights/:insightIdx/edit"
+                element={<EditInsight />}
               />
               <Route
                 path="new-insight"
