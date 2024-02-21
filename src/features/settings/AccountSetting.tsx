@@ -60,7 +60,7 @@ function AccountSetting({ user }: { user: User }) {
               <Input
                 {...register('past_password')}
                 type="password"
-                disabled={false}
+                disabled={isPending}
               />
             </Form.RowVertical>
             <Form.RowVertical
@@ -70,7 +70,7 @@ function AccountSetting({ user }: { user: User }) {
               <Input
                 {...register('new_password')}
                 type="password"
-                disabled={false}
+                disabled={isPending}
               />
             </Form.RowVertical>
             <Form.RowVertical
@@ -80,7 +80,7 @@ function AccountSetting({ user }: { user: User }) {
               <Input
                 {...register('new_password_confirm')}
                 type="password"
-                disabled={false}
+                disabled={isPending}
               />
             </Form.RowVertical>
             <Form.RowHorizontal label={'Joined at'}>

@@ -1,32 +1,53 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Topic } from '../../models/Topic';
 import insightApi from '../../services/apiInsight';
 import insightImgsApi from '../../services/apiInsightImgs';
 import { MainBody } from '../../ui/MainBody';
 import { MainLayout } from '../../ui/MainLayout';
+import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
-import { useNavigate } from 'react-router-dom';
+import TopicDropdown from './TopicDropdown';
+import useUploadImg from './useUploadImg';
 
 function NewInsight() {
+  const token = localStorage.getItem('access_token') ?? '';
   const [title, setTitle] = useState<string>('');
   const [titleActive, setTitleActive] = useState(false);
   const [summary, setSummary] = useState('');
   const [summaryActive, setSummaryActive] = useState(false);
   const [content, setContent] = useState('');
   const [contentActive, setContentActive] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
+  const [thumbnailUrl, setThumbnailUrl] = useState('');
   const titleEl = useRef<HTMLInputElement>(null);
-  const token = localStorage.getItem('access_token') ?? '';
+  const summaryEl = useRef<HTMLTextAreaElement>(null);
   const uploadEl = useRef<HTMLInputElement>(null);
-  const [thumbnailUrl, setThumbnailUrl] = useState<string>('');
+  const thumbnailUploadEl = useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
+  const {
+    uploadImg: uploadThumbnail,
+    isPending: thumbnailIsPending,
+    error: thumbnailError,
+    data: thumbnailData,
+  } = useUploadImg('thumbnail');
+  const [imgLoading, setImgLoading] = useState(false);
+  const [editor, setEditor] = useState();
 
-  // thumbnail
+  useEffect(() => {
+    if (thumbnailData?.url) {
+      setThumbnailUrl(thumbnailData.url);
+    }
+  }, [thumbnailData]);
+
+  // upload thumbnail
   function uploadClickHandler(e: MouseEvent) {
     e.preventDefault();
     uploadEl.current && uploadEl.current.click();
   }
-  async function uploadChangeHandler(e: any) {
+  function uploadChangeHandler(e: any) {
     if (e.target.files.length === 0) {
       return;
     }
@@ -34,11 +55,7 @@ function NewInsight() {
     const file = e.target.files[0];
     const data = new FormData();
     data.append('img', file);
-    const uploadedImg = await insightImgsApi.thumbnailUpsert(token, data);
-
-    if (uploadedImg?.url) {
-      setThumbnailUrl(uploadedImg.url);
-    }
+    uploadThumbnail(data);
   }
 
   // upload an image in editor
@@ -46,17 +63,19 @@ function NewInsight() {
     return {
       upload: () => {
         return new Promise((resolve, reject) => {
+          setImgLoading(true);
           loader.file.then((file: File) => {
             const data = new FormData();
             data.append('img', file);
 
             insightImgsApi
               .imgUpsert(token, data)
-              .then((r) =>
-                resolve({
+              .then((r) => {
+                setImgLoading(false);
+                return resolve({
                   default: r.url,
-                }),
-              )
+                });
+              })
               .catch((e) => {
                 console.error(e);
                 reject(e);
@@ -79,26 +98,54 @@ function NewInsight() {
   return (
     <MainLayout>
       <MainBody>
-        <Button
-          className="h-fit w-fit self-end"
-          size="sm"
-          buttonType="primary"
-          onClick={() => {
-            const body = {
-              title: title,
-              thumbnail: thumbnailUrl,
-              content: content,
-              summary: summary,
-              topic_idx: 4,
-            };
+        <div className="flex justify-end gap-2">
+          <TopicDropdown onSelect={setSelectedTopic} />
+          <Button
+            className="h-fit w-fit self-end"
+            size="sm"
+            buttonType="primary"
+            disabled={thumbnailIsPending || imgLoading || !editor}
+            onClick={() => {
+              // validation
+              if (!title || title === '') {
+                titleEl.current?.focus();
+                return;
+              }
+              if (!summary || summary === '') {
+                summaryEl.current?.focus();
+                return;
+              }
 
-            insightApi.create(body, token).then((r) => {
-              navigate(`/insights/${r.idx}`);
-            });
-          }}
-        >
-          Publish
-        </Button>
+              if (!content || content === '') {
+                editor.editing.view.focus();
+                return;
+              }
+
+              if (!thumbnailUrl || thumbnailUrl === '') {
+                thumbnailUploadEl.current?.focus();
+                return;
+              }
+
+              if (!selectedTopic) {
+                return;
+              }
+
+              const body = {
+                title: title,
+                thumbnail: thumbnailUrl,
+                content: content,
+                summary: summary,
+                topic_idx: selectedTopic && selectedTopic.idx,
+              };
+
+              insightApi.create(body, token).then((r) => {
+                navigate(`/insights/${r.idx}`);
+              });
+            }}
+          >
+            Publish
+          </Button>
+        </div>
         <div className="grid grid-cols-[70px_1fr] items-center gap-6">
           <p className={`text-sm text-zinc-400 ${titleActive ? 'opacity-100' : 'opacity-0'}`}>
             Title{title === '' && <span className="text-navy-600">*</span>}
@@ -120,6 +167,7 @@ function NewInsight() {
             Summary{summary === '' && <span className="text-navy-600">*</span>}
           </p>
           <textarea
+            ref={summaryEl}
             placeholder="Type a summary (< 200 words)"
             className={`w-full self-center py-2  text-xl focus:outline-none`}
             onFocus={(e) => setSummaryActive(true)}
@@ -140,8 +188,8 @@ function NewInsight() {
               extraPlugins: [uploadPlugin],
             }}
             data={content}
-            onReady={(editor) => {
-              //
+            onReady={(editor: any) => {
+              setEditor(editor);
             }}
             onChange={(event, editor) => {
               setContent(editor.getData());
@@ -152,7 +200,6 @@ function NewInsight() {
             }}
             onFocus={(event, editor) => {
               setContentActive(true);
-              console.log('Focus.', editor.getData());
             }}
           />
           <div className="flex flex-col items-end gap-1">
@@ -160,13 +207,28 @@ function NewInsight() {
               buttonType="muted"
               size="icon"
               onClick={uploadClickHandler}
-              className="w-fit text-zinc-400 hover:text-zinc-600"
+              ref={thumbnailUploadEl}
+              className={`w-fit text-zinc-400 hover:text-zinc-600 focus:ring-2`}
             >
               <span className="icon-[lucide--plus]"></span>
             </Button>
+            {thumbnailUrl !== '' && (
+              <Button
+                buttonType="muted"
+                size="icon"
+                onClick={(e) => setThumbnailUrl('')}
+                className={`w-fit text-zinc-400 hover:text-zinc-600`}
+              >
+                <span className="icon-[lucide--minus]"></span>
+              </Button>
+            )}
           </div>
-          <div className="flex flex-col">
-            {thumbnailUrl ? (
+          <div className="flex flex-col items-start">
+            {thumbnailIsPending ? (
+              <Spinner withText={false} />
+            ) : thumbnailError ? (
+              <p>Try again</p>
+            ) : thumbnailUrl !== '' ? (
               <img
                 src={thumbnailUrl}
                 alt="thumbnail"

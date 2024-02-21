@@ -6,9 +6,10 @@ type CareerList = {
   register: any;
   setValue: any;
   careers: string[];
+  isPending: boolean;
 };
 
-function CareerList({ register, setValue, careers }: CareerList) {
+function CareerList({ register, setValue, careers, isPending }: CareerList) {
   const [dispCareers, setDispCareers] = useState(careers);
   const [draggable, setDraggable] = useState(-1);
   const [dragged, setDragged] = useState(-1);
@@ -71,7 +72,7 @@ function CareerList({ register, setValue, careers }: CareerList) {
       <ul className="flex flex-col gap-1">
         {dispCareers.map((career: string, idx: number) => (
           <li
-            key={`${careers}_${idx}`}
+            key={`${career}_${idx}`}
             className={`grid grid-cols-[max-content_auto] rounded-md ${draggable === idx ? 'bg-zinc-100' : ''}`}
             draggable={draggable === idx}
             data-idx={idx}
@@ -83,10 +84,11 @@ function CareerList({ register, setValue, careers }: CareerList) {
             onDragEnd={(e: DragEvent) => dragEndHandler(e)}
           >
             <button
-              className="cursor-grab self-center px-2"
+              className={`self-center px-2 disabled:pointer-events-none disabled:opacity-50`}
               onClick={(e) => e.preventDefault()}
               onMouseDown={() => setDraggable(idx)}
               onMouseUp={() => setDraggable(-1)}
+              disabled={isPending}
             >
               <span className="icon-[lucide--grip-vertical]"></span>
             </button>
@@ -96,6 +98,7 @@ function CareerList({ register, setValue, careers }: CareerList) {
               className="flex gap-1"
             >
               <Input
+                disabled={isPending}
                 {...register(`careers.${idx}`, {
                   validate: (text: string) => (text.length > 0 && text.length <= 200) || 'Min 1 and Max 200',
                   onBlur: (e: ChangeEvent<HTMLInputElement>) => {
@@ -107,6 +110,7 @@ function CareerList({ register, setValue, careers }: CareerList) {
                 })}
               />
               <Button
+                disabled={isPending}
                 buttonType="borderless"
                 size="icon"
                 onClick={(e: MouseEvent) => clickDeleteHandler(e, idx)}
@@ -118,7 +122,8 @@ function CareerList({ register, setValue, careers }: CareerList) {
         ))}
       </ul>
       <button
-        className="mt-1 flex items-center justify-center rounded-md bg-zinc-100 py-3 text-sm font-normal text-zinc-400 hover:bg-zinc-200/50 hover:text-zinc-500 active:bg-zinc-200"
+        disabled={isPending}
+        className={`mt-1 flex items-center justify-center rounded-md bg-zinc-100 py-3 text-sm font-normal text-zinc-400 hover:bg-zinc-200/50 hover:text-zinc-500 active:bg-zinc-200 disabled:pointer-events-none disabled:opacity-50`}
         onClick={addDisplayedCareers}
       >
         <span className="icon-[lucide--plus] "></span>&nbsp;Add Careers

@@ -4,10 +4,11 @@ type CheckBoxProps = {
   labelText: string;
   id: string;
   clicked: boolean;
+  disabled: boolean;
   onClicked: (e: MouseEvent, checked: boolean) => void;
 } & PropsWithChildren;
 
-function CheckBox({ id, labelText, clicked, onClicked }: CheckBoxProps) {
+function CheckBox({ id, labelText, clicked, disabled, onClicked }: CheckBoxProps) {
   const [checked, setChecked] = useState(clicked);
   const clickHandler = (e: MouseEvent, checked: boolean) => {
     onClicked(e, !checked);
@@ -17,6 +18,7 @@ function CheckBox({ id, labelText, clicked, onClicked }: CheckBoxProps) {
   return (
     <div className="flex items-center gap-2">
       <button
+        disabled={disabled}
         type="button"
         role="checkbox"
         aria-checked={checked}
@@ -29,7 +31,7 @@ function CheckBox({ id, labelText, clicked, onClicked }: CheckBoxProps) {
       </button>
       <label
         htmlFor={id}
-        className="text-sm font-medium  leading-none"
+        className={`text-sm font-medium  leading-none ${disabled && 'opacity-50'}`}
       >
         {labelText}
       </label>

@@ -1,11 +1,10 @@
 import {
+  useRef,
   type ComponentPropsWithoutRef,
+  type FocusEvent,
   type MouseEvent,
   type PropsWithChildren,
   type ReactNode,
-  type FocusEvent,
-  useRef,
-  useEffect,
 } from 'react';
 
 type DropdownProps = {
@@ -31,12 +30,6 @@ function Dropdown({ children, onToggle }: DropdownProps) {
 Dropdown.Content = function Content({ children, showDown }: PropsWithChildren & { showDown: boolean }) {
   const boxRef = useRef(null);
   const style = showDown ? 'left-0 top-full translate-y-1' : 'left-0 top-0 -translate-y-[calc(100%+0.25rem)]';
-
-  useEffect(() => {
-    if (showDown) {
-      console.log(boxRef.current);
-    }
-  }, [boxRef, showDown]);
 
   return (
     <div

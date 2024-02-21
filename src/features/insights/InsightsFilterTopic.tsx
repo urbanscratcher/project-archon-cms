@@ -5,7 +5,6 @@ import { useQuery } from '@tanstack/react-query';
 import topicApi from '../../services/apiTopic';
 
 export function InsightsFilterTopic() {
-  // TODO: change api - get topics only used by a specific user if user is not admin
   const { data: topics, error, isLoading } = useQuery({ queryKey: ['topics'], queryFn: () => topicApi.getAllList() });
 
   const { selectedTopic, selectTopic, unselectTopic, topicOptions } = useInsightsFilterStore();

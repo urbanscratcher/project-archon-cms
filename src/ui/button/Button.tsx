@@ -53,7 +53,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           capitalize
           transition-colors
           disabled:pointer-events-none
-          disabled:opacity-50 
+          disabled:opacity-50
           ${fullWidth && 'w-full'}
         ${size && getSize(size)} ${buttonType && getType(buttonType)}
       ` + className

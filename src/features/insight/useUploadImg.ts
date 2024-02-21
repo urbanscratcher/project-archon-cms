@@ -1,13 +1,15 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import insightImgsApi from '../../services/apiInsightImgs';
 
 type UploadTarget = 'thumbnail' | 'insight';
 
 function useUploadImg(target: UploadTarget) {
+  const queryClient = useQueryClient();
+
   const token = localStorage.getItem('access_token') ?? '';
 
-  const { mutateAsync, isPending, error } = useMutation({
-    mutationFn: (formData: any) =>
+  const { mutate, data, isPending, error } = useMutation({
+    mutationFn: (formData: FormData) =>
       target === 'insight'
         ? insightImgsApi.imgUpsert(token, formData)
         : insightImgsApi.thumbnailUpsert(token, formData),
@@ -19,7 +21,7 @@ function useUploadImg(target: UploadTarget) {
     },
   });
 
-  return { uploadImg: mutateAsync, isPending, error };
+  return { uploadImg: mutate, isPending, error, data };
 }
 
 export default useUploadImg;

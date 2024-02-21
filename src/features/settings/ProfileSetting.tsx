@@ -119,7 +119,8 @@ function ProfileSeting({ user }: { user: User }) {
                             src={avatar}
                           />
                           <button
-                            className="absolute right-0 top-0 flex h-6 w-6 translate-x-[50%] translate-y-[-50%] items-center justify-center rounded-full bg-white hover:bg-zinc-100"
+                            className={`absolute right-0 top-0 flex h-6 w-6 translate-x-[50%] translate-y-[-50%] items-center justify-center rounded-full bg-white hover:bg-zinc-100`}
+                            disabled={isPending}
                             onClick={(e: MouseEvent) => {
                               e.preventDefault();
                               setAvatar(user.avatar);
@@ -141,6 +142,7 @@ function ProfileSeting({ user }: { user: User }) {
                       buttonType="muted"
                       size="sm"
                       onClick={uploadClickHandler}
+                      disabled={isPending}
                     >
                       Upload
                     </Button>
@@ -156,6 +158,7 @@ function ProfileSeting({ user }: { user: User }) {
                     <Button
                       buttonType="muted"
                       size="sm"
+                      disabled={isPending}
                       onClick={(e: MouseEvent) => {
                         e.preventDefault();
                         setAvatar('');
@@ -182,7 +185,7 @@ function ProfileSeting({ user }: { user: User }) {
                 <Input
                   {...register('first_name', { required: 'Required', validate: (v) => v.length <= 50 || 'Maximum 50' })}
                   type="text"
-                  disabled={false}
+                  disabled={isPending}
                 />
               </Form.RowVertical>
               <Form.RowVertical
@@ -192,7 +195,7 @@ function ProfileSeting({ user }: { user: User }) {
                 <Input
                   {...register('last_name', { required: 'Required', validate: (v) => v.length <= 50 || 'Maximum 50' })}
                   type="text"
-                  disabled={false}
+                  disabled={isPending}
                 />
               </Form.RowVertical>
             </Form.RowVertical>
@@ -205,7 +208,7 @@ function ProfileSeting({ user }: { user: User }) {
               <Input
                 {...register('job_title', { validate: (v) => v.length <= 150 || 'Maximum 150' })}
                 type="text"
-                disabled={false}
+                disabled={isPending}
               />
             </Form.RowVertical>
             <Form.RowVertical
@@ -215,7 +218,7 @@ function ProfileSeting({ user }: { user: User }) {
               <Input
                 {...register('biography')}
                 type="text"
-                disabled={false}
+                disabled={isPending}
               />
             </Form.RowVertical>
             {careers && (
@@ -224,6 +227,7 @@ function ProfileSeting({ user }: { user: User }) {
                   register={register}
                   careers={getValues('careers')}
                   setValue={setValue}
+                  isPending={isPending}
                 />
               </Form.RowVertical>
             )}
@@ -234,6 +238,7 @@ function ProfileSeting({ user }: { user: User }) {
                   topics.data.map((topic: Topic) => (
                     <li key={topic.name}>
                       <CheckBox
+                        disabled={isPending}
                         id={topic.name}
                         labelText={topic.name}
                         onClicked={(e: MouseEvent) => {
