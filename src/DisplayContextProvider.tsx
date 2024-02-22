@@ -34,7 +34,23 @@ function DisplayContextProvider({ children }: PropsWithChildren) {
   console.log('displaying...', darkMode);
 
   return (
-    <DisplayContext.Provider value={{ font: font, textScale: textScale, darkMode: darkMode }}>
+    <DisplayContext.Provider
+      value={{
+        font: font,
+        textScale: textScale,
+        darkMode: darkMode,
+        getDarkMode: (): boolean => (localStorage.getItem('dark_mode') === '1' ? true : false),
+        setDarkMode: (val) => {
+          setDarkMode(!val);
+          if (!val) {
+            root.classList.add('dark');
+          } else {
+            root.classList.contains('dark') && root.classList.remove('dark');
+          }
+          localStorage.setItem('dark_mode', val === true ? '0' : '1');
+        },
+      }}
+    >
       {children}
     </DisplayContext.Provider>
   );

@@ -1,14 +1,13 @@
-import { PropsWithChildren, useContext, useState } from 'react';
-import useSignOut from '../features/authentication/useSignOut';
-import Button from './button/Button';
+import { PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DisplayContext } from '../DisplayContext';
+import useSignOut from '../features/authentication/useSignOut';
+import Button from './button/Button';
 
 export default function PersonalMenu() {
   const onSignOut = useSignOut();
   const navigate = useNavigate();
-  const ctx = useContext(DisplayContext);
-  const [darkMode, setDarkMode] = useState(ctx.darkMode);
+  const { setDarkMode, getDarkMode } = useContext(DisplayContext);
 
   return (
     <PersonalMenu.Container>
@@ -22,20 +21,9 @@ export default function PersonalMenu() {
       <Button
         buttonType="borderless"
         size="icon"
-        onClick={() => {
-          localStorage.setItem('dark_mode', darkMode === true ? '0' : '1');
-
-          const root = document.documentElement;
-          if (!darkMode) {
-            root.classList.add('dark');
-          } else {
-            root.classList.contains('dark') && root.classList.remove('dark');
-          }
-
-          setDarkMode(!darkMode);
-        }}
+        onClick={() => setDarkMode(getDarkMode())}
       >
-        <span className={`${darkMode ? 'icon-[lucide--sun]' : 'icon-[lucide--moon]'}`} />
+        <span className={`${getDarkMode() ? 'icon-[lucide--sun]' : 'icon-[lucide--moon]'}`} />
       </Button>
       <Button
         buttonType="borderless"
