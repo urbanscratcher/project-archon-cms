@@ -40,12 +40,7 @@ function EditInsight() {
     error: thumbnailError,
     data: thumbnailData,
   } = useUploadImg('thumbnail');
-  const {
-    mutate: updateInsight,
-    data: updateInsightData,
-    isPending: updateInsightIsPending,
-    error: updateInsightError,
-  } = useUpdateInsight();
+  const { mutate: updateInsight, isPending: updateInsightIsPending, error: updateInsightError } = useUpdateInsight();
   const [imgLoading, setImgLoading] = useState(false);
   const [editor, setEditor] = useState();
 
@@ -97,13 +92,6 @@ function EditInsight() {
       return uploadAdapter(loader);
     };
   }
-
-  useEffect(() => {
-    console.log(updateInsightData);
-    if (updateInsightData) {
-      navigate(`/insights/${insight.idx}`);
-    }
-  }, [updateInsightData]);
 
   if (updateInsightError) {
     console.error('insight err...', updateInsightError);
@@ -169,6 +157,7 @@ function EditInsight() {
                     idx: insight.idx,
                     body: body,
                   };
+
                   updateInsight(params);
                 }}
               >
