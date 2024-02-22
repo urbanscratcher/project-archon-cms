@@ -2,7 +2,7 @@ import { ReactNode, type PropsWithChildren, ComponentPropsWithoutRef, MouseEvent
 
 function Table({ children }: PropsWithChildren) {
   return (
-    <div className="min-w-[64px] max-w-full overflow-scroll rounded-md border border-zinc-300 xl:overflow-visible">
+    <div className="max-w-full overflow-scroll rounded-md outline outline-1 outline-zinc-300 dark:outline-zinc-700 xl:overflow-visible">
       <table className="w-full table-fixed  caption-bottom">{children}</table>
     </div>
   );
@@ -11,14 +11,12 @@ function Table({ children }: PropsWithChildren) {
 Table.HeadCell = function HeadCell({ children, className }: PropsWithChildren & { className?: string }) {
   return (
     <th
-      className={
-        `        
-        text-left
+      className={`text-left
         font-medium
         capitalize
         text-zinc-500
-      ` + className
-      }
+        dark:text-zinc-400 
+      ${className || ''}`}
       colSpan={1}
       scope="col"
     >
@@ -28,23 +26,23 @@ Table.HeadCell = function HeadCell({ children, className }: PropsWithChildren & 
 };
 
 Table.Head = function Head({ children }: PropsWithChildren) {
-  return <thead className="border-b border-b-zinc-300">{children}</thead>;
+  return <thead className="border-b border-b-zinc-300 dark:border-b-zinc-700">{children}</thead>;
 };
 
 Table.HeadRow = function HeadRow({ children }: PropsWithChildren) {
-  return <tr className="h-10 bg-zinc-50 transition-colors hover:bg-zinc-100">{children}</tr>;
+  return (
+    <tr className="h-10 bg-zinc-50 transition-colors hover:bg-zinc-100 dark:bg-zinc-900 dark:hover:bg-zinc-800">
+      {children}
+    </tr>
+  );
 };
 
 Table.Row = function Row({ children, className, ...otherProps }: PropsWithChildren & ComponentPropsWithoutRef<'tr'>) {
   return (
     <tr
-      className={
-        `
-      border-b
-      border-b-zinc-300
-      transition-colors hover:bg-zinc-50
-    data-[state=selected]:bg-zinc-100 ` + className
-      }
+      className={`border-b border-b-zinc-300 transition-colors
+      hover:bg-zinc-50 dark:border-b-zinc-700
+    dark:hover:bg-zinc-800 ${className || ''}`}
       {...otherProps}
     >
       {children}

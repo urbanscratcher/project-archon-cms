@@ -38,7 +38,7 @@ Dropdown.Content = function Content({ children, showDown }: PropsWithChildren & 
     >
       <ul
         role="menu"
-        className="min-w-[8rem] overflow-hidden rounded-sm border border-zinc-300 bg-white p-1 text-sm shadow-md"
+        className="min-w-[8rem] overflow-hidden rounded-sm border border-zinc-300 bg-white p-1 text-sm shadow-md dark:border-zinc-700 dark:bg-zinc-900"
       >
         {children}
       </ul>
@@ -76,7 +76,7 @@ Dropdown.Item = function Item({
       {...props}
       onMouseDown={clickHandler}
       role="menuitem"
-      className="relative cursor-default select-none items-center py-1.5 pl-8 pr-2 capitalize transition-colors hover:bg-zinc-100 focus:bg-zinc-100"
+      className="relative cursor-default select-none items-center py-1.5 pl-8 pr-2 capitalize transition-colors hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-zinc-800"
     >
       {children}
     </li>

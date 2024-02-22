@@ -83,8 +83,11 @@ function AccountSetting({ user }: { user: User }) {
                 disabled={isPending}
               />
             </Form.RowVertical>
-            <Form.RowHorizontal label={'Joined at'}>
-              <p>{format(user.createdAt, 'yyyy-MM-dd')}</p>
+            <Form.RowHorizontal
+              className="text-sm"
+              label={'Joined at'}
+            >
+              <p className="text-sm">{format(user.createdAt, 'yyyy-MM-dd')}</p>
             </Form.RowHorizontal>
             <Form.RowVertical className="items-end">
               <Button

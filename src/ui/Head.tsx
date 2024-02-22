@@ -9,7 +9,7 @@ MainHead.Title = function Title({ children }: PropsWithChildren) {
 };
 
 MainHead.Description = function Description({ children }: PropsWithChildren) {
-  return <div className="inline-flex items-center gap-1 text-zinc-500">{children}</div>;
+  return <div className={`inline-flex items-center gap-1 text-zinc-500 dark:text-zinc-400`}>{children}</div>;
 };
 
 export default MainHead;

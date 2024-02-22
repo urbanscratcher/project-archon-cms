@@ -28,15 +28,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const getType = (type: string): string => {
       switch (type) {
         case 'primary':
-          return 'bg-navy-700 text-navy-50 hover:bg-navy-600 border-none  shadow-sm font-normal';
+          return 'bg-navy-700 text-navy-50 hover:bg-navy-600 border-none  shadow-sm font-normal active:bg-navy-700';
         case 'dropdown':
-          return 'border border-zinc-300 bg-white hover:bg-zinc-50 flex items-center justify-between active:bg-zinc-100 gap-1 shadow-sm font-normal min-w-[6rem]';
+          return 'border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-transparent hover:bg-zinc-50 flex items-center justify-between active:bg-zinc-100 gap-1 shadow-sm font-normal min-w-[6rem]';
         case 'borderless':
-          return 'flex rounded-md  hover:bg-zinc-100 active:bg-zinc-200/50 items-center justify-center font-normal';
+          return 'flex rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 items-center justify-center font-normal dark:hover:bg-zinc-800 dark:active:bg-zinc-800/50';
         case 'muted':
-          return 'border border-zinc-300 rounded-md hover:bg-zinc-100 active:bg-zinc-200/50 shadow-sm font-normal';
+          return 'border border-zinc-300 dark:border-zinc-700 rounded-md hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:active:bg-zinc-800/50 active:bg-zinc-200/50 shadow-sm font-normal';
         case 'sort':
-          return 'flex rounded-md  hover:bg-zinc-200 active:bg-zinc-300/80 items-center justify-center px-3 py-1 rounded-md gap-1 font-medium';
+          return 'flex rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 active:bg-zinc-300/80 dark:active:bg-zinc-700/50 items-center justify-center px-3 py-1 rounded-md gap-1 font-medium';
         default:
           return '';
       }

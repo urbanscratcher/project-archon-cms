@@ -16,15 +16,14 @@ export default NavBar;
 NavBar.Container = function Container({ children }: PropsWithChildren) {
   return (
     <header
-      className="
+      className={`
       flex
-      h-16
-      w-[calc(100vw-260px)] items-center
-      justify-end
-      gap-8 overflow-hidden
-      bg-white
+      h-16 w-[calc(100vw-260px)]
+      items-center
+      justify-end gap-8
+      overflow-hidden
       px-8
-      "
+      `}
     >
       {children}
     </header>

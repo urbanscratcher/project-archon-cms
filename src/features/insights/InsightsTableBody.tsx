@@ -60,8 +60,8 @@ const makeQueryParamsForCovers = (indice: number[], offset?: number, limit?: num
 };
 
 function InsightsTableBody() {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const covers = queryClient.getQueryData(['covers']);
   const coversIndice = covers ? covers?.data.map((c) => c.insight.idx) : [];
 
@@ -97,12 +97,14 @@ function InsightsTableBody() {
   }, [insights?.total]);
 
   if (error) return <Table.BodyFull>{error.message}</Table.BodyFull>;
+
   if (isLoading)
     return (
       <Table.BodyFull>
         <Spinner />
       </Table.BodyFull>
     );
+
   if (insights?.total <= 0) return <Table.BodyFull>No Data Found</Table.BodyFull>;
 
   const insightList = InsightsSchema.parse(insights).data;

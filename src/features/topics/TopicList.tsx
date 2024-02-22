@@ -23,8 +23,7 @@ function TopicList() {
 
   return (
     <>
-      {topics &&
-        displayedList.length > 0 &&
+      {displayedList.length > 0 &&
         displayedList.map((t: Topic, i: number) => (
           <TopicList.Item
             dataList={topics.data}
@@ -32,7 +31,10 @@ function TopicList() {
             key={t.name}
             idx={i}
           >
-            <h4 className="capitalize">{t.name}</h4>
+            <div className="flex items-center gap-2">
+              <h4 className="capitalize">{t.name}</h4>
+              <p className="text-sm">({t.total_insights})</p>
+            </div>
             <TopicsControl topic={t} />
           </TopicList.Item>
         ))}
@@ -43,7 +45,7 @@ function TopicList() {
 export default TopicList;
 
 TopicList.Box = function Box({ children }: PropsWithChildren) {
-  return <ul className="flex max-w-md flex-col">{children}</ul>;
+  return <ul className="flex max-w-md flex-col ">{children}</ul>;
 };
 
 TopicList.Item = function Item({
@@ -110,7 +112,7 @@ TopicList.Item = function Item({
 
   return (
     <li
-      className={`grid grid-cols-[max-content_auto] rounded-md p-2 ${draggable ? 'bg-zinc-100' : ''}`}
+      className={`grid grid-cols-[max-content_auto] rounded-md p-2 ${draggable && 'bg-zinc-100 dark:bg-zinc-800'}`}
       draggable={draggable}
       data-idx={idx}
       onDragStart={(e: DragEvent) => dragStartHandler(e)}
@@ -121,7 +123,7 @@ TopicList.Item = function Item({
       onDragEnd={(e: DragEvent) => dragEndHandler(e)}
     >
       <button
-        className="cursor-grab self-center px-2"
+        className="flex cursor-grab items-center px-2"
         onMouseDown={() => setDraggable(true)}
         onMouseUp={() => setDraggable(false)}
       >

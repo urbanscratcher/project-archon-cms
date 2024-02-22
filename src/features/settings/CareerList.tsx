@@ -73,7 +73,9 @@ function CareerList({ register, setValue, careers, isPending }: CareerList) {
         {dispCareers.map((career: string, idx: number) => (
           <li
             key={`${career}_${idx}`}
-            className={`grid grid-cols-[max-content_auto] rounded-md ${draggable === idx ? 'bg-zinc-100' : ''}`}
+            className={`grid grid-cols-[max-content_auto] rounded-md ${
+              draggable === idx && 'bg-zinc-100 dark:bg-zinc-800'
+            }`}
             draggable={draggable === idx}
             data-idx={idx}
             onDragStart={(e: DragEvent) => dragStartHandler(e)}
@@ -123,7 +125,7 @@ function CareerList({ register, setValue, careers, isPending }: CareerList) {
       </ul>
       <button
         disabled={isPending}
-        className={`mt-1 flex items-center justify-center rounded-md bg-zinc-100 py-3 text-sm font-normal text-zinc-400 hover:bg-zinc-200/50 hover:text-zinc-500 active:bg-zinc-200 disabled:pointer-events-none disabled:opacity-50`}
+        className={`mt-1 flex items-center justify-center rounded-md bg-zinc-100 py-3 text-sm font-normal text-zinc-400 hover:bg-zinc-200/50 hover:text-zinc-500 active:bg-zinc-200 disabled:pointer-events-none disabled:opacity-50 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:active:bg-zinc-600/50`}
         onClick={addDisplayedCareers}
       >
         <span className="icon-[lucide--plus] "></span>&nbsp;Add Careers

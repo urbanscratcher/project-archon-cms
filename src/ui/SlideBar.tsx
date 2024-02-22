@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Input from './input/Input';
 
 type ProgressBarProps = {
   labelText: string;
@@ -28,8 +29,9 @@ function SlideBar({ labelText, value, setValue, min, max, step, unit }: Progress
 
       {/* current value */}
       <div className="flex items-center gap-[2px] justify-self-end text-sm text-zinc-500">
-        <input
+        <Input
           value={inputValue}
+          style={{ width: '4rem' }}
           onChange={(e) => {
             setInputValue(+e.target.value);
           }}
@@ -49,7 +51,7 @@ function SlideBar({ labelText, value, setValue, min, max, step, unit }: Progress
               setInputValue(val);
             }
           }}
-          className="w-12 rounded-md px-1 py-0.5 text-right hover:outline hover:outline-1 hover:outline-zinc-300"
+          className="rounded-md text-right hover:outline hover:outline-1 hover:outline-zinc-300"
         />
         {unit && <p>{unit}</p>}
       </div>

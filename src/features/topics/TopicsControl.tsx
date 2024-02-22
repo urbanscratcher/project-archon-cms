@@ -1,19 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useToggle from '../../hooks/useToggle';
 import { Topic } from '../../models/Topic';
-import Error from '../../pages/Error';
+import Error, { makeErrorMsg } from '../../pages/Error';
 import topicApi from '../../services/apiTopic';
 import Button from '../../ui/button/Button';
 import AlertDialog from '../../ui/dialog/AlertDialog';
 import Input from '../../ui/input/Input';
+import Dialog from '../../ui/dialog/Dialog';
 
 function TopicsControl({ topic }: { topic: Topic }) {
   const token = localStorage.getItem('access_token') ?? '';
   const queryClient = useQueryClient();
-  const [showEdit, toggleEdit] = useToggle(false);
-  const [showDelete, toggleDelete] = useToggle(false);
-
+  const [showEdit, setShowEdit] = useToggle(false);
+  const [showDelete, setShowDelete] = useToggle(false);
+  const [showError, setShowError] = useState(false);
   const [newName, setNewName] = useState(topic.name);
 
   // edit -------------
@@ -24,7 +25,6 @@ function TopicsControl({ topic }: { topic: Topic }) {
   } = useMutation({
     mutationFn: ({ name }: { name: string }) => topicApi.updateName(topic.idx, { name }, token),
     onSuccess: () => {
-      console.log('success');
       queryClient.invalidateQueries({ queryKey: ['topics'] });
     },
     onError: (error) => {
@@ -33,7 +33,7 @@ function TopicsControl({ topic }: { topic: Topic }) {
   });
 
   const clickEditHandler = () => {
-    toggleEdit(true);
+    setShowEdit(true);
   };
 
   const editHandler = () => {
@@ -51,17 +51,24 @@ function TopicsControl({ topic }: { topic: Topic }) {
       queryClient.invalidateQueries({ queryKey: ['topics'] });
     },
     onError: (error) => {
-      console.log('error...', error);
+      console.error(error);
     },
   });
 
   const clickDeleteHandler = () => {
-    toggleDelete(true);
+    setShowDelete(true);
   };
 
   const deleteHandler = () => {
     deleteMutate({ idx: topic.idx });
   };
+
+  useEffect(() => {
+    if (deleteError) {
+      setShowDelete(false);
+      setShowError(true);
+    }
+  }, [deleteError]);
 
   return (
     <>
@@ -72,7 +79,7 @@ function TopicsControl({ topic }: { topic: Topic }) {
           isLoading={isPending}
           continueLabel="Save"
           onContinue={editHandler}
-          onCancel={() => toggleEdit(false)}
+          onCancel={() => setShowEdit(false)}
         >
           <Input
             disabled={isPending}
@@ -89,10 +96,18 @@ function TopicsControl({ topic }: { topic: Topic }) {
           isLoading={isDeletePending}
           continueLabel="Delete"
           onContinue={deleteHandler}
-          onCancel={() => toggleDelete(false)}
-        >
-          {deleteError && <Error.Message errorState={deleteError} />}
-        </AlertDialog>
+          onCancel={() => setShowDelete(false)}
+        ></AlertDialog>
+      )}
+      {showError && (
+        <Dialog
+          title={makeErrorMsg(403).title}
+          description={makeErrorMsg(403).description}
+          actionName="Confirm"
+          onAction={() => {
+            setShowError(false);
+          }}
+        ></Dialog>
       )}
       <div
         role="group"
@@ -110,7 +125,7 @@ function TopicsControl({ topic }: { topic: Topic }) {
           size="icon"
           onClick={clickDeleteHandler}
         >
-          <span className="icon-[lucide--trash-2]"></span>
+          <span className="icon-[lucide--x]"></span>
         </Button>
       </div>
     </>

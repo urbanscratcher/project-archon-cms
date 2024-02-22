@@ -3,6 +3,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import EditInsight from './features/insight/EditInsight';
+import NewInsight from './features/insight/NewInsight';
 import AppLayout from './layouts/AppLayout';
 import SignLayout from './layouts/SignLayout';
 import Error from './pages/Error';
@@ -16,8 +18,7 @@ import Topics from './pages/Topics';
 import Users from './pages/Users';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Redirect from './ui/Redirect';
-import NewInsight from './features/insight/NewInsight';
-import EditInsight from './features/insight/EditInsight';
+import DisplayContextProvider from './DisplayContextProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,89 +34,91 @@ function App(): ReactNode {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <ErrorBoundary fallback={<Error />}>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
+      <DisplayContextProvider>
+        <ErrorBoundary fallback={<Error />}>
+          <BrowserRouter>
+            <Routes>
               <Route
-                index
                 element={
-                  <Navigate
-                    replace
-                    to="dashboard"
-                  />
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
                 }
+              >
+                <Route
+                  index
+                  element={
+                    <Navigate
+                      replace
+                      to="dashboard"
+                    />
+                  }
+                />
+                <Route
+                  path="dashboard"
+                  element={<div>/dashboard</div>}
+                />
+                <Route
+                  path="users"
+                  element={<Users />}
+                />
+                <Route
+                  path="topics"
+                  element={<Topics />}
+                />
+                <Route
+                  path="insights"
+                  element={<Insights />}
+                />
+                <Route
+                  path="insights/:insightIdx"
+                  element={<Insight />}
+                />
+                <Route
+                  path="insights/:insightIdx/edit"
+                  element={<EditInsight />}
+                />
+                <Route
+                  path="new-insight"
+                  element={<NewInsight />}
+                />
+                <Route
+                  path="settings"
+                  element={<Settings />}
+                />
+                <Route
+                  path="settings/:setting"
+                  element={<Settings />}
+                />
+              </Route>
+              <Route
+                element={
+                  <Redirect>
+                    <SignLayout />
+                  </Redirect>
+                }
+              >
+                <Route
+                  path="signin"
+                  element={<SignIn />}
+                />
+                <Route
+                  path="signup"
+                  element={<SignUp />}
+                />
+              </Route>
+              <Route
+                path="*"
+                element={<PageNotFound />}
               />
               <Route
-                path="dashboard"
-                element={<div>/dashboard</div>}
+                path="error"
+                element={<Error />}
               />
-              <Route
-                path="users"
-                element={<Users />}
-              />
-              <Route
-                path="topics"
-                element={<Topics />}
-              />
-              <Route
-                path="insights"
-                element={<Insights />}
-              />
-              <Route
-                path="insights/:insightIdx"
-                element={<Insight />}
-              />
-              <Route
-                path="insights/:insightIdx/edit"
-                element={<EditInsight />}
-              />
-              <Route
-                path="new-insight"
-                element={<NewInsight />}
-              />
-              <Route
-                path="settings"
-                element={<Settings />}
-              />
-              <Route
-                path="settings/:setting"
-                element={<Settings />}
-              />
-            </Route>
-            <Route
-              element={
-                <Redirect>
-                  <SignLayout />
-                </Redirect>
-              }
-            >
-              <Route
-                path="signin"
-                element={<SignIn />}
-              />
-              <Route
-                path="signup"
-                element={<SignUp />}
-              />
-            </Route>
-            <Route
-              path="*"
-              element={<PageNotFound />}
-            />
-            <Route
-              path="error"
-              element={<Error />}
-            />
-          </Routes>
-        </BrowserRouter>
-      </ErrorBoundary>
+            </Routes>
+          </BrowserRouter>
+        </ErrorBoundary>
+      </DisplayContextProvider>
     </QueryClientProvider>
   );
 }

@@ -26,15 +26,7 @@ AppLayout.ContentArea = function ContentArea({ children }: PropsWithChildren) {
 };
 
 AppLayout.Container = function Container({ children }: PropsWithChildren) {
-  return (
-    <div
-      className="
-   flex text-zinc-800
-  "
-    >
-      {children}
-    </div>
-  );
+  return <div className={`flex text-zinc-800 dark:bg-zinc-900 dark:text-zinc-400`}>{children}</div>;
 };
 
 AppLayout.Portal = function Portal() {

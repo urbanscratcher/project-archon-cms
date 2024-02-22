@@ -16,6 +16,12 @@ function CreateTopicForm() {
     setShowError(true);
   }, [error]);
 
+  useEffect(() => {
+    if (input) {
+      input.current!.focus();
+    }
+  }, [input]);
+
   const createHandler = (e: FormEvent<HTMLFormElement>) => {
     // to prevent refreshing the page
     e.preventDefault();
@@ -29,7 +35,7 @@ function CreateTopicForm() {
   return (
     <>
       <form
-        className="grid max-w-sm grid-cols-[1fr_auto] gap-1 "
+        className="grid max-w-sm grid-cols-[1fr_auto] gap-2 "
         onSubmit={(e) => createHandler(e)}
       >
         <Input

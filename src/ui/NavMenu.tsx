@@ -17,8 +17,7 @@ NavMenu.Item = function Item({ icon, text, linkTo }: NavMenuItemProps) {
       <NavLink
         to={linkTo ? `/${linkTo}` : `/${text}`}
         className={({ isActive, isPending }) => {
-          const style = isPending ? 'link-pending' : isActive ? 'link-active' : '';
-          return `${style}
+          return `${isPending ? 'bg-zinc-50 dark:bg-zinc-900' : isActive ? 'bg-zinc-100 dark:bg-zinc-800' : ''}
             inline-flex
             w-full 
             items-center justify-start
@@ -29,6 +28,8 @@ NavMenu.Item = function Item({ icon, text, linkTo }: NavMenuItemProps) {
             transition-colors
             hover:bg-zinc-100
             active:bg-zinc-200/50
+            dark:hover:bg-zinc-800
+            dark:active:bg-zinc-700/50
           `;
         }}
       >

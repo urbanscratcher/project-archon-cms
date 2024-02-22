@@ -1,14 +1,14 @@
 import { z } from 'zod';
-import { TopicSchema } from './Topic';
-import { toCamelCase, toSnakeCase } from '../utils/helpers';
+import { toCamelCase } from '../utils/helpers';
 import { getListSchema } from './QueryParam';
+import { TopicSchema } from './Topic';
 
 export const CreatorSchema = z
   .object({
     idx: z.number(),
     first_name: z.string(),
     last_name: z.string(),
-    avatar: z.string().optional(),
+    avatar: z.string().nullable().optional(),
   })
   .transform((data) => toCamelCase(data));
 

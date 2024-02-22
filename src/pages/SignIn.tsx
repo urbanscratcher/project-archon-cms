@@ -54,13 +54,13 @@ function SignIn() {
           </MainHead>
           <Form.RowVertical
             label={'Email'}
-            error={emailError ? emailError : ''}
+            error={emailError || ''}
           >
             <EmailInput inputRef={emailInput} />
           </Form.RowVertical>
           <Form.RowVertical
             label={'Password'}
-            error={passwordError ? passwordError : ''}
+            error={passwordError || ''}
           >
             <PasswordInput inputRef={pwInput} />
           </Form.RowVertical>

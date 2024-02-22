@@ -14,6 +14,7 @@ import Button from '../../ui/button/Button';
 import TopicDropdown from './TopicDropdown';
 import useUploadImg from './useUploadImg';
 import useUpdateInsight from './useUpdateInsight';
+import Input from '../../ui/input/Input';
 
 function EditInsight() {
   const { insightIdx } = useParams();
@@ -168,9 +169,11 @@ function EditInsight() {
               <p className={`text-sm text-zinc-400 ${titleActive ? 'opacity-100' : 'opacity-0'}`}>
                 Title{title === '' && <span className="text-navy-600">*</span>}
               </p>
-              <input
+              <Input
+                borderless={true}
+                roundless={true}
                 placeholder="Title"
-                className={`w-full self-center border-b  py-2 text-4xl font-semibold focus:outline-none`}
+                className={`self-center border-b py-2 text-4xl font-semibold focus:outline-none dark:border-zinc-700`}
                 ref={titleEl}
                 value={title}
                 onFocus={(e) => setTitleActive(true)}
@@ -189,7 +192,7 @@ function EditInsight() {
                 value={summary}
                 ref={summaryEl}
                 placeholder="Type a summary (< 200 words)"
-                className={`w-full self-center py-2  text-xl focus:outline-none`}
+                className={`w-full self-center px-4 py-2 text-xl focus:outline-none  dark:bg-zinc-900 dark:text-zinc-400 dark:placeholder:text-zinc-700`}
                 onFocus={(e) => setSummaryActive(true)}
                 onBlur={(e) => {
                   setSummary(e.currentTarget.value);

@@ -26,7 +26,7 @@ Dialog.Box = function Box({ children }: PropsWithChildren) {
   return (
     <div
       role="alertdialog"
-      className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border  border-zinc-300 bg-white p-6 shadow-lg duration-200"
+      className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border  border-zinc-300 bg-white p-6 shadow-lg duration-200 dark:border-zinc-700 dark:bg-zinc-900"
     >
       {children}
     </div>
@@ -45,11 +45,11 @@ Dialog.Header = function Header({ children }: PropsWithChildren) {
 };
 
 Dialog.Title = function Title({ children }: PropsWithChildren) {
-  return <h2 className="text-lg font-semibold">{children}</h2>;
+  return <h2 className="text-lg font-semibold dark:text-zinc-200">{children}</h2>;
 };
 
 Dialog.Description = function Description({ children }: PropsWithChildren) {
-  return <div>{children}</div>;
+  return <div className="dark:text-zinc-400">{children}</div>;
 };
 Dialog.Footer = function Footer({ children }: PropsWithChildren) {
   return (

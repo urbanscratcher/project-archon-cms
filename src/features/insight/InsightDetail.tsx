@@ -38,12 +38,12 @@ function InsightDetail() {
   return (
     <div className="mx-auto flex w-full max-w-[55rem] items-start gap-1">
       <Button
-        className="text-zinc-600"
+        className="text-zinc-600 dark:text-zinc-400"
         buttonType="borderless"
         size="icon"
         onClick={() => navigate('/insights')}
       >
-        <span className="icon-[lucide--undo-2]"></span>
+        <span className="icon-[lucide--arrow-left]"></span>
       </Button>
       <div className="flex w-full flex-col gap-2">
         <Badge text={topic.name} />

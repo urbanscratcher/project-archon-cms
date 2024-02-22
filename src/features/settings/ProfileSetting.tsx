@@ -119,7 +119,7 @@ function ProfileSeting({ user }: { user: User }) {
                             src={avatar}
                           />
                           <button
-                            className={`absolute right-0 top-0 flex h-6 w-6 translate-x-[50%] translate-y-[-50%] items-center justify-center rounded-full bg-white hover:bg-zinc-100`}
+                            className={`absolute right-0 top-0 flex h-6 w-6 translate-x-[50%] translate-y-[-50%] items-center justify-center rounded-full bg-white hover:bg-zinc-100 dark:bg-zinc-300 dark:text-zinc-800 dark:hover:bg-zinc-400`}
                             disabled={isPending}
                             onClick={(e: MouseEvent) => {
                               e.preventDefault();

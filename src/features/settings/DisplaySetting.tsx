@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { DisplayContext } from '../../DisplayContext';
 import Form from '../../ui/Form';
 import MainHead from '../../ui/Head';
 import RadioGroup from '../../ui/RadioGroup';
@@ -8,12 +9,13 @@ import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
 
 function DisplaySetting() {
-  const savedTextSize = localStorage.getItem('text_size');
-  const savedFont = localStorage.getItem('font');
+  const ctx = useContext(DisplayContext);
+  const savedTextScale = ctx.textScale;
+  const savedFont = ctx.font;
+  const [selectedFont, setSelectedFont] = useState(savedFont);
+  const [textScale, setTextScale] = useState(+savedTextScale);
 
-  const [selectedFont, setSelectedFont] = useState(savedFont || 'Inter');
   const labelTexts = ['Inter', 'PT Serif', 'Inconsolata'];
-  const [textSize, setTextSize] = useState(savedTextSize ? +savedTextSize : 100);
   const isPending = false;
   const [previewSize, setPreviewSize] = useState({
     big: 30,
@@ -26,24 +28,24 @@ function DisplaySetting() {
 
   useEffect(() => {
     setPreviewSize({
-      big: 30 * textSize * 0.01,
-      bigLeading: 36 * textSize * 0.01,
-      default: 16 * textSize * 0.01,
-      defaultLeading: 24 * textSize * 0.01,
-      small: 14 * textSize * 0.01,
+      big: 30 * textScale * 0.01,
+      bigLeading: 36 * textScale * 0.01,
+      default: 16 * textScale * 0.01,
+      defaultLeading: 24 * textScale * 0.01,
+      small: 14 * textScale * 0.01,
       smallLeading: 20,
     });
-  }, [textSize]);
+  }, [textScale]);
 
   const { handleSubmit } = useForm();
 
   const submitHandler = () => {
     localStorage.setItem('font', selectedFont);
-    localStorage.setItem('text_size', textSize + '');
+    localStorage.setItem('text_scale', `${textScale}`);
 
     const root = document.documentElement;
     const curTextSize = 16;
-    root.style.setProperty('font-size', curTextSize * 0.01 * textSize + 'px');
+    root.style.setProperty('font-size', curTextSize * 0.01 * textScale + 'px');
     root.style.fontFamily = selectedFont;
   };
 
@@ -71,8 +73,8 @@ function DisplaySetting() {
             <div className="mt-5">
               <SlideBar
                 labelText="Text Size"
-                value={textSize}
-                setValue={setTextSize}
+                value={textScale}
+                setValue={setTextScale}
                 min={80}
                 max={120}
                 step={2}
