@@ -6,6 +6,7 @@ import { Avatar } from './Avatar';
 
 export default function Profile() {
   const navigate = useNavigate();
+  // @ts-ignore
   const [value, setValue] = useLocalStorage('access_token', '');
   if (!value) navigate('/signin');
 

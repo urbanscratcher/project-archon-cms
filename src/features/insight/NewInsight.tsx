@@ -8,10 +8,10 @@ import { MainBody } from '../../ui/MainBody';
 import { MainLayout } from '../../ui/MainLayout';
 import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
+import Input from '../../ui/input/Input';
 import TopicDropdown from './TopicDropdown';
 import useCreateInsight from './useCreateInsight';
 import useUploadImg from './useUploadImg';
-import Input from '../../ui/input/Input';
 
 function NewInsight() {
   const token = localStorage.getItem('access_token') ?? '';
@@ -42,7 +42,7 @@ function NewInsight() {
     error: createInsightError,
   } = useCreateInsight();
   const [imgLoading, setImgLoading] = useState(false);
-  const [editor, setEditor] = useState();
+  const [editor, setEditor] = useState<any>();
 
   // upload thumbnail
   function uploadClickHandler(e: MouseEvent) {
@@ -141,7 +141,7 @@ function NewInsight() {
                   }
 
                   if (!content || content === '') {
-                    editor.editing.view.focus();
+                    editor && editor?.editing?.view?.focus();
                     return;
                   }
 
@@ -178,7 +178,7 @@ function NewInsight() {
                 placeholder="Title"
                 className={`self-center border-b py-2 text-4xl font-semibold focus:outline-none dark:border-zinc-700`}
                 ref={titleEl}
-                onFocus={(e) => setTitleActive(true)}
+                onFocus={() => setTitleActive(true)}
                 onBlur={(e) => {
                   setTitle(e.currentTarget.value);
                   setTitleActive(false);
@@ -194,7 +194,7 @@ function NewInsight() {
                 ref={summaryEl}
                 placeholder="Type a summary (< 200 words)"
                 className={`w-full self-center px-4 py-2 text-xl focus:outline-none  dark:bg-zinc-900 dark:text-zinc-400 dark:placeholder:text-zinc-700`}
-                onFocus={(e) => setSummaryActive(true)}
+                onFocus={() => setSummaryActive(true)}
                 onBlur={(e) => {
                   setSummary(e.currentTarget.value);
                   setSummaryActive(false);
@@ -215,14 +215,14 @@ function NewInsight() {
                 onReady={(editor: any) => {
                   setEditor(editor);
                 }}
-                onChange={(event, editor) => {
+                onChange={(_event, editor) => {
                   setContent(editor.getData());
                 }}
-                onBlur={(event, editor) => {
+                onBlur={(_event, editor) => {
                   setContent(editor.getData());
                   setContentActive(false);
                 }}
-                onFocus={(event, editor) => {
+                onFocus={(_event, _editor) => {
                   setContentActive(true);
                 }}
               />
@@ -240,7 +240,7 @@ function NewInsight() {
                   <Button
                     buttonType="muted"
                     size="icon"
-                    onClick={(e) => setThumbnailUrl('')}
+                    onClick={() => setThumbnailUrl('')}
                     className={`w-fit text-zinc-400 hover:text-zinc-600`}
                   >
                     <span className="icon-[lucide--minus]"></span>

@@ -31,7 +31,6 @@ function DisplayContextProvider({ children }: PropsWithChildren) {
   } else {
     root.classList.contains('dark') && root.classList.remove('dark');
   }
-  console.log('displaying...', darkMode);
 
   return (
     <DisplayContext.Provider

@@ -24,7 +24,7 @@ function InsightDetail() {
     error,
   } = useQuery({ queryKey: ['insight', insightIdx], queryFn: () => insightApi.getDetail(+insightIdx) });
 
-  const { mutate: deleteInsight, isPending: deleteIsPending, error: deleteError } = useDeleteInsight();
+  const { mutate: deleteInsight } = useDeleteInsight();
 
   if (error) return <Error />;
   if (isLoading) return <Spinner />;
@@ -81,7 +81,7 @@ function InsightDetail() {
               size="sm"
               buttonType="muted"
               className="h-fit w-fit"
-              onClick={(e) => navigate(`/insights/${idx}/edit`)}
+              onClick={() => navigate(`/insights/${idx}/edit`)}
             >
               Edit
             </Button>

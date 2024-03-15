@@ -2,25 +2,23 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Insight } from '../../models/Insights';
 import { Topic } from '../../models/Topic';
-import insightApi from '../../services/apiInsight';
 import insightImgsApi from '../../services/apiInsightImgs';
 import { MainBody } from '../../ui/MainBody';
 import { MainLayout } from '../../ui/MainLayout';
 import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
-import TopicDropdown from './TopicDropdown';
-import useUploadImg from './useUploadImg';
-import useUpdateInsight from './useUpdateInsight';
 import Input from '../../ui/input/Input';
+import TopicDropdown from './TopicDropdown';
+import useUpdateInsight from './useUpdateInsight';
+import useUploadImg from './useUploadImg';
 
 function EditInsight() {
   const { insightIdx } = useParams();
   const queryClient = useQueryClient();
   const insight: Insight = queryClient.getQueryData(['insight', insightIdx]);
-  const navigate = useNavigate();
 
   const token = localStorage.getItem('access_token') ?? '';
   const [title, setTitle] = useState<string>(insight.title);
@@ -43,22 +41,30 @@ function EditInsight() {
   } = useUploadImg('thumbnail');
   const { mutate: updateInsight, isPending: updateInsightIsPending, error: updateInsightError } = useUpdateInsight();
   const [imgLoading, setImgLoading] = useState(false);
-  const [editor, setEditor] = useState();
+  const [editor, setEditor] = useState<any>();
 
   // upload thumbnail
   function uploadClickHandler(e: MouseEvent) {
     e.preventDefault();
     uploadEl.current && uploadEl.current.click();
   }
-  function uploadChangeHandler(e: any) {
+
+  async function uploadChangeHandler(e: any) {
     if (e.target.files.length === 0) {
       return;
     }
 
     const file = e.target.files[0];
+
+    if (!file) {
+      setThumbnailUrl('');
+      return;
+    }
+
     const data = new FormData();
     data.append('img', file);
-    uploadThumbnail(data);
+
+    await uploadThumbnail(data);
   }
 
   // upload an image in editor
@@ -133,7 +139,7 @@ function EditInsight() {
                   }
 
                   if (!content || content === '') {
-                    editor.editing.view.focus();
+                    editor && editor?.editing?.view?.focus();
                     return;
                   }
 
@@ -176,7 +182,7 @@ function EditInsight() {
                 className={`self-center border-b py-2 text-4xl font-semibold focus:outline-none dark:border-zinc-700`}
                 ref={titleEl}
                 value={title}
-                onFocus={(e) => setTitleActive(true)}
+                onFocus={() => setTitleActive(true)}
                 onBlur={(e) => {
                   setTitle(e.currentTarget.value);
                   setTitleActive(false);
@@ -193,7 +199,7 @@ function EditInsight() {
                 ref={summaryEl}
                 placeholder="Type a summary (< 200 words)"
                 className={`w-full self-center px-4 py-2 text-xl focus:outline-none  dark:bg-zinc-900 dark:text-zinc-400 dark:placeholder:text-zinc-700`}
-                onFocus={(e) => setSummaryActive(true)}
+                onFocus={() => setSummaryActive(true)}
                 onBlur={(e) => {
                   setSummary(e.currentTarget.value);
                   setSummaryActive(false);
@@ -214,14 +220,14 @@ function EditInsight() {
                 onReady={(editor: any) => {
                   setEditor(editor);
                 }}
-                onChange={(event, editor) => {
+                onChange={(_event, editor) => {
                   setContent(editor.getData());
                 }}
-                onBlur={(event, editor) => {
+                onBlur={(_event, editor) => {
                   setContent(editor.getData());
                   setContentActive(false);
                 }}
-                onFocus={(event, editor) => {
+                onFocus={(_event, _editor) => {
                   setContentActive(true);
                 }}
               />
@@ -239,7 +245,7 @@ function EditInsight() {
                   <Button
                     buttonType="muted"
                     size="icon"
-                    onClick={(e) => setThumbnailUrl('')}
+                    onClick={() => setThumbnailUrl('')}
                     className={`w-fit text-zinc-400 hover:text-zinc-600`}
                   >
                     <span className="icon-[lucide--minus]"></span>
@@ -267,7 +273,7 @@ function EditInsight() {
                   type="file"
                   id="avatar"
                   name="avatar"
-                  accept="image/png, image/jpg, image/jpeg"
+                  accept="image/png, image/jpg, image/jpeg, image/webp"
                   onChange={uploadChangeHandler}
                   ref={uploadEl}
                 />

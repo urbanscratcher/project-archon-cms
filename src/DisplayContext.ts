@@ -5,7 +5,7 @@ export const DisplayContext = createContext({
   textScale: '100',
   darkMode: false,
   setDarkMode: (val: boolean) => {
-    return;
+    console.log('setDarkMode', val);
   },
   getDarkMode: (): boolean => false,
 });

@@ -62,7 +62,7 @@ const makeQueryParamsForCovers = (indice: number[], offset?: number, limit?: num
 function InsightsTableBody() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const covers = queryClient.getQueryData(['covers']);
+  const covers = queryClient.getQueryData(['covers']) as { data: any[] };
   const coversIndice = covers ? covers?.data.map((c) => c.insight.idx) : [];
 
   const { searchFilter, selectedTopic, offset, limit, sorts, setTotal, coverOnly, setCoverOnly } =
@@ -109,7 +109,7 @@ function InsightsTableBody() {
 
   const insightList = InsightsSchema.parse(insights).data;
 
-  function clickHandler(e: MouseEvent, idx: number) {
+  function clickHandler(_e: MouseEvent, idx: number) {
     navigate(`/insights/${idx}`);
   }
 

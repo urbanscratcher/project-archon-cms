@@ -24,7 +24,6 @@ const resErrorInterceptor = (error: any): Promise<any> => {
   const config = error?.response?.config;
   const method = config?.method;
   const url = config?.url;
-  const headers = config?.headers;
 
   switch (status) {
     case 400:
@@ -47,11 +46,11 @@ const resErrorInterceptor = (error: any): Promise<any> => {
 const responseBody = <T>(response: AxiosResponse<T>): any => response.data;
 
 // Axios defaults ------------------------------------------------
-export const axiosInstance = (token?: string) => {
+export const axiosInstance = (token?: string, timeout?: number) => {
   // create instance
   const instance = axios.create({
     baseURL: BASE_API_URL,
-    timeout: 3000,
+    timeout: timeout,
     headers: {
       Accept: 'application/json',
       Authorization: token ? `Bearer ${token}` : undefined,
@@ -69,22 +68,31 @@ export const axiosInstance = (token?: string) => {
 // Request & methods def ---------------------------------------
 export const request = (token?: string) => {
   return {
-    get: <T>(url: string) => axiosInstance(token).get<T>(url).then(responseBody),
-    post: <T>(url: string, body: {}, config?: InternalAxiosRequestConfig<any> | undefined) =>
-      axiosInstance(token)
-        .post<T>(url, body, (config = undefined))
+    get: <T>(url: string) => axiosInstance(token, 3000).get<T>(url).then(responseBody),
+    post: <T>(url: string, body: {}, _config?: InternalAxiosRequestConfig<any> | undefined) =>
+      axiosInstance(token, 3000)
+        .post<T>(url, body, (_config = undefined))
         .then(responseBody),
-    put: <T>(url: string, body: {}, config?: InternalAxiosRequestConfig<any> | undefined) =>
-      axiosInstance(token)
-        .put<T>(url, body, (config = undefined))
+    put: <T>(url: string, body: {}, _config?: InternalAxiosRequestConfig<any> | undefined) =>
+      axiosInstance(token, 3000)
+        .put<T>(url, body, (_config = undefined))
         .then(responseBody),
-    patch: <T>(url: string, body: {}, config?: InternalAxiosRequestConfig<any> | undefined) =>
-      axiosInstance(token)
-        .patch<T>(url, body, (config = undefined))
+    patch: <T>(url: string, body: {}, _config?: InternalAxiosRequestConfig<any> | undefined) =>
+      axiosInstance(token, 3000)
+        .patch<T>(url, body, (_config = undefined))
         .then(responseBody),
-    delete: <T>(url: string, config?: InternalAxiosRequestConfig<any> | undefined) =>
-      axiosInstance(token)
-        .delete<T>(url, (config = undefined))
+    delete: <T>(url: string, _config?: InternalAxiosRequestConfig<any> | undefined) =>
+      axiosInstance(token, 3000)
+        .delete<T>(url, (_config = undefined))
+        .then(responseBody),
+  };
+};
+
+export const imgRequest = (token?: string) => {
+  return {
+    post: <T>(url: string, body: {}, _config?: InternalAxiosRequestConfig<any> | undefined) =>
+      axiosInstance(token, 10000)
+        .post<T>(url, body, (_config = undefined))
         .then(responseBody),
   };
 };

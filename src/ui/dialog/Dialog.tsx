@@ -81,6 +81,7 @@ Dialog.Portal = function Portal({ children }: PropsWithChildren) {
 };
 
 function Dialog({ title, description, actionName, onAction, children, isLoading }: PropsWithChildren & DialogProps) {
+  // @ts-ignore
   const [show, setShow] = useState(true);
 
   // used useCallback since it is passed down to a child component

@@ -60,6 +60,7 @@ function AlertDialog({
   children,
   isLoading,
 }: AlertDialogProps & PropsWithChildren) {
+  // @ts-ignore
   const [show, setShow] = useState(true);
 
   // used useCallback since it is passed down to a child component

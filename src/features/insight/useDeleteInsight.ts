@@ -11,7 +11,7 @@ function useDeleteInsight() {
     mutationFn: (idx: number) => {
       return insightApi.delete(idx, token);
     },
-    onSuccess: (res: any) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['insights'] });
       navigate(`/insights`);
     },

@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext, useEffect, useState } from 'react';
+import { PropsWithChildren, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DisplayContext } from '../DisplayContext';
 import useSignOut from '../features/authentication/useSignOut';

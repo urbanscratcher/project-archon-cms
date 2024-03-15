@@ -50,7 +50,7 @@ function App(): ReactNode {
                   element={
                     <Navigate
                       replace
-                      to="dashboard"
+                      to="insights"
                     />
                   }
                 />
