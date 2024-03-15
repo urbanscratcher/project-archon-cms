@@ -17,12 +17,13 @@ function Settings() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem('access_token') ?? '';
-  const { user, isAuthenticated, isLoading } = useUser(token as string);
+  const { user, isAuthenticated, isLoading } = useUser(token);
 
   if (isLoading) return;
   const userObj = UserSchema.safeParse(user);
 
   useEffect(() => {
+    console.log(user);
     if (userObj.success && !isLoading && isAuthenticated) {
       setUserData(userObj.data);
     }
