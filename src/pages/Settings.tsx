@@ -34,6 +34,7 @@ function Settings() {
     }
   }, [setting]);
 
+  console.log('settings page');
   return (
     <MainLayout>
       <MainHead>

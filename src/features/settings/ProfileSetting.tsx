@@ -1,8 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
 import { MouseEvent, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Topic } from '../../models/Topic';
 import { User } from '../../models/Users';
 import Error from '../../pages/Error';
+import topicApi from '../../services/apiTopic';
 import { Avatar } from '../../ui/Avatar';
+import CheckBox from '../../ui/CheckBox';
 import Form from '../../ui/Form';
 import MainHead from '../../ui/Head';
 import Spinner from '../../ui/Spinner';
@@ -10,10 +14,6 @@ import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
 import CareerList from './CareerList';
 import useUpdateProfile from './useUpdateProfile';
-import CheckBox from '../../ui/CheckBox';
-import { Topic } from '../../models/Topic';
-import { useQuery } from '@tanstack/react-query';
-import topicApi from '../../services/apiTopic';
 
 function ProfileSeting({ user }: { user: User }) {
   const [avatar, setAvatar] = useState<string | null>(user?.avatar);
