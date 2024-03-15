@@ -23,7 +23,10 @@ function Settings() {
   const userObj = UserSchema.safeParse(user);
 
   useEffect(() => {
+    console.log(userObj);
     if (userObj.success && !isLoading && isAuthenticated) {
+      console.log(userObj);
+
       setUserData(userObj.data);
     }
   }, [user]);
@@ -34,7 +37,6 @@ function Settings() {
     }
   }, [setting]);
 
-  console.log('settings page');
   return (
     <MainLayout>
       <MainHead>
