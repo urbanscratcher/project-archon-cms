@@ -1,4 +1,4 @@
-# ArchOn CMS
+# ArchOn Admin
 
 - 가상의 ArchOn 매거진 사이트 관리 및 글 업로드 사이트
 - SEO가 필요 없는 관리자용 사이트를 SPA로 구현
