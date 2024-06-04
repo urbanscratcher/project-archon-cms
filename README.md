@@ -28,6 +28,9 @@ ArchOn Admin is a fictional magazine website admin site built using React as a s
 - **UI Customization**: Font and font size can be customized, and dark mode is supported.
 
 ## Technical Focus
+- This project focused on creating functional UI components (drop-down menus, tables, drag-and-drop lists) from scratch.
+- I considered component design principles and structures to enhance component reusability.
+- Through small-scale development and manual testing, I reflected on UX and incorporated improvements.
 
 ## Demo
 1. Login & Registration
