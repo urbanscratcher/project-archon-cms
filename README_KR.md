@@ -27,7 +27,12 @@
 - **계정 관리**: 아바타 설정, 경력 작성, 비밀번호 재설정 등 프로필 및 계정 정보를 수정할 수 있습니다.
 - **UI 조정**: 폰트 설정, 폰트 크기 설정이 가능하며 다크 모드를 지원합니다.
 
-## 사용 기술 & 라이브러리
+## 기술적 중점 사항
+
+## 시연
+
+
+## 기술 구성
 
 - React + TypeScript w/ Vite
 - 라우팅: React Router
@@ -45,14 +50,6 @@
 - 참고한 UI 스타일링: Shadcn/ui, Radix 기반
 - 개발 도구: VSCode, Docker, GitHub Copilot, Console Ninja, Redux DevTools, Eslint, Prettier
 
-## 개발 여담
-
-- 원래의 매거진 사이트는 조금 키치하면서 포멀한 느낌으로 세리프체로 헤드라인을 정하고, 울트라 마린을 베이스로 한 쨍한 색감을 사용했는데 cms 사이트는 차분하고 중립적인 느낌을 주었다
-  - 로고 폰트가 다른 게 너무 거슬리긴 하지만 통일성을 위해 타협
-- MUI나 Ant Design의 UI를 사용해볼까 하던 차에 shadcn/ui의 기본 스타일링이 너무 마음에 들어서 이걸 베이스로 ui 컴포넌트들을 만들었다.
-  - shadcn/ui가 베이스로 한 Radix라는 헤드리스 UI를 알게 되었고, 원래의 매거진 사이트는 이미 디자인 시스템을 만들어 둔 터라 이걸 적용해 볼 것 같다.
-  - 헤드리스 UI 라이브러리들의 문서를 보면 유연해서 좋기도 하지만, 컴포넌트 컴포짓 패턴에도 많은 공부가 되었다.
-  - 드롭다운, 테이블은 여러 시나리오에서 잘 보이도록 개발하기가 생각보다 빡쎄다..
 
 ## 참고 자료
 
@@ -64,3 +61,15 @@
 - Udemy - React & TypeScript - The Practical Guide
   (https://www.udemy.com/course/react-typescript-the-practical-guide)
 - Useful Custom hooks by Web Dev Simplified(https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main)
+
+---
+
+## 회고
+
+- 원래의 매거진 사이트는 조금 키치하면서 포멀한 느낌으로 세리프체로 헤드라인을 정하고, 울트라 마린을 베이스로 한 쨍한 색감을 사용했는데 cms 사이트는 차분하고 중립적인 느낌을 주었다
+  - 로고 폰트가 다른 게 너무 거슬리긴 하지만 통일성을 위해 타협
+- MUI나 Ant Design의 UI를 사용해볼까 하던 차에 shadcn/ui의 기본 스타일링이 너무 마음에 들어서 이걸 베이스로 ui 컴포넌트들을 만들었다.
+  - shadcn/ui가 베이스로 한 Radix라는 헤드리스 UI를 알게 되었고, 원래의 매거진 사이트는 이미 디자인 시스템을 만들어 둔 터라 이걸 적용해 볼 것 같다.
+  - 헤드리스 UI 라이브러리들의 문서를 보면 유연해서 좋기도 하지만, 컴포넌트 컴포짓 패턴에도 많은 공부가 되었다.
+  - 드롭다운, 테이블은 여러 시나리오에서 잘 보이도록 개발하기가 생각보다 빡쎄다..
+
