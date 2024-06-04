@@ -1,8 +1,7 @@
 # ArchOn Admin
 
 2023년 11월 ~ 2024년 2월 (3개월)
-
-- 가상의 ArchOn 매거진 사이트의 관리자용 사이트로, 리액트를 통해 SPA로 구현했습니다. 리액트와 UI 컴포넌트 만들기에 숙달하고, 하나의 사이트를 처음부터 구축해 보기 위해 진행한 풀스택 프로젝트입니다.
+가상의 ArchOn 매거진 사이트의 관리자용 사이트로, 리액트를 통해 SPA로 구현했습니다. 리액트와 UI 컴포넌트 만들기에 숙달하고, 하나의 사이트를 처음부터 구축해 보기 위해 진행한 풀스택 프로젝트입니다.
 
 ## 주요 기능
 
@@ -29,6 +28,7 @@
 
 ## 기술적 중점 사항
 
+
 ## 시연
 1. 회원가입 및 로그인
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/170e361f-c1a2-4c92-8aac-646e02608363" controls></video>
@@ -51,22 +51,35 @@
 [사이트 바로가기](https://project-archon-cms.vercel.app/)
 
 ## 기술 구성
+### 프론트엔드
+- **라이브러리**: React
+- **언어**: TypeScript
+- **스타일링**: TailwindCSS
+- **원격 상태 관리**: Tanstack React Query
+- **UI 상태 관리**: Context API, Zustand
+- **폼 상태 관리**: React Hook Form
+- **타입 체크**: Zod, hookform/resolvers
+- **아이콘 팩**: Iconify (Lucide)
+- **백엔드 서버 통신**: Axios
+- **기타**: Date-fns, Crypto-js for AES256 Encryption
 
-- React + TypeScript w/ Vite
-- 라우팅: React Router
-- 스타일링: TailwindCSS
-- 원격 상태 관리: Tanstack React Query
-- UI 상태 관리:
-  - Context API
-  - Zustand
-- 폼 관리: React Hook Form
-- 타입 체크: Zod (w/ hookform/resolvers)
-- 아이콘: Iconify (icon set: Lucide)
-- 날짜: Date-fns
-- 서버 통신: Axios
-- 암호화: Crypto-js (for AES256 encryption)
-- 참고한 UI 스타일링: Shadcn/ui, Radix 기반
-- 개발 도구: VSCode, Docker, GitHub Copilot, Console Ninja, Redux DevTools, Eslint, Prettier
+### 백엔드
+- [깃헙 바로가기](https://github.com/urbanscratcher/project-archon-api)
+- **라이브러리**: Express, Node.js
+- **데이터베이스**: MariaDB
+- **로그**: pino, pino-http
+- **보안**: express-rate-limit, xss, helmet, hpp, bcrypt 등
+- **API 테스트**: Postman
+
+### 개발 환경
+- **소스 코드**: github
+- **빌드 도구**: Vite
+- **디자인**: figma
+- **기타**: VSCode, github copilot, console ninja, redux devtools, eslint, prettier
+
+### 클라우드 서비스 및 배포
+- **백엔드 호스팅 및 배포**: Oracle Cloud, Docker, ngix (개인 도메인으로 연결)
+- **프론트엔드 호스팅 및 배포**: Vercel
 
 
 ## 참고 자료
@@ -79,6 +92,7 @@
 - Udemy - React & TypeScript - The Practical Guide
   (https://www.udemy.com/course/react-typescript-the-practical-guide)
 - Useful Custom hooks by Web Dev Simplified(https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main)
+- 컴포넌트 스타일링 참고: Shadcn/ui, Radix
 
 ---
 
