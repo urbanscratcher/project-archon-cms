@@ -1,76 +1,113 @@
-
 # ArchOn Admin
 
-- Management and article upload site for the fictional ArchOn magazine site
-- Implemented as an SPA for an admin site that does not require SEO
-- Project to get proficient with React, understand the structure of UI components, and build from scratch
+November 2023 - February 2024 (3 months)
 
-## Features
+ArchOn Admin is a fictional magazine website admin site built using React as a single-page application (SPA). This project was a full-stack endeavor undertaken to gain experience in React and UI component development while building a website from scratch.
 
-- Login & Registration
-  - Login with email and password
-  - Register with name, email, password, and password confirmation
-  - Input validation
-- Authentication
-  - JWT access token stored locally, httpOnly cookie stores refresh token
-  - Tokens are sent with user events in headers, redirect to login page on error
-- Authorization
-  - Feature restrictions based on user roles
-    - Roles: Admin, Editor (site manager), Author, General User
-  - This site is restricted to Admin, Editor, and Author roles only
-- Admin Features
-  - View user names, roles, emails, article topics, and registration dates
-    - Search by name and email, filter by role, paging supported
-    - Update roles directly from the list
-  - View new member list and new articles on the dashboard
-  - All other permissions
-- Editor Features
-  - Can view user information and author articles only
-  - Can add topics, change names and order
-  - Can select articles by authors for cover use
-  - View new member list and new articles on the dashboard
-  - Account settings
-- Author Features
-  - Can view, write, edit, and delete their own articles only
-  - View reactions to their articles on the dashboard
-  - Account settings
-- Additional: Dark mode support
+## 주요 기능
 
-## Technologies & Libraries Used
+- **Login & Registration**
+  - Users can log in using their email and password.
+  - Registration allows users to create an account with their name, email, password, and password confirmation.
+  - Input validation checks and error messages are implemented.
+- **Authentication**
+  - JWT access tokens are stored in localStorage, while httpOnly cookies hold refresh tokens.
+  - Tokens are sent along with each request to the site. In case of authentication errors, users are redirected to the login page.
+- **Authorization**
+  - Feature access is restricted based on user roles (20% implemented).
+  - Roles include admin, editor (site manager), author, and regular user.
+  - This site is currently restricted to admins, editors, and authors.
+- **User Management**
+  - Users can view a list of users with their names, roles, emails, writing topics, and registration dates.
+  - Searching by name and email, filtering by role, and paging are available.
+  - User roles can be edited directly from the list.
+- **Topic Management**: Topics (categories) can be added, renamed, and their order adjusted.
+- **Headline Selection**: Articles can be selected as headlines and subheadlines.
+- **Article Management**: Articles can be viewed, written, edited, and deleted.
+- **Account Management**: Users can set their avatar, write their career history, and reset their password.
+- **UI Customization**: Font and font size can be customized, and dark mode is supported.
 
-- React + TypeScript w/ Vite
-- Routing: React Router
-- Styling: TailwindCSS
-- Remote state management: Tanstack React Query
-- UI state management:
-  - Context API
-  - Zustand
-- Form management: React Hook Form
-- Type checking: Zod (w/ hookform/resolvers)
-- Icons: Iconify (icon set: Lucide)
-- Date handling: Date-fns
-- Server communication: Axios
-- Encryption: Crypto-js (for AES256 encryption)
-- UI styling reference: Shadcn/ui, Radix-based
-- Development tools: VSCode, Docker, GitHub Copilot, Console Ninja, Redux DevTools, Eslint, Prettier
+## Technical Focus
 
-## Development Notes
+## Demo
+1. Login & Registration
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/170e361f-c1a2-4c92-8aac-646e02608363" controls></video>
 
-- The original magazine site had a somewhat kitschy yet formal feel with serif fonts for headlines and a vivid color scheme based on ultramarine, but the CMS site was designed to be calm and neutral
-  - Although the different logo fonts were bothersome, a compromise was made for consistency
-- Considered using MUI or Ant Design UI but fell in love with the default styling of shadcn/ui and used it as the base for UI components
-  - Learned about Radix, the headless UI shadcn/ui is based on, and plan to apply it to the original magazine site, which already has a design system
-  - Headless UI libraries' documentation is flexible and offers a lot of learning for the component composite pattern
-  - Developing dropdowns and tables to look good in various scenarios was tougher than expected
+2. User Management
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/6b4e4843-6184-4eb2-abb4-fe9cb4066d1d" controls></video>
 
-## References
+3. Headline Selection and Article Management
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/a5c151fe-f05a-4b7d-8494-dcccac5810d0" controls></video>
 
-- Udemy - The Ultimate React Course 2024: React, Redux & More
-  (https://www.udemy.com/course/the-ultimate-react-course)
-- Udemy - React Query: Server State Management with React (https://www.udemy.com/course/react-query-react)
-- Udemy - Complete Guide to React with Redux, Next.js, TypeScript (https://www.udemy.com/course/best-react)
-- Udemy - React & TypeScript - The Practical Guide
-  (https://www.udemy.com/course/react-typescript-the-practical-guide)
-- Useful Custom Hooks by Web Dev Simplified (https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main)
+4. Article Writing
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/7a1a58da-cfb3-493f-b517-9a0a941df87e" controls></video>
 
+5. Topic Management
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
 
+6. 계정 및 UI 설정
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
+
+[Visit the Site](https://project-archon-cms.vercel.app/)
+
+## Tech Stack
+### Frontend
+- **Library**: React
+- **Langauge**: TypeScript
+- **Styling**: TailwindCSS
+- **Remote State Management**: Tanstack React Query
+- **UI State Management**: Context API, Zustand
+- **Form State Management**: React Hook Form
+- **Type Check**: Zod, hookform/resolvers
+- **Icon Pack**: Iconify (Lucide)
+- **Backend Communication**: Axios
+- **Etc**: Date-fns, Crypto-js for AES256 Encryption
+
+### 백엔드
+#### Archon API
+- [Go to the GitHub](https://github.com/urbanscratcher/project-archon-api)
+- **Library**: Express, Node.js
+- **Database**: MariaDB
+- **Logging**: Pino, Pino-http
+- **Security**: Express-rate-limit, Xss, Helmet, Hpp, Bcrypt 등
+- **API Test**: Postman
+
+### Development Environment
+- **Source Code**: GitHub
+- **Build Tool**: Vite
+- **Design**: figma
+- **Etc**: VSCode, GitHub Copilot, Console Ninja, Redux Devtools, Eslint, Prettier
+
+### Cloud Services and Deployment
+- **Backend Hosting and Deployment**: Oracle Cloud, Docker, Nginx (개인 도메인으로 연결)
+- **Frontend Hosting and Deployment**: Vercel
+
+## Data Design
+<img src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/9002b34c-0797-4495-b2d4-ff48c5b99ac8" />
+
+## Reference
+
+- [Udemy - The Ultimate React Course 2024: React, Redux & More](https://www.udemy.com/course/the-ultimate-react-course)
+- [Udemy - React Query : React로 서버 상태 관리하기](https://www.udemy.com/course/react-query-react)
+- [Udemy -
+  React 완벽 가이드 with Redux, Next.js, TypeScript](https://www.udemy.com/course/best-react)
+- [Udemy - React & TypeScript - The Practical Guide](https://www.udemy.com/course/react-typescript-the-practical-guide)
+- [Useful Custom hooks by Web Dev Simplified](https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main)
+- Component Styling Reference: Shadcn/ui, Radix
+
+---
+
+## Reflection
+
+- While the original magazine site used vibrant colors, the admin site employs a calm and neutral blue palette.
+- Initially considering UI libraries like MUI or Ant Design, I was drawn to the basic styling of shadcn/ui and built UI components based on it.
+- Discovering the headless UI Radix based on shadcn/ui, I plan to apply it to the original magazine site's existing design system.
+- Headless UI libraries offer flexibility and aided in understanding the component composition pattern.
+- Developing dropdowns and tables for various screen sizes posed significant challenges.
+
+## Next
+- Organize complex logic introduced by feature additions and removals.
+- Enhance authorization features.
+- Review and fix bugs in image uploading and article editing.
+- Define and display various error scenarios.
+- Rename the project from "cms" to "admin" to reflect broader management
