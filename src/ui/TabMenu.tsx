@@ -12,9 +12,6 @@ export default function TabMenu({ children }: PropsWithChildren) {
 }
 
 TabMenu.Item = function Item({ icon, text, linkTo }: TabMenuItemProps) {
-  const pathname = window.location.pathname;
-  const lastSegment = pathname.substring(pathname.lastIndexOf('/') + 1);
-
   return (
     <li className="cursor-pointer">
       <NavLink

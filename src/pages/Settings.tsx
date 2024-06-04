@@ -23,7 +23,6 @@ function Settings() {
   const userObj = UserSchema.safeParse(user);
 
   useEffect(() => {
-    console.log(user);
     if (userObj.success && !isLoading && isAuthenticated) {
       setUserData(userObj.data);
     }
