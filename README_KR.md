@@ -85,24 +85,22 @@
 
 ## 참고 자료
 
-- Udemy - The Ultimate React Course 2024: React, Redux & More
+- [Udemy - The Ultimate React Course 2024: React, Redux & More]
   (https://www.udemy.com/course/the-ultimate-react-course)
-- Udemy - React Query : React로 서버 상태 관리하기(https://www.udemy.com/course/react-query-react)
-- Udemy -
-  React 완벽 가이드 with Redux, Next.js, TypeScript(https://www.udemy.com/course/best-react)
-- Udemy - React & TypeScript - The Practical Guide
+- [Udemy - React Query : React로 서버 상태 관리하기](https://www.udemy.com/course/react-query-react)
+- [Udemy -
+  React 완벽 가이드 with Redux, Next.js, TypeScript](https://www.udemy.com/course/best-react)
+- [Udemy - React & TypeScript - The Practical Guide]
   (https://www.udemy.com/course/react-typescript-the-practical-guide)
-- Useful Custom hooks by Web Dev Simplified(https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main)
+- [Useful Custom hooks by Web Dev Simplified](https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main)
 - 컴포넌트 스타일링 참고: Shadcn/ui, Radix
 
 ---
 
 ## 회고
 
-- 원래의 매거진 사이트는 조금 키치하면서 포멀한 느낌으로 세리프체로 헤드라인을 정하고, 울트라 마린을 베이스로 한 쨍한 색감을 사용했는데 cms 사이트는 차분하고 중립적인 느낌을 주었다
-  - 로고 폰트가 다른 게 너무 거슬리긴 하지만 통일성을 위해 타협
+- 원래의 매거진 사이트는 튀는 색감을 사용했는데 어드민 사이트는 파란색을 사용해 차분하고 중립적인 느낌을 주었다.
 - MUI나 Ant Design의 UI를 사용해볼까 하던 차에 shadcn/ui의 기본 스타일링이 너무 마음에 들어서 이걸 베이스로 ui 컴포넌트들을 만들었다.
-  - shadcn/ui가 베이스로 한 Radix라는 헤드리스 UI를 알게 되었고, 원래의 매거진 사이트는 이미 디자인 시스템을 만들어 둔 터라 이걸 적용해 볼 것 같다.
-  - 헤드리스 UI 라이브러리들의 문서를 보면 유연해서 좋기도 하지만, 컴포넌트 컴포짓 패턴에도 많은 공부가 되었다.
-  - 드롭다운, 테이블은 여러 시나리오에서 잘 보이도록 개발하기가 생각보다 빡쎄다..
-
+- shadcn/ui가 베이스로 한 Radix라는 헤드리스 UI를 알게 되었고, 원래의 매거진 사이트는 이미 디자인 시스템을 만들어 둔 터라 이걸 적용해 볼 것 같다.
+- Headless UI 라이브러리들의 문서를 보면 기능을 유연하게 만들어서 좋다고 생각했고, 컴포넌트 컴포짓 패턴 공부에도 많은 도움이 되었다.
+- 드롭다운, 테이블의 경우 다양한 화면 크기에서 적절히 보이도록 개발하기가 상당히 힘들었다.
