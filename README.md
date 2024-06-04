@@ -4,7 +4,7 @@ November 2023 - February 2024 (3 months)
 
 ArchOn Admin is a fictional magazine website admin site built using React as a single-page application (SPA). This project was a full-stack endeavor undertaken to gain experience in React and UI component development while building a website from scratch.
 
-## 주요 기능
+## Features
 
 - **Login & Registration**
   - Users can log in using their email and password.
