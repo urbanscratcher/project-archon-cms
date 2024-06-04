@@ -48,6 +48,8 @@
 6. 계정 및 UI 설정
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
 
+[사이트 바로가기](https://project-archon-cms.vercel.app/)
+
 ## 기술 구성
 
 - React + TypeScript w/ Vite
