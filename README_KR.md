@@ -67,7 +67,7 @@
 ### 백엔드
 - [깃헙 바로가기](https://github.com/urbanscratcher/project-archon-api)
 - **데이터 설계**
-  <img src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/9002b34c-0797-4495-b2d4-ff48c5b99ac8" width="480px" />
+    <img src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/9002b34c-0797-4495-b2d4-ff48c5b99ac8" width="480px" />
 - **라이브러리**: Express, Node.js
 - **데이터베이스**: MariaDB
 - **로그**: Pino, Pino-http
