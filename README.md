@@ -48,7 +48,7 @@ ArchOn Admin is a fictional magazine website admin site built using React as a s
 5. Topic Management
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
 
-6. 계정 및 UI 설정
+6. Account and UI Setting
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
 
 [Visit the Site](https://project-archon-cms.vercel.app/)
@@ -66,7 +66,7 @@ ArchOn Admin is a fictional magazine website admin site built using React as a s
 - **Backend Communication**: Axios
 - **Etc**: Date-fns, Crypto-js for AES256 Encryption
 
-### 백엔드
+### Backend
 #### Archon API
 - [Go to the GitHub](https://github.com/urbanscratcher/project-archon-api)
 - **Library**: Express, Node.js
