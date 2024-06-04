@@ -65,9 +65,6 @@
 - **기타**: Date-fns, Crypto-js for AES256 Encryption
 
 ### 백엔드
-#### 데이터 설계
-<img src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/9002b34c-0797-4495-b2d4-ff48c5b99ac8" width="480px" />
-
 #### Archon API
 - [깃헙 바로가기](https://github.com/urbanscratcher/project-archon-api)
 - **라이브러리**: Express, Node.js
@@ -75,7 +72,6 @@
 - **로그**: Pino, Pino-http
 - **보안**: Express-rate-limit, Xss, Helmet, Hpp, Bcrypt 등
 - **API 테스트**: Postman
-
 
 ### 개발 환경
 - **소스 코드**: GitHub
@@ -87,6 +83,8 @@
 - **백엔드 호스팅 및 배포**: Oracle Cloud, Docker, Nginx (개인 도메인으로 연결)
 - **프론트엔드 호스팅 및 배포**: Vercel
 
+## 데이터 설계
+<img src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/9002b34c-0797-4495-b2d4-ff48c5b99ac8" />
 
 ## 참고 자료
 
