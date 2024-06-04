@@ -85,13 +85,11 @@
 
 ## 참고 자료
 
-- [Udemy - The Ultimate React Course 2024: React, Redux & More]
-  (https://www.udemy.com/course/the-ultimate-react-course)
+- [Udemy - The Ultimate React Course 2024: React, Redux & More](https://www.udemy.com/course/the-ultimate-react-course)
 - [Udemy - React Query : React로 서버 상태 관리하기](https://www.udemy.com/course/react-query-react)
 - [Udemy -
   React 완벽 가이드 with Redux, Next.js, TypeScript](https://www.udemy.com/course/best-react)
-- [Udemy - React & TypeScript - The Practical Guide]
-  (https://www.udemy.com/course/react-typescript-the-practical-guide)
+- [Udemy - React & TypeScript - The Practical Guide](https://www.udemy.com/course/react-typescript-the-practical-guide)
 - [Useful Custom hooks by Web Dev Simplified](https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main)
 - 컴포넌트 스타일링 참고: Shadcn/ui, Radix
 
