@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
 
 type TabMenuItemProps = {
@@ -12,13 +12,15 @@ export default function TabMenu({ children }: PropsWithChildren) {
 }
 
 TabMenu.Item = function Item({ icon, text, linkTo }: TabMenuItemProps) {
+  const pathname = window.location.pathname;
+  const lastSegment = pathname.substring(pathname.lastIndexOf('/') + 1);
+
   return (
     <li className="cursor-pointer">
       <NavLink
         to={linkTo ? `/${linkTo}` : `/${text}`}
         className={({ isActive, isPending }) => {
-          const style = isPending ? 'link-pending' : isActive ? 'link-active' : '';
-          return `${style}
+          return `${isPending ? 'bg-zinc-50 dark:bg-zinc-900' : isActive ? 'bg-zinc-100 dark:bg-zinc-800' : ''}
             inline-flex
             w-full 
             items-center justify-start
