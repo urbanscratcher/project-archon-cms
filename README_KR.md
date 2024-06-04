@@ -46,7 +46,7 @@
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
 
 6. 계정 및 UI 설정
-<video src="[https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21](https://github.com/urbanscratcher/project-archon-cms/assets/17016494/f1e10262-a6a0-42fd-b33c-ae3626ec3aa6)" controls></video>
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
 
 ## 기술 구성
 
