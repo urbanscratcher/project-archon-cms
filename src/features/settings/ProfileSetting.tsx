@@ -151,7 +151,7 @@ function ProfileSeting({ user }: { user: User }) {
                       type="file"
                       id="avatar"
                       name="avatar"
-                      accept="image/png, image/jpg, image/jpeg"
+                      accept="image/png, image/jpg, image/jpeg, image/webp"
                       onChange={uploadChangeHandler}
                       ref={uploadInputEl}
                     />
