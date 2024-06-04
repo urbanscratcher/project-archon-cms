@@ -30,7 +30,23 @@
 ## 기술적 중점 사항
 
 ## 시연
+1. 회원가입 및 로그인
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/170e361f-c1a2-4c92-8aac-646e02608363" controls></video>
 
+2. 사용자 관리
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/6b4e4843-6184-4eb2-abb4-fe9cb4066d1d" controls></video>
+
+3. 헤드라인 선정 및 기사 관리
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/a5c151fe-f05a-4b7d-8494-dcccac5810d0" controls></video>
+
+4. 기사 작성
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/7a1a58da-cfb3-493f-b517-9a0a941df87e" controls></video>
+
+5. 토픽 관리
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
+
+6. 계정 및 UI 설정
+<video src="[https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21](https://github.com/urbanscratcher/project-archon-cms/assets/17016494/f1e10262-a6a0-42fd-b33c-ae3626ec3aa6)" controls></video>
 
 ## 기술 구성
 
