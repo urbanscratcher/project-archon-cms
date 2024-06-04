@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Topic } from '../../models/Topic';
 import userApi from '../../services/apiUser';
 import useCreateAvatar from './useCreateAvatar';
 import useRemoveAvatar from './useRemoveAvatar';
-import { Topic } from '../../models/Topic';
 
 export type UpdateProfileState = {
   updateProfile: any;
@@ -35,9 +35,8 @@ function useUpdateProfile(): UpdateProfileState {
       data.careers = JSON.stringify(data.careers);
 
       // topics parsing
-      const topicsData = data.topics.map((t: Topic) => t.idx);
-      data.topics = JSON.stringify(topicsData);
-      console.log(data);
+      const topicsData = data.topics?.length > 0 ? data.topics.map((t: Topic) => t.idx) : [];
+      data.topics = data.topics?.length > 0 ? JSON.stringify(topicsData) : undefined;
 
       // update
       await userApi.update(data.idx, data, token);
