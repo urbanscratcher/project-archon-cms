@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import insightImgsApi from '../../services/apiInsightImgs';
 import Resizer from 'react-image-file-resizer';
+import insightImgsApi from '../../services/apiInsightImgs';
 
 type UploadTarget = 'thumbnail' | 'insight';
 
@@ -37,13 +37,13 @@ function useUploadImg(target: UploadTarget) {
       const sizeMb = file.size / 1048576;
       let formDataToSave = formData;
 
+      // resize image
       if (sizeMb > 0.5) {
         const resizedImg = await imgResize(file);
         formData.delete('img');
         formData.append('img', resizedImg);
         formDataToSave = formData;
       }
-
       return furcateImgUrl(target, token, formDataToSave);
     },
     onSuccess: (res: any) => {

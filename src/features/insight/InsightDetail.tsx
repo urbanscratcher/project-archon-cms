@@ -56,7 +56,10 @@ function InsightDetail() {
           alt={title}
           className={'max-h-80 w-fit self-center'}
         />
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <div
+          dangerouslySetInnerHTML={{ __html: content }}
+          className="content"
+        />
         <hr />
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-2">
