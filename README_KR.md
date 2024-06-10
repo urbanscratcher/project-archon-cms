@@ -89,6 +89,7 @@
 - **기타**: VSCode, GitHub Copilot, Console Ninja, Redux Devtools, Eslint, Prettier
 
 ### 클라우드 서비스 및 배포
+- **이미지 호스팅**: Cloudinary
 - **백엔드 호스팅 및 배포**: Oracle Cloud, Docker, Nginx (개인 도메인으로 연결)
 - **프론트엔드 호스팅 및 배포**: Vercel
 
