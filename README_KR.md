@@ -46,11 +46,16 @@
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/7a1a58da-cfb3-493f-b517-9a0a941df87e" controls></video>
 
 5. 토픽 관리
-<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
+<video src="[https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21](https://github.com/urbanscratcher/project-archon-cms/assets/17016494/a15747f0-702f-43e1-b5cf-2fa372659c50)" controls></video>
 
-6. 계정 및 UI 설정
-<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/b0317209-35e9-4740-90ad-c7ef8163b751" controls></video>
+6. 프로필 설정
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/087b8637-825c-485d-957d-121513dbcec2" controls></video>
 
+7. 비밀번호 변경
+<video src="[ht57c](https://github.com/urbanscratcher/project-archon-cms/assets/17016494/da2a7c08-fcf8-4a95-9182-0d59ce04b63a)" controls></video>
+
+8. 디스플레이 설정
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/2f47f39e-055e-489f-8251-74eecb4b5546" controls></video>
 
 [사이트 바로가기](https://project-archon-cms.vercel.app/)
 
