@@ -2,7 +2,7 @@
 
 November 2023 - February 2024 (3 months)
 
-ArchOn Admin is a fictional magazine website admin site built using React as a single-page application (SPA). This project was a full-stack endeavor undertaken to gain experience in React and UI component development while building a website from scratch.
+ArchOn Admin is a React-based single-page application (SPA) that serves as the administrative backend for a fictional ArchOn magazine website. It was developed as a full-stack project to gain experience in React and UI component creation, as well as to build an entire site from scratch.
 
 ## Features
 
@@ -46,11 +46,16 @@ ArchOn Admin is a fictional magazine website admin site built using React as a s
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/7a1a58da-cfb3-493f-b517-9a0a941df87e" controls></video>
 
 5. Topic Management
-<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/7788fad4-0de6-4424-a793-fee7852ca7d2" controls></video>
 
-6. Account and UI Setting
-<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/b0317209-35e9-4740-90ad-c7ef8163b751" controls></video>
+6. Profile Setting
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/087b8637-825c-485d-957d-121513dbcec2" controls></video>
 
+7. Password Change
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/da2a7c08-fcf8-4a95-9182-0d59ce04b63a" controls></video>
+
+8. Display Settings
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/2f47f39e-055e-489f-8251-74eecb4b5546" controls></video>
 
 [Visit the Site](https://project-archon-cms.vercel.app/)
 
@@ -75,6 +80,7 @@ ArchOn Admin is a fictional magazine website admin site built using React as a s
 - **Logging**: Pino, Pino-http
 - **Security**: Express-rate-limit, Xss, Helmet, Hpp, Bcrypt 등
 - **API Test**: Postman
+- **Image Service**: Cloudinary
 
 ### Development Environment
 - **Source Code**: GitHub
