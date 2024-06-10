@@ -46,7 +46,7 @@
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/7a1a58da-cfb3-493f-b517-9a0a941df87e" controls></video>
 
 5. 토픽 관리
-<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/a15747f0-702f-43e1-b5cf-2fa372659c50" controls></video>
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/7788fad4-0de6-4424-a793-fee7852ca7d2" controls></video>
 
 6. 프로필 설정
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/087b8637-825c-485d-957d-121513dbcec2" controls></video>
@@ -76,6 +76,7 @@
 #### Archon API
 - [깃헙 바로가기](https://github.com/urbanscratcher/project-archon-api)
 - **라이브러리**: Express, Node.js
+- **이미지 서비스**: Cloudinary
 - **데이터베이스**: MariaDB
 - **로그**: Pino, Pino-http
 - **보안**: Express-rate-limit, Xss, Helmet, Hpp, Bcrypt 등
@@ -117,6 +118,6 @@
 ## 다음은..
 - 기능을 붙였다 뗐다 했더니 로직이 복잡해졌는데 이것들을 정리해야 한다.
 - 다른 기능을 개발하다보니 인가 기능이 미흡한데, 이 부분을 더 보강해야 한다.
-- 그림 업로드, 글 수정 기능이 좀 불안정해서 로직이 어디서부터 꼬였는지 다시 점검해야 한다.
+- 그림 업로드 기능이 좀 불안정해서 로직이 어디서부터 꼬였는지 다시 점검해야 한다.
 - 다양한 에러 시나리오를 정의하고, 에러를 어떻게 보여줄 지 고민해야 한다.
 - 처음에는 글쓰기나 글 관리만 생각하다 cms라는 네이밍을 했는데, 그냥 전반적인 관리를 뜻하는 admin으로 고쳐야 할 것 같다.
