@@ -1,5 +1,8 @@
-import { defineConfig } from 'vite';
+import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
 import react from '@vitejs/plugin-react';
+import { createRequire } from 'node:module';
+import { defineConfig } from 'vite';
+const require = createRequire(import.meta.url);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,5 +14,5 @@ export default defineConfig({
       include: [/@workspace\/ckeditor5-custom-build/, /node_modules/],
     },
   },
-  plugins: [react()],
+  plugins: [react(), ckeditor5({ theme: require.resolve('@ckeditor/ckeditor5-theme-lark') })],
 });

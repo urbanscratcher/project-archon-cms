@@ -3,6 +3,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import '../../assets/css/content-styles.css';
 import { Insight } from '../../models/Insights';
 import { Topic } from '../../models/Topic';
 import insightImgsApi from '../../services/apiInsightImgs';

@@ -29,31 +29,6 @@
     @apply mt-6 border-l-2 pl-6 italic;
   }
 
-  /* content html */
-
-  .content {
-    @apply py-4;
-  }
-
-  .content > h2,
-  .content > h3,
-  .content > h4,
-  .content > h5 {
-    @apply py-1 font-semibold;
-  }
-
-  .content > h3 {
-    @apply pt-8;
-  }
-
-  .content > h4 {
-    @apply pt-4;
-  }
-
-  .content > p {
-    @apply leading-7;
-  }
-
   /* darkmode - input */
   .inputDarkMode:-webkit-autofill,
   .inputDarkMode:-webkit-autofill:hover,

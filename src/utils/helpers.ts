@@ -13,3 +13,21 @@ export function toSnakeCase(obj: any) {
     acc[camelKey] = isObject(value) ? toSnakeCase(value) : value;
   });
 }
+
+export function isExceedWordLimit(text: string, wordLimit: number): boolean {
+  let flag = false;
+  const wordCount = text.trim().split(/\s+/).length;
+  if (wordCount > wordLimit) {
+    flag = true;
+  }
+  return flag;
+}
+
+export function isExceedCharLimit(text: string, charLimit: number): boolean {
+  let flag = false;
+  const wordCount = text.trim().split('').length;
+  if (wordCount > charLimit) {
+    flag = true;
+  }
+  return flag;
+}

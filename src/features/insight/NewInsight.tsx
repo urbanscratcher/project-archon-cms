@@ -1,6 +1,6 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { MouseEvent, useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Topic } from '../../models/Topic';
 import insightImgsApi from '../../services/apiInsightImgs';
@@ -9,6 +9,7 @@ import { MainLayout } from '../../ui/MainLayout';
 import Spinner from '../../ui/Spinner';
 import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
+import { isExceedCharLimit, isExceedWordLimit } from '../../utils/helpers';
 import TopicDropdown from './TopicDropdown';
 import useCreateInsight from './useCreateInsight';
 import useUploadImg from './useUploadImg';
@@ -21,78 +22,90 @@ function NewInsight() {
   const [titleActive, setTitleActive] = useState(false);
   const [summary, setSummary] = useState('');
   const [summaryActive, setSummaryActive] = useState(false);
+  const [summaryErrorMessage, setSummaryErrorMessage] = useState('');
   const [content, setContent] = useState('');
   const [contentActive, setContentActive] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const [thumbnailUrl, setThumbnailUrl] = useState('');
+
   const titleEl = useRef<HTMLInputElement>(null);
   const summaryEl = useRef<HTMLTextAreaElement>(null);
   const uploadEl = useRef<HTMLInputElement>(null);
   const thumbnailUploadEl = useRef<HTMLButtonElement>(null);
+
+  const [imgLoading, setImgLoading] = useState(false);
+  const [editor, setEditor] = useState<any>();
+
   const {
     uploadImg: uploadThumbnail,
     isPending: thumbnailIsPending,
     error: thumbnailError,
     data: thumbnailData,
   } = useUploadImg('thumbnail');
+
   const {
     mutate: createInsight,
     data: createInsightData,
     isPending: createInsightIsPending,
     error: createInsightError,
   } = useCreateInsight();
-  const [imgLoading, setImgLoading] = useState(false);
-  const [editor, setEditor] = useState<any>();
 
-  // upload thumbnail
+  //////////////////////////////////////////////////
+  // when uploading a thumbnail -----------------------
   function uploadClickHandler(e: MouseEvent) {
     e.preventDefault();
     uploadEl.current && uploadEl.current.click();
   }
-  function uploadChangeHandler(e: any) {
-    if (e.target.files.length === 0) {
+
+  function uploadChangeHandler(e: ChangeEvent<HTMLInputElement>) {
+    if (!e?.target?.files || e.target.files.length === 0) {
       return;
     }
-
     const file = e.target.files[0];
     const data = new FormData();
     data.append('img', file);
     uploadThumbnail(data);
   }
 
-  // upload an image in editor
+  // when uploading an image in editor ------------------
+  const uploadHandler = (resolve: any, reject: any, loader: any) => {
+    setImgLoading(true);
+    loader.file.then((file: File) => {
+      const data = new FormData();
+      data.append('img', file);
+
+      insightImgsApi
+        .imgUpsert(token, data)
+        .then((r) => {
+          setImgLoading(false);
+          return resolve({
+            default: r.url,
+          });
+        })
+        .catch((e) => {
+          console.error(e);
+          reject(e);
+        });
+    });
+  };
+
+  function promisifyUploadHandler(loader: any) {
+    return new Promise((resolve, reject) => uploadHandler(resolve, reject, loader));
+  }
+
   function uploadAdapter(loader: any) {
     return {
-      upload: () => {
-        return new Promise((resolve, reject) => {
-          setImgLoading(true);
-          loader.file.then((file: File) => {
-            const data = new FormData();
-            data.append('img', file);
-
-            insightImgsApi
-              .imgUpsert(token, data)
-              .then((r) => {
-                setImgLoading(false);
-                return resolve({
-                  default: r.url,
-                });
-              })
-              .catch((e) => {
-                console.error(e);
-                reject(e);
-              });
-          });
-        });
-      },
+      upload: () => promisifyUploadHandler(loader),
     };
   }
+
   function uploadPlugin(editor: any) {
     editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
       return uploadAdapter(loader);
     };
   }
 
+  /////////////////////////////////////////////
   useEffect(() => {
     if (createInsightData?.idx > 0) {
       navigate(`/insights/${createInsightData.idx}`);
@@ -109,9 +122,14 @@ function NewInsight() {
     titleEl.current?.focus();
   }, [titleEl]);
 
+  //////////////////////////////////////////////
   if (createInsightError) {
     console.error('cr insight err...', createInsightError);
   }
+
+  const editorConfiguration = {
+    extraPlugins: [uploadPlugin],
+  };
 
   return (
     <MainLayout>
@@ -155,10 +173,10 @@ function NewInsight() {
                   }
 
                   const body = {
-                    title: title,
-                    thumbnail: thumbnailUrl,
-                    content: content,
-                    summary: summary,
+                    title: title.trim(),
+                    thumbnail: thumbnailUrl.trim(),
+                    content: content.trim(),
+                    summary: summary.trim(),
                     topic_idx: selectedTopic.idx,
                   };
 
@@ -190,39 +208,58 @@ function NewInsight() {
               <p className={`text-sm text-zinc-400 ${summaryActive ? 'opacity-100' : 'opacity-0'}`}>
                 Summary{summary === '' && <span className="text-navy-600">*</span>}
               </p>
-              <textarea
-                ref={summaryEl}
-                placeholder="Type a summary (< 200 words)"
-                className={`w-full self-center px-4 py-2 text-xl focus:outline-none  dark:bg-zinc-900 dark:text-zinc-400 dark:placeholder:text-zinc-700`}
-                onFocus={() => setSummaryActive(true)}
-                onBlur={(e) => {
-                  setSummary(e.currentTarget.value);
-                  setSummaryActive(false);
-                }}
-                onChange={(e) => {
-                  setSummary(e.currentTarget.value);
-                }}
-              />
+              <div>
+                <textarea
+                  ref={summaryEl}
+                  placeholder="Type a summary (< 100 words and 500 characters)"
+                  className={`h-[200px] w-full resize-none self-center px-4 py-2 text-xl  focus:outline-none dark:bg-zinc-900 dark:text-zinc-400 dark:placeholder:text-zinc-700`}
+                  onFocus={() => setSummaryActive(true)}
+                  onBlur={(e) => {
+                    const summary = e.currentTarget.value;
+
+                    const isExceedWord = isExceedWordLimit(summary, 100);
+                    const isExceedChar = isExceedCharLimit(summary, 500);
+
+                    if (isExceedWord) {
+                      setSummaryErrorMessage('Summary exceeds 100 words. Please shorten your text.');
+                    }
+
+                    if (isExceedChar) {
+                      setSummaryErrorMessage('Summary exceeds 500 characters. Please shorten your text.');
+                    }
+
+                    if (!isExceedWord && !isExceedChar) {
+                      setSummary(summary);
+                      setSummaryActive(false);
+                    }
+                  }}
+                  onChange={(e) => {
+                    if (!isExceedWordLimit(summary, 100) && !isExceedCharLimit(summary, 500)) {
+                      setSummaryErrorMessage('');
+                    }
+                    setSummary(e.currentTarget.value);
+                  }}
+                />
+                {summaryErrorMessage !== '' && <p className="text-xs text-red-600">{summaryErrorMessage}</p>}
+              </div>
               <p className={`text-sm text-zinc-400 ${contentActive ? 'opacity-100' : 'opacity-0'}`}>
                 Content{content === '' && <span className="text-navy-600">*</span>}
               </p>
               <CKEditor
                 editor={ClassicEditor}
-                config={{
-                  extraPlugins: [uploadPlugin],
-                }}
+                config={editorConfiguration}
                 data={content}
                 onReady={(editor: any) => {
                   setEditor(editor);
                 }}
-                onChange={(_event, editor) => {
+                onChange={(_event: ChangeEvent, editor: any) => {
                   setContent(editor.getData());
                 }}
-                onBlur={(_event, editor) => {
+                onBlur={(_event: FocusEvent, editor: any) => {
                   setContent(editor.getData());
                   setContentActive(false);
                 }}
-                onFocus={(_event, _editor) => {
+                onFocus={(_event: FocusEvent, _editor: any) => {
                   setContentActive(true);
                 }}
               />
@@ -263,6 +300,7 @@ function NewInsight() {
                     Upload a thumbnail<span className="text-navy-600">*</span>
                   </p>
                 )}
+                {/* for uploading function */}
                 <input
                   hidden
                   type="file"
