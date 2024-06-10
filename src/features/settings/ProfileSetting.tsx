@@ -221,18 +221,18 @@ function ProfileSeting({ user }: { user: User }) {
                 disabled={isPending}
               />
             </Form.RowVertical>
-            {careers && (
+            {
               <Form.RowVertical label={'Careers'}>
                 <CareerList
                   register={register}
-                  careers={getValues('careers')}
+                  careers={careers ? getValues('careers') : []}
                   setValue={setValue}
                   isPending={isPending}
                 />
               </Form.RowVertical>
-            )}
+            }
             <Form.RowVertical label={'Topics'}>
-              <ul className="mt-1 flex flex-wrap gap-8">
+              <ul className="mt-2 flex flex-wrap gap-5">
                 {!topicsIsLoading &&
                   !topicsError &&
                   topics.data.map((topic: Topic) => (
