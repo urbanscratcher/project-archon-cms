@@ -252,14 +252,14 @@ function NewInsight() {
                 onReady={(editor: any) => {
                   setEditor(editor);
                 }}
-                onChange={(_event: ChangeEvent, editor: any) => {
+                onChange={(_event: any, editor: any) => {
                   setContent(editor.getData());
                 }}
-                onBlur={(_event: FocusEvent, editor: any) => {
+                onBlur={(_event: any, editor: any) => {
                   setContent(editor.getData());
                   setContentActive(false);
                 }}
-                onFocus={(_event: FocusEvent, _editor: any) => {
+                onFocus={(_event: any, _editor: any) => {
                   setContentActive(true);
                 }}
               />

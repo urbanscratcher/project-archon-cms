@@ -221,14 +221,14 @@ function EditInsight() {
                 onReady={(editor: any) => {
                   setEditor(editor);
                 }}
-                onChange={(_event, editor) => {
+                onChange={(_event: any, editor: any) => {
                   setContent(editor.getData());
                 }}
-                onBlur={(_event, editor) => {
+                onBlur={(_event: any, editor: any) => {
                   setContent(editor.getData());
                   setContentActive(false);
                 }}
-                onFocus={(_event, _editor) => {
+                onFocus={(_event: any, _editor: any) => {
                   setContentActive(true);
                 }}
               />

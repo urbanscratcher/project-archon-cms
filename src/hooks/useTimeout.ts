@@ -22,7 +22,7 @@ function useTimeout(callback: () => void, delay: number): { reset: () => void; c
   // useRef to persist the callback function to stay the same
   const callbackRef = useRef<() => void>(callback);
   // timeout id reference
-  const timeoutRef = useRef<number>(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     callbackRef.current = callback;
@@ -33,8 +33,11 @@ function useTimeout(callback: () => void, delay: number): { reset: () => void; c
   }, [delay]);
 
   const clear = useCallback(() => {
-    timeoutRef.current && clearTimeout(timeoutRef.current);
-  }, [delay]);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  }, []);
 
   const reset = useCallback(() => {
     clear();
