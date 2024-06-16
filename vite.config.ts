@@ -6,6 +6,10 @@ const require = createRequire(import.meta.url);
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    host: true,
+    port: 3000,
+  },
   optimizeDeps: {
     include: ['@workspace/ckeditor5-custom-build'],
   },
