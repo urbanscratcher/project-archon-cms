@@ -4,7 +4,7 @@ import useUser from '../hooks/useUser';
 import GlobalLoader from './GlobalLoader';
 
 function Redirect({ children }: PropsWithChildren) {
-  const token = localStorage.getItem('access_token') ?? null;
+  const token = localStorage?.getItem('access_token') || null;
   const navigate = useNavigate();
   const { isAuthenticated, isLoading } = useUser(token as string);
 

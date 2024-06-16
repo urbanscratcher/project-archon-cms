@@ -12,11 +12,9 @@ import Button from '../ui/button/Button';
 
 /**
  * @description Form w/o react hook form
- * @test tt@gmail.com / test1234!
+ * @test test@archon.com / test1234!
  */
 function SignIn() {
-  console.log('Rendering...');
-
   const navigate = useNavigate();
   const { signIn, isPending, error } = useSignIn();
   const { emailError, passwordError } = useSignInStore();
