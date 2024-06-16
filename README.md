@@ -69,6 +69,7 @@ ArchOn Admin is a React-based single-page application (SPA) that serves as the a
 - **Form State Management**: React Hook Form
 - **Type Check**: Zod, hookform/resolvers
 - **Icon Pack**: Iconify (Lucide)
+- **Text Editor**: CKEditor5
 - **Backend Communication**: Axios
 - **Etc**: Date-fns, Crypto-js for AES256 Encryption
 
@@ -89,8 +90,8 @@ ArchOn Admin is a React-based single-page application (SPA) that serves as the a
 - **Etc**: VSCode, GitHub Copilot, Console Ninja, Redux Devtools, Eslint, Prettier
 
 ### Cloud Services and Deployment
-- **Backend Hosting and Deployment**: Oracle Cloud, Docker, Nginx (개인 도메인으로 연결)
-- **Frontend Hosting and Deployment**: Vercel
+- **Backend Hosting and Deployment**: Oracle Cloud, Docker, Nginx (Conneted to my subdomain)
+- **Frontend Hosting and Deployment**: Oracle Cloud, Docker, Docker Hub, Nginx (Conneted to my subdomain)
 
 ## Data Design
 <img src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/9002b34c-0797-4495-b2d4-ff48c5b99ac8" />
