@@ -46,11 +46,16 @@
 <video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/7a1a58da-cfb3-493f-b517-9a0a941df87e" controls></video>
 
 5. 토픽 관리
-<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/884c6258-3b3f-41e3-afa6-eae220769a21" controls></video>
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/7788fad4-0de6-4424-a793-fee7852ca7d2" controls></video>
 
-6. 계정 및 UI 설정
-<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/b0317209-35e9-4740-90ad-c7ef8163b751" controls></video>
+6. 프로필 설정
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/087b8637-825c-485d-957d-121513dbcec2" controls></video>
 
+7. 비밀번호 변경
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/da2a7c08-fcf8-4a95-9182-0d59ce04b63a" controls></video>
+
+8. 디스플레이 설정
+<video src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/2f47f39e-055e-489f-8251-74eecb4b5546" controls></video>
 
 [사이트 바로가기](https://project-archon-cms.vercel.app/)
 
@@ -75,6 +80,7 @@
 - **로그**: Pino, Pino-http
 - **보안**: Express-rate-limit, Xss, Helmet, Hpp, Bcrypt 등
 - **API 테스트**: Postman
+- **이미지 서비스**: Cloudinary
 
 ### 개발 환경
 - **소스 코드**: GitHub
@@ -83,6 +89,7 @@
 - **기타**: VSCode, GitHub Copilot, Console Ninja, Redux Devtools, Eslint, Prettier
 
 ### 클라우드 서비스 및 배포
+- **이미지 호스팅**: Cloudinary
 - **백엔드 호스팅 및 배포**: Oracle Cloud, Docker, Nginx (개인 도메인으로 연결)
 - **프론트엔드 호스팅 및 배포**: Vercel
 
@@ -112,6 +119,6 @@
 ## 다음은..
 - 기능을 붙였다 뗐다 했더니 로직이 복잡해졌는데 이것들을 정리해야 한다.
 - 다른 기능을 개발하다보니 인가 기능이 미흡한데, 이 부분을 더 보강해야 한다.
-- 그림 업로드, 글 수정 기능이 좀 불안정해서 로직이 어디서부터 꼬였는지 다시 점검해야 한다.
+- 그림 업로드 기능이 좀 불안정해서 로직이 어디서부터 꼬였는지 다시 점검해야 한다.
 - 다양한 에러 시나리오를 정의하고, 에러를 어떻게 보여줄 지 고민해야 한다.
 - 처음에는 글쓰기나 글 관리만 생각하다 cms라는 네이밍을 했는데, 그냥 전반적인 관리를 뜻하는 admin으로 고쳐야 할 것 같다.
