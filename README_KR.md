@@ -69,6 +69,7 @@
 - **폼 상태 관리**: React Hook Form
 - **타입 체크**: Zod, hookform/resolvers
 - **아이콘 팩**: Iconify (Lucide)
+- **텍스트 에디터**: CKEditor5
 - **백엔드 서버 통신**: Axios
 - **기타**: Date-fns, Crypto-js for AES256 Encryption
 
@@ -90,8 +91,8 @@
 
 ### 클라우드 서비스 및 배포
 - **이미지 호스팅**: Cloudinary
-- **백엔드 호스팅 및 배포**: Oracle Cloud, Docker, Nginx (개인 도메인으로 연결)
-- **프론트엔드 호스팅 및 배포**: Vercel
+- **백엔드 호스팅 및 배포**: Oracle Cloud, Docker, Nginx (개인 서브도메인으로 연결)
+- **프론트엔드 호스팅 및 배포**: Oracle Cloud, Docker, Docker Hub, Nginx (개인 서브도메인으로 연결)
 
 ## 데이터 설계
 <img src="https://github.com/urbanscratcher/project-archon-cms/assets/17016494/9002b34c-0797-4495-b2d4-ff48c5b99ac8" />
